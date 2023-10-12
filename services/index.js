@@ -1,10 +1,12 @@
 import { firebaseConfig } from '../utils/firebaseConfig';
 import { getAuth, createUserWithEmailAndPassword , signInWithEmailAndPassword } from 'firebase/auth';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import Router from 'next/router';
 
 
 const auth = getAuth(firebaseConfig);
 const db = getFirestore(firebaseConfig);
+
 
 export const register_user = async (formData) => {
     try {
@@ -24,9 +26,12 @@ export const register_user = async (formData) => {
             phoneNumber: phoneNumber, 
         });
 
+        setTimeout(() => {
+            Router.push("/home");
+        }, 5000);
         return {
             success: true,
-            message: 'Compte créé avec succès, vous pouvez vous connecter',
+            message: 'Votre compte est créé avec succès, bienvenue',
             user: user.toJSON(),
         };
     } catch (error) {
@@ -43,19 +48,22 @@ export const register_user = async (formData) => {
 export const login_user = async (formData) => {
     try {
         const { email, password } = formData;
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const userCredential = await signInWithEmailAndPassword(auth, email, password)
         const user = userCredential.user;
+        setTimeout(() => {
+          Router.push("/dashboard");
+        }, 2000); 
         return {
             success: true,
-            message: 'Connexion réussie',
+            message: 'Connexion réussie !!!',
             user: user.toJSON(), 
         };
-    } catch (error) {
-        console.log('Error in login_user (service) => ', error);
+      } catch (error) {
+        console.error('Error in login_user (service) => ', error);
         return {
             success: false,
-            message: 'Échec de la connexion',
+            message: 'Mauvais mot de passe ou email !!!',
             error: error.message,
         };
-    }
+      }
 };
