@@ -75,7 +75,7 @@ export default function Register() {
 
                                 <button type="submit" className="w-full text-white bg-indigo-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">S'inscrire</button>
                                 <p className="text-sm font-light text-indigo-500 dark:text-indigo-400">
-                                    J'ai déjà un compte  <Link href="/" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Connexion</Link>
+                                    J'ai déjà un compte  <Link href="/connexion" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Connexion</Link>
                                 </p>
                             </form>
                         </div>
