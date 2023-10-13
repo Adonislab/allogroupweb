@@ -31,7 +31,7 @@ export const register_user = async (formData) => {
         }, 5000);
         return {
             success: true,
-            message: 'Votre compte est créé avec succès, bienvenue',
+            message: 'Votre compte est créé avec succès',
             user: user.toJSON(),
         };
     } catch (error) {
