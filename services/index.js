@@ -27,7 +27,7 @@ export const register_user = async (formData) => {
         });
 
         setTimeout(() => {
-            Router.push("/home");
+            Router.push("/connexion");
         }, 5000);
         return {
             success: true,
