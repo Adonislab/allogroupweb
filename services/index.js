@@ -22,7 +22,6 @@ export const register_user = async (formData) => {
         const user = userCredential.user;
        
         await addDoc(collection(db, 'users'), {
-            uid: user.uid,
             phoneNumber: phoneNumber, 
         });
 
