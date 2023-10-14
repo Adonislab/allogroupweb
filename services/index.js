@@ -20,9 +20,11 @@ export const register_user = async (formData) => {
         }
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
+        const userId = user.uid;
        
-        await addDoc(collection(db, 'users'), {
-            phoneNumber: phoneNumber, 
+        const userDocRef = doc(db, 'users', userId);
+            await setDoc(userDocRef, {
+            phoneNumber: phoneNumber,
         });
 
         setTimeout(() => {
