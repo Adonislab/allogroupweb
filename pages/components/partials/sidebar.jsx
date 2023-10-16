@@ -3,17 +3,42 @@ import Link from "next/link";
 function Sidebar() {
     const items = [
         {
-            name: 'Dashboard',
+            name: 'Tableau de board',
             url: '/dashboard',
             icon: "speedometer2"},
          {
-            name: "Repports",
+            name: "Rapports",
             url: "/repports",
             icon: "clipboard2-data"
          },
          {
-            name: "AskOn",
-            url: "/ask",
+            name: "Création de contenu",
+            url: "/chat",
+            icon: "question-diamond-fill"
+         },
+         {
+            name: "Compte Champion",
+            url: "/champion",
+            icon: "question-diamond-fill"
+         },
+         {
+            name: "Compte Marchand",
+            url: "/marchand",
+            icon: "question-diamond-fill"
+         },
+         {
+            name: "Compte utilisateur",
+            url: "/users",
+            icon: "question-diamond-fill"
+         },
+         {
+            name: "Gestionnaire de Compte",
+            url: "/setting",
+            icon: "question-diamond-fill"
+         },
+         {
+            name: "Notifications",
+            url: "/notification",
             icon: "question-diamond-fill"
          },
     ]
