@@ -64,6 +64,24 @@ export default function champion() {
                 </div>
 
 
+               
+                
+                <div className='text-left'>
+                    <label htmlFor="champion" className="block mb-2 text-2xl font-medium text-indigo-700 dark:text-white">J'aimerais être un champion</label>
+                    
+                    <select
+                        onChange={(e) => setFormData({ ...formData, champion: e.target.value })}
+                        name="champion"
+                        id="champion"
+                        className="bg-indigo-50 border border-indigo-300 text-indigo-700 text-2xlrounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        required=""
+                    >
+                        <option value="">Sélectionnez une option</option>
+                        <option value="oui">Oui, je veux être un champion</option>
+                        <option value="non">Non, je ne veux pas etre un champion</option>
+                    </select>
+                </div>
+
                 <label for="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-500 dark:hover:bg-bray-800 dark:bg-gray-100 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-200 dark:hover:bg-gray-200">
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
                             <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
@@ -83,22 +101,6 @@ export default function champion() {
                         </div>
                         {/* <button type="button" className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Light</button> */}
                 </label>
-                
-                <div className='text-left'>
-                    <label htmlFor="champion" className="block mb-2 text-2xl font-medium text-indigo-700 dark:text-white">J'aimerais être un champion</label>
-                    
-                    <select
-                        onChange={(e) => setFormData({ ...formData, champion: e.target.value })}
-                        name="champion"
-                        id="champion"
-                        className="bg-indigo-50 border border-indigo-300 text-indigo-700 text-2xlrounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        required=""
-                    >
-                        <option value="">Sélectionnez une option</option>
-                        <option value="oui">Oui, je veux être un champion</option>
-                        <option value="non">Non, je ne veux pas etre un champion</option>
-                    </select>
-                </div>
 
                 <button type="submit" className="w-full text-white bg-indigo-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-2xl px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Etre champion</button>
                 
