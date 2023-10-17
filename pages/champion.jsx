@@ -6,17 +6,19 @@ import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
-import { getAuth, onAuthStateChanged, updateProfile, updateEmail } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { firebaseConfig } from '../utils/firebaseConfig';
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
+import { getStorage, ref, uploadBytes, getDownloadURL} from 'firebase/storage';
+import Router from 'next/router';
+
 
 const db = getFirestore(firebaseConfig);
+const auth = getAuth();
 
 export default function Champion() {
   const [formData, setFormData] = useState({
     phoneNumber: "",
-    email: "",
     fullName: "",
     champion: "",
     avatar: "",
@@ -26,7 +28,8 @@ export default function Champion() {
 
   const uploadImageToFirebase = async (imageFile) => {
     const storage = getStorage();
-    const storageRef = ref(storage, 'profile_images/' + imageFile.name);
+    const fileName = auth.currentUser.uid;
+    const storageRef = ref(storage, `profile_images/${fileName}`);
     const snapshot = await uploadBytes(storageRef, imageFile);
     const downloadURL = await getDownloadURL(snapshot.ref);
     return downloadURL;
@@ -34,18 +37,13 @@ export default function Champion() {
 
   useEffect(() => {
     const auth = getAuth();
-    onAuthStateChanged(auth, async (user) => {
+    const fetchData = async (user) => {
       if (user) {
         const userId = user.uid;
-        setFormData((prevData) => ({
-          ...prevData,
-          email: user.email,
-        }));
-  
         try {
           const docRef = doc(db, 'users', userId);
           const docSnapshot = await getDoc(docRef);
-  
+    
           if (docSnapshot.exists()) {
             const data = docSnapshot.data();
             setFormData((prevData) => ({
@@ -64,8 +62,10 @@ export default function Champion() {
       } else {
         console.log("L'utilisateur n'est pas authentifié.");
       }
-    }, []); // Les dépendances sont maintenant un tableau vide pour exécuter le useEffect une seule fois
-  });
+    };
+    
+    onAuthStateChanged(auth, fetchData);
+  }, []);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -74,68 +74,51 @@ export default function Champion() {
     }
   };
 
-  const handleImageDelete = async () => {
-    try {
-      const storage = getStorage();
-      const oldImageRef = ref(storage, 'profile_images/' + formData.selectedFile.name);
-      await deleteObject(oldImageRef);
-      setFormData({ ...formData, avatar: null, selectedFile: null });
-    } catch (error) {
-      console.error('Erreur lors de la suppression de l\'image', error);
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       if (formData.selectedFile) {
         const newImageURL = await uploadImageToFirebase(formData.selectedFile);
-        setFormData({ ...formData, avatar: newImageURL });
+  
+        // Mettre à jour le champ avatar dans Firebase Firestore avec l'URL de l'image
+        const { fullName, phoneNumber, champion } = formData;
+        const userId = auth.currentUser.uid;
+        const docRef = doc(db, 'users', userId);
+  
+        // Utilisez l'URL de téléchargement dans le champ avatar
+        await setDoc(docRef, {
+          fullName: fullName,
+          phoneNumber: phoneNumber,
+          profileImageUrl: newImageURL, 
+          champion: champion,
+        }, { merge: true });
       }
-
-      const { fullName, email, phoneNumber, champion, avatar } = formData;
-
-      await updateProfile(auth.currentUser, {
-        displayName: fullName,
-        photoURL: avatar,
-      });
-
-      if (auth.currentUser.email !== email) {
-        await updateEmail(auth.currentUser, email);
-      }
-
-      const userId = auth.currentUser.uid;
-      const docRef = doc(db, 'users', userId);
-
-      await setDoc(docRef, {
-        fullName: fullName,
-        phoneNumber: phoneNumber,
-        email: email,
-        profileImageUrl: avatar,
-        champion: champion,
-      }, { merge: true });
-
-      toast.success('Profil mis à jour avec succès');
+  
+      toast.success('Vous êtes désormais un champion Allo Group');
+      setTimeout(() => {
+        Router.push("/dashboard");
+      }, 2000);
     } catch (error) {
       console.error('Erreur lors de la mise à jour du profil', error);
       toast.error('Une erreur s\'est produite lors de la mise à jour du profil.');
     }
   };
 
+
   return (
     <DashLayout>
       <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-gray-700 mt-14">
         <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-blue-500">
           <Image
-            src={formData.profileImageUrl}
+            src={formData. profileImageUrl}
             width={500}
             height={500}
             alt="Avatar"
             className="w-16 h-16 rounded-full border-4 border-white-500 dark:border-white"
           />
 
-          <p className="text-2xl text-white-400 dark:text-white">
+          <p className="text-xl text-white-400 dark:text-white">
             Merci !!! Sans vous, pas de Allô Group pour cette cause travaillons ensemble. Vous pouvez
             commencer avec la création de votre compte.
           </p>
@@ -143,7 +126,7 @@ export default function Champion() {
 
         <form onSubmit={handleSubmit} className="bg-blue-500 space-y-4 md:space-y-6" action="#">
           <div className='text-left'>
-            <label htmlFor="name" className="block mb-2 text-2xl font-medium text-indigo-700 dark:text-white">
+            <label htmlFor="name" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">
               Votre prénom
             </label>
             <input
@@ -155,19 +138,7 @@ export default function Champion() {
           </div>
 
           <div className='text-left'>
-            <label htmlFor="email" className="block mb-2 text-2xl font-medium text-indigo-700 dark:text-white">
-              Votre email
-            </label>
-            <input
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              type="email" name="email" id="email"
-              className="bg-indigo-50 border border-indigo-300 text-indigo-700 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="name@company.com" required=""
-              value={formData.email} />
-          </div>
-
-          <div className='text-left'>
-            <label htmlFor="phone" className="block mb-2 text-2xl font-medium text-indigo-700 dark:text-white">Complétez votre numéro de téléphone</label>
+            <label htmlFor="phone" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">Complétez votre numéro de téléphone</label>
             <PhoneInput
               country={country}
               value={formData.phoneNumber}
@@ -177,7 +148,7 @@ export default function Champion() {
                 name: 'phone',
                 required: true,
                 placeholder: '+229000000',
-                className: 'bg-indigo-50 border border-indigo-300 text-indigo-700 text-2xl rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
+                className: 'bg-indigo-50 border border-indigo-300 text-indigo-700 text-xl rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
               }}
               inputComponent={({ country, ...restProps }) => (
                 <input {...restProps} />
@@ -186,7 +157,7 @@ export default function Champion() {
           </div>
 
           <div className='text-left'>
-            <label htmlFor="champion" className="block mb-2 text-2xl font-medium text-indigo-700 dark:text-white">
+            <label htmlFor="champion" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">
               J'aimerais être un champion
             </label>
 
@@ -194,10 +165,11 @@ export default function Champion() {
               onChange={(e) => setFormData({ ...formData, champion: e.target.value })}
               name="champion"
               id="champion"
-              className="bg-indigo-50 border border-indigo-300 text-indigo-700 text-2xl rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-indigo-50 border border-indigo-300 text-indigo-700 text-xl rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required=""
               value={formData.champion}
             >
+              <option value="oui">Sélectionnez une option</option>
               <option value="oui">Oui, je veux être un champion</option>
               <option value="non">Non, je ne veux pas être un champion</option>
             </select>
@@ -215,28 +187,19 @@ export default function Champion() {
 
             {formData.selectedFile ? (
               <div className="w-3/4 mx-auto bg-gray-200 rounded-full dark:bg-gray-600">
-                <div className="bg-orange-400 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style={{ width: "45%" }}> 45%</div>
+                <div className="bg-orange-400 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style={{ width: "100%" }}> 100%</div>
               </div>
             ) : null}
-
-            {formData.avatar && (
-              <button
-                type="button"
-                onClick={handleImageDelete}
-                className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-blue focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-              >
-                Supprimer l'image
-              </button>
-            )}
           </label>
 
-          <button type="submit" className="w-full text-white bg-indigo-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-2xl px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Etre champion</button>
+          <button type="submit" className="w-full text-white bg-indigo-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-2xl px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Je suis prêt</button>
 
-          <p className="text-2xl font-light text-white dark:text-indigo-400">
+          <p className="text-xl font-light text-white dark:text-indigo-400">
             Je suis un champion  <Link href="/dashboard" className="font-medium text-white hover:underline dark:text-primary-500">Connexion</Link>
           </p>
         </form>
       </div>
+      <ToastContainer />
     </DashLayout>
   );
 }
