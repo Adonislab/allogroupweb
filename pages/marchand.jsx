@@ -13,6 +13,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL} from 'firebase/storage';
 import Router from 'next/router';
 
 
+
 const db = getFirestore(firebaseConfig);
 const auth = getAuth();
 
@@ -22,6 +23,8 @@ export default function Champion() {
     fullName: "",
     marchand: "",
     avatar: "",
+    adresse: "",
+    cuisine:"",
   });
   const country = 'bj';
   const fileInputRef = useRef(null);
@@ -52,6 +55,8 @@ export default function Champion() {
               phoneNumber: data.phoneNumber,
               profileImageUrl: data.profileImageUrl,
               marchand: data.marchand,
+              adresse:data.adresse,
+              cuisine:data.cuisine,
             }));
           } else {
             console.log("Aucune donnée trouvée pour cet utilisateur.");
@@ -82,7 +87,7 @@ export default function Champion() {
         const newImageURL = await uploadImageToFirebase(formData.selectedFile);
   
         // Mettre à jour le champ avatar dans Firebase Firestore avec l'URL de l'image
-        const { fullName, phoneNumber, marchand } = formData;
+        const { fullName, phoneNumber, marchand, adresse, cuisine } = formData;
         const userId = auth.currentUser.uid;
         const docRef = doc(db, 'users', userId);
   
@@ -92,6 +97,8 @@ export default function Champion() {
           phoneNumber: phoneNumber,
           profileImageUrl: newImageURL, 
           marchand: marchand,
+          adresse: adresse, // Assurez-vous que les noms des champs correspondent
+          cuisine: cuisine, 
         }, { merge: true });
       }
   
@@ -101,7 +108,7 @@ export default function Champion() {
       }, 2000);
     } catch (error) {
       console.error('Erreur lors de la mise à jour du profil', error);
-      toast.error('Une erreur s\'est produite lors de la mise à jour du profil.');
+      toast.error('Une erreur s\'est produite lors de la mise à jour de votre boutique.');
     }
   };
 
@@ -154,7 +161,40 @@ export default function Champion() {
                 <input {...restProps} />
               )}
             />
+          </div> 
+          
+          <div className='text-left'>
+            <label htmlFor="name" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">
+              Votre localisation
+            </label>
+            <input
+              onChange={(e) => setFormData({ ...formData, adresse: e.target.value })}
+              type="text" name="adresse" id="adresse"
+              className="bg-indigo-50 border border-indigo-300 text-indigo-700 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-white-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-white-500"
+              placeholder="adresse" required=""
+              value={formData.adresse} />
           </div>
+
+          <div className='text-left'>
+            <label htmlFor="cuisine" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">
+                Votre type de service alimentaire
+            </label>
+
+            <select
+              onChange={(e) => setFormData({ ...formData, cuisine: e.target.value })}
+              name="cuisine"
+              id="cuisine"
+              className="bg-indigo-50 border border-indigo-300 text-indigo-700 text-xl rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              required=""
+              value={formData.cuisine}
+            >
+              <option value="pas précis">Sélectionnez une option</option>
+              <option value="Express">Express</option>
+              <option value="Cuison">Cuisson rapide</option>
+              <option value="Cuisine">Cuisine</option>
+            </select>
+          </div>
+
 
           <div className='text-left'>
             <label htmlFor="champion" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">
@@ -169,7 +209,7 @@ export default function Champion() {
               required=""
               value={formData.marchand}
             >
-              <option value="oui">Sélectionnez une option</option>
+              <option value="pas de précision">Sélectionnez une option</option>
               <option value="oui">Oui, je veux être un marchand</option>
               <option value="non">Non, je ne veux pas être un marchand</option>
             </select>
