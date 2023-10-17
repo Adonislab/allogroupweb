@@ -12,7 +12,7 @@ function Sidebar() {
             icon: "clipboard2-data"
          },
          {
-            name: "Création de contenu",
+            name: "Création de produits",
             url: "/chat",
             icon: "question-diamond-fill"
          },
@@ -39,6 +39,11 @@ function Sidebar() {
          {
             name: "Notifications",
             url: "/notification",
+            icon: "question-diamond-fill"
+         },
+         {
+            name: "Gestion de Application",
+            url: "/gestion_appli",
             icon: "question-diamond-fill"
          },
     ]
