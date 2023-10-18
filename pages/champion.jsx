@@ -169,7 +169,7 @@ export default function Champion() {
               required=""
               value={formData.champion}
             >
-              <option value="oui">Sélectionnez une option</option>
+              <option value="non précis">Sélectionnez une option</option>
               <option value="oui">Oui, je veux être un champion</option>
               <option value="non">Non, je ne veux pas être un champion</option>
             </select>
