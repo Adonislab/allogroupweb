@@ -23,6 +23,7 @@ export default function Champion() {
     image: "",
     categorie:"",
     profileImageUrl: "",
+    during:"",
   });
   const [imageCounter, setImageCounter] = useState(0);
   const fileInputRef = useRef(null);
@@ -54,6 +55,7 @@ export default function Champion() {
               image: data.image,
               description: data.description,
               categorie:data.categorie,
+              during:data.during,
             }));
             setFormData((prevData) => ({
               ...prevData,
@@ -89,7 +91,7 @@ export default function Champion() {
         setImageCounter(imageCounter + 1); // Increment the image counter
 
         // Mettre à jour le champ avatar dans Firebase Firestore avec l'URL de l'image
-        const { title, price, description, categorie, image } = formData;
+        const { title, price, description, categorie, image, during } = formData;
         const userId = auth.currentUser.uid;
         const docRef = doc(db, 'users', userId);
 
@@ -104,6 +106,7 @@ export default function Champion() {
           description: description,
           categorie: categorie,
           image: newImageURL,
+          during:during,
         });
 
         // Mettez à jour le document utilisateur avec le tableau mis à jour des produits
@@ -175,6 +178,16 @@ export default function Champion() {
               rows={8} 
             />
           </div>
+
+          <div className='text-left'>
+            <label htmlFor="during" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">Combien de temps faut-il avant la consommation finale du produit ?</label>
+            <input
+              onChange={(e) => setFormData({ ...formData, during: e.target.value })}
+              type="number" name="during" id="during"
+              className="bg-indigo-50 border border-indigo-300 text-indigo-700 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-white-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-white-500"
+              placeholder="5min" required=""
+              value={formData.during} />      
+          </div> 
 
           <div className='text-left'>
             <label htmlFor="categorie" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">
