@@ -97,7 +97,7 @@ export default function Champion() {
           phoneNumber: phoneNumber,
           profileImageUrl: newImageURL, 
           marchand: marchand,
-          adresse: adresse, // Assurez-vous que les noms des champs correspondent
+          adresse: adresse, 
           cuisine: cuisine, 
         }, { merge: true });
       }
