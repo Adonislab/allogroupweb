@@ -32,7 +32,7 @@ export default function Champion() {
   const uploadImageToFirebase = async (imageFile) => {
     const storage = getStorage();
     const fileName = auth.currentUser.uid;
-    const storageRef = ref(storage, `profile_images/${fileName}`);
+    const storageRef = ref(storage, `profile_images_marchand/${fileName}`);
     const snapshot = await uploadBytes(storageRef, imageFile);
     const downloadURL = await getDownloadURL(snapshot.ref);
     return downloadURL;
