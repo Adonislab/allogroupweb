@@ -92,7 +92,7 @@ export default function Users() {
         }, { merge: true });
       }
   
-      toast.success('Vous êtes désormais un champion Allo Group');
+      toast.success('Vous avez mis à jour votre profil');
       setTimeout(() => {
         Router.push("/dashboard");
       }, 2000);
