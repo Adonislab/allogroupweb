@@ -43,7 +43,7 @@ export default function Champion() {
       if (user) {
         const userId = user.uid;
         try {
-          const docRef = doc(db, 'users', userId);
+          const docRef = doc(db, 'marchands', userId);
           const docSnapshot = await getDoc(docRef);
     
           if (docSnapshot.exists()) {
@@ -93,7 +93,7 @@ export default function Champion() {
         // Mettre à jour le champ avatar dans Firebase Firestore avec l'URL de l'image
         const { title, price, description, categorie, image, during } = formData;
         const userId = auth.currentUser.uid;
-        const docRef = doc(db, 'users', userId);
+        const docRef = doc(db, 'marchands', userId);
 
         const docSnapshot = await getDoc(docRef);
         const userData = docSnapshot.data();
