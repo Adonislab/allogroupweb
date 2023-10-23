@@ -8,15 +8,14 @@ import { initializeApp } from "firebase/app";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCiQy_p5i5ojtr7O4ZhcMsXv3aO-Mke0f0",
-  authDomain: "allogroup.firebaseapp.com",
-  databaseURL: "https://allogroup-default-rtdb.firebaseio.com",
-  projectId: "allogroup",
-  storageBucket: "allogroup.appspot.com",
-  messagingSenderId: "89306756252",
-  appId: "1:89306756252:web:ab22ef994c780e97e6e959",
-  measurementId: "G-WN263N57TZ"
+  apiKey: "AIzaSyAt4VPS-YSo-lyKqUzXJEcHTthwHbBtNLQ",
+  authDomain: "allogroup-bfda9.firebaseapp.com",
+  projectId: "allogroup-bfda9",
+  storageBucket: "allogroup-bfda9.appspot.com",
+  messagingSenderId: "570659806740",
+  appId: "1:570659806740:web:b69f3c7b69d6e2a4c61101"
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
