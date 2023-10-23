@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
-
+import Head from '@/utils/head';
 
 export default function Register() {
     const [formData, setFormData] = useState({ phoneNumber: "", email: "", password: "" , password2: ""});
@@ -34,6 +34,7 @@ export default function Register() {
 
     return (
         <>
+            <Head/>
             <section className="bg-indigo-700 text-center">
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                     <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-indigo-800 dark:border-indigo-700">

@@ -1,9 +1,11 @@
 import DashLayout from "./components/layout/dashboardLayout";
+import Head from "@/utils/head";
 import React, { useState, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getAuth} from 'firebase/auth';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
 
 const auth = getAuth();
 
@@ -43,6 +45,7 @@ export default function Champion() {
 
   return (
     <DashLayout>
+      <Head/>
       <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-gray-700 mt-14">
         <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-blue-500">
           <p className="text-xl text-white-400 dark:text-white">

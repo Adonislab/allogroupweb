@@ -1,10 +1,11 @@
 import Link from "next/link";
 import DashLayout from "./components/layout/dashboardLayout";
-
+import Head from "@/utils/head";
 
 function Reports() {
     return ( 
             <DashLayout>
+            <Head/>
         <div className="grid grid-cols-3 gap-4 mt-14">
 {[1,2,3].map((item, index)=>(
   <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
