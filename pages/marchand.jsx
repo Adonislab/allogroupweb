@@ -135,7 +135,7 @@ export default function Champion() {
         <form onSubmit={handleSubmit} className="bg-blue-500 space-y-4 md:space-y-6" action="#">
           <div className='text-left'>
             <label htmlFor="name" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">
-              Votre prénom
+              Nom de la boutique
             </label>
             <input
               onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
