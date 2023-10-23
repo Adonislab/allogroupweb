@@ -113,7 +113,7 @@ export default function Champion() {
         await setDoc(docRef, { produits }, { merge: true });
       }
   
-      toast.success('Votre produits a été ajouté avec succès à votre boutique');
+      toast.success('Votre produit a été ajouté avec succès à votre boutique');
       setTimeout(() => {
         Router.push("/dashboard");
       }, 2000);
