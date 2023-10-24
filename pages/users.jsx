@@ -171,10 +171,10 @@ export default function Users() {
             ) : null}
           </label>
 
-          <button type="submit" className="w-full text-white bg-indigo-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-2xl px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Je suis prêt</button>
+          <button type="submit" className="w-full text-white bg-indigo-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-2xl px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Mettre à jour mon compte</button>
 
           <p className="text-xl font-light text-white dark:text-indigo-400">
-            Je suis un champion  <Link href="/dashboard" className="font-medium text-white hover:underline dark:text-primary-500">Connexion</Link>
+            Je veux collaborer avec Allô Group  <Link href="/setting" className="font-medium text-white hover:underline dark:text-primary-500">Collaborons</Link>
           </p>
         </form>
       </div>

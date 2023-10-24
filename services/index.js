@@ -53,7 +53,7 @@ export const login_user = async (formData) => {
     const user = userCredential.user;
 
     setTimeout(() => {
-      Router.push("/dashboard");
+      Router.push("/setting");
     }, 2000);
 
     return {

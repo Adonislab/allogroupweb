@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Link from 'next/link';
-import { Button } from "@material-tailwind/react";
 import Head from '@/utils/head';
 
 export default function Home() {
