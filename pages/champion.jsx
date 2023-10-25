@@ -85,13 +85,17 @@ export default function Champion() {
         const { fullName, phoneNumber, champion } = formData;
         const userId = auth.currentUser.uid;
         const docRef = doc(db, 'champions', userId);
+        const docRefusers = doc(db, 'users', userId);
   
         // Utilisez l'URL de téléchargement dans le champ avatar
         await setDoc(docRef, {
           fullName: fullName,
           phoneNumber: phoneNumber,
-          profileImageUrl: newImageURL, 
-          champion: champion,
+          profileImageUrl: newImageURL,
+          champion:champion,
+        }, { merge: true });
+        await setDoc(docRefusers, {
+          champion:true,
         }, { merge: true });
       }
   

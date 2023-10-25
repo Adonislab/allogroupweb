@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import Logo from "../../../utils/Assets/Logo.png"
 function HeaderBar() {
     return ( 
         <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
@@ -13,8 +14,8 @@ function HeaderBar() {
                   </svg>
                </button>
               <Link href="/" class="flex ml-2 md:mr-24">
-                <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="FlowBite Logo" />
-                <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">SuperVisor</span>
+                <Image src={Logo} class="h-8 mr-3" width={50} height={300} alt="FlowBite Logo" />
+                <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">ALLO GROUP</span>
               </Link>
             </div>
             <div class="flex items-center">

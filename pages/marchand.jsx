@@ -17,7 +17,7 @@ import Head from "@/utils/head";
 const db = getFirestore(firebaseConfig);
 const auth = getAuth();
 
-export default function Champion() {
+export default function Marchand() {
   const [formData, setFormData] = useState({
     phoneNumber: "",
     fullName: "",
@@ -90,15 +90,19 @@ export default function Champion() {
         const { fullName, phoneNumber, marchand, adresse, cuisine } = formData;
         const userId = auth.currentUser.uid;
         const docRef = doc(db, 'marchands', userId);
+        const docRefusers = doc(db, 'users', userId);
   
         // Utilisez l'URL de téléchargement dans le champ avatar
         await setDoc(docRef, {
           fullName: fullName,
           phoneNumber: phoneNumber,
           profileImageUrl: newImageURL, 
-          marchand: marchand,
           adresse: adresse, 
           cuisine: cuisine, 
+          marchand: marchand,
+        }, { merge: true });
+        await setDoc(docRefusers, {
+          marchand:true,
         }, { merge: true });
       }
   

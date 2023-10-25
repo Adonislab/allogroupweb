@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { firebaseConfig } from '../utils/firebaseConfig';
-import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, setDoc, and } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL} from 'firebase/storage';
 import Router from 'next/router';
 import Head from "@/utils/head";
@@ -86,44 +86,50 @@ export default function Champion() {
     e.preventDefault();
   
     try {
-      if (formData.selectedFile) {
+      const userId = auth.currentUser.uid;
+      const docRef = doc(db, 'marchands', userId);
+      const docSnapshot = await getDoc(docRef);
+
+      if (formData.selectedFile && docSnapshot.exists()) {
         const newImageURL = await uploadImageToFirebase(formData.selectedFile);
         setImageCounter(imageCounter + 1); // Increment the image counter
 
         // Mettre à jour le champ avatar dans Firebase Firestore avec l'URL de l'image
         const { title, price, description, categorie, image, during } = formData;
-        const userId = auth.currentUser.uid;
-        const docRef = doc(db, 'marchands', userId);
+        
 
-        const docSnapshot = await getDoc(docRef);
         const userData = docSnapshot.data();
+        const userRole = userData.marchand;
         const produits = userData.produits || [];
-
-        // Ajoutez le nouveau produit au tableau des produits
-        produits.push({
-          title: title,
-          price: price,
-          description: description,
-          categorie: categorie,
-          image: newImageURL,
-          during:during,
-        });
-
-        // Mettez à jour le document utilisateur avec le tableau mis à jour des produits
-        await setDoc(docRef, { produits }, { merge: true });
+        if (userRole === 'oui') {
+          // Ajoutez le nouveau produit au tableau des produits
+          produits.push({
+            title: title,
+            price: price,
+            description: description,
+            categorie: categorie,
+            image: newImageURL,
+            during: during,
+          });
+          // Mettez à jour le document utilisateur avec le tableau mis à jour des produits
+          await setDoc(docRef, { produits }, { merge: true });
+          toast.success('Votre produit a été ajouté avec succès à votre boutique');
+          setTimeout(() => {
+            Router.push("/dashboard");
+          }, 2000);
+        } else {
+          setTimeout(() => {
+            Router.push("/marchand");
+          }, 2000);
+          toast.error("Vous n'avez pas de compte marchand pour créer un produit.");
+        }
       }
-  
-      toast.success('Votre produit a été ajouté avec succès à votre boutique');
-      setTimeout(() => {
-        Router.push("/dashboard");
-      }, 2000);
+      
     } catch (error) {
       console.error('Erreur lors de la mise à jour du profil', error);
-      toast.error('Une erreur s\'est produite lors de la mise à jour de votre boutique.');
+      toast.error("Il a une erreur au cours de la mise à jour de votre boutique");
     }
   };
-
-
   return (
     <DashLayout>
       <Head/>
