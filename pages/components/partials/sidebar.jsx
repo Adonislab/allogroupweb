@@ -180,7 +180,7 @@ export default function Sidebar() {
   const defaultMenuItem = [
     {
       name: 'Accueil',
-      url: '/setting',
+      url: '/politique',
       icon: 'question-diamond-fill',
     },
   ];
