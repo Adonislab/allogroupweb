@@ -99,7 +99,7 @@ export default function Setting() {
   return (
     <DashLayout>
       <Head />
-      <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-gray-700 mt-14">
+      <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
         <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-blue-500">
           <Image
             src={formData.profileImageUrl}
