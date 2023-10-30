@@ -56,9 +56,34 @@ export default function Sidebar() {
   const roleItems = {
     [ROLES.ADMIN]: [
       {
-        name: 'Tableau de bord',
+        name: 'Tableau Administrateur',
         url: '/dashboard',
         icon: 'speedometer2',
+      },
+      {
+        name: "Liste des marchands",
+        url: "/listeMarchand",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Liste des champions",
+        url: "/listeChampion",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Vues des décideurs",
+        url: "/listeDecideur",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Vue des comptables",
+        url: "/listeComptable",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Gestion des rôles",
+        url: "/gestionRole",
+        icon: "question-diamond-fill"
       },
       {
         name: 'Rapports',
@@ -66,33 +91,19 @@ export default function Sidebar() {
         icon: 'clipboard2-data',
       },
       {
-        name: "Compte Champion",
-        url: "/champion",
+        name: "Gestion des notifications",
+        url: "/notification",
         icon: "question-diamond-fill"
       },
+      
       {
-      name: "Compte Marchand",
-      url: "/marchand",
-      icon: "question-diamond-fill"
-      },
-      {
-      name: 'Création de produits',
-      url: '/chat',
-      icon: 'question-diamond-fill',
-      },  
-      {
-        name: "Notification",
-        url: "/notification",
+        name: "Gestion de l'Application",
+        url: "/gestion_appli",
         icon: "question-diamond-fill"
       },
       {
         name: "Compte utilisateur",
         url: "/users",
-        icon: "question-diamond-fill"
-      },
-      {
-        name: "Gestion de l'Application",
-        url: "/gestion_appli",
         icon: "question-diamond-fill"
       },
     ],
@@ -103,7 +114,7 @@ export default function Sidebar() {
         icon: 'clipboard2-data',
       },
       {
-        name: 'Tableau de board',
+        name: 'Tableau de décison',
         url: '/dashboard',
         icon: 'speedometer2',
       },  
@@ -113,14 +124,14 @@ export default function Sidebar() {
         icon: "question-diamond-fill"
      },
      {
-      name: "Notification",
+      name: "Systeme de notification",
       url: "/notification",
       icon: "question-diamond-fill"
       },
     ],
     [ROLES.COMPTABLE]: [
       {
-        name: 'Tableau de board',
+        name: 'Tableau de Vison',
         url: '/dashboard',
         icon: 'speedometer2',
       }, 
@@ -132,7 +143,7 @@ export default function Sidebar() {
     ],
     [ROLES.MARCHAND]: [
       {
-        name: 'Tableau de board',
+        name: 'MarchandBoard',
         url: '/dashboard',
         icon: 'speedometer2',
       },  
@@ -151,10 +162,15 @@ export default function Sidebar() {
         url: "/users",
         icon: "question-diamond-fill"
      },
+     {
+        name: "Compte utilisateur",
+        url: "/users",
+        icon: "question-diamond-fill"
+     },
     ],
     [ROLES.CHAMPION]: [
       {
-        name: 'Tableau de board',
+        name: 'ChampionBoard',
         url: '/dashboard',
         icon: 'speedometer2',
       },  
