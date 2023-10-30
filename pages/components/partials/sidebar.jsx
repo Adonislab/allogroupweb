@@ -144,7 +144,7 @@ export default function Sidebar() {
     [ROLES.MARCHAND]: [
       {
         name: 'MarchandBoard',
-        url: '/dashboard',
+        url: '/dashboardMarchand',
         icon: 'speedometer2',
       },  
       {
