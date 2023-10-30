@@ -194,8 +194,8 @@ export default function Marchand() {
               value={formData.cuisine}
             >
               <option value="pas précis">Sélectionnez une option</option>
-              <option value="Express">Express</option>
-              <option value="Cuison">Cuisson rapide</option>
+              <option value="Cuisine Express">Express</option>
+              <option value="Cuisson rapide">Cuisson rapide</option>
               <option value="Cuisine">Cuisine</option>
             </select>
           </div>

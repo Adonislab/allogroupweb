@@ -22,6 +22,7 @@ export default function Champion() {
     fullName: "",
     champion: "",
     avatar: "",
+    adresse:"",
   });
   const country = 'bj';
   const fileInputRef = useRef(null);
@@ -52,6 +53,7 @@ export default function Champion() {
               phoneNumber: data.phoneNumber,
               profileImageUrl: data.profileImageUrl,
               champion: data.champion,
+              adresse:data.adresse,
             }));
           } else {
             console.log("Aucune donnée trouvée pour cet utilisateur.");
@@ -82,7 +84,7 @@ export default function Champion() {
         const newImageURL = await uploadImageToFirebase(formData.selectedFile);
   
         // Mettre à jour le champ avatar dans Firebase Firestore avec l'URL de l'image
-        const { fullName, phoneNumber, champion } = formData;
+        const { fullName, phoneNumber, champion, adresse } = formData;
         const userId = auth.currentUser.uid;
         const docRef = doc(db, 'champions', userId);
         const docRefusers = doc(db, 'users', userId);
@@ -93,6 +95,7 @@ export default function Champion() {
           phoneNumber: phoneNumber,
           profileImageUrl: newImageURL,
           champion:champion,
+          adresse:adresse,
         }, { merge: true });
         await setDoc(docRefusers, {
           champion:true,
@@ -159,6 +162,18 @@ export default function Champion() {
                 <input {...restProps} />
               )}
             />
+          </div>
+
+          <div className='text-left'>
+            <label htmlFor="adresse" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">
+              Votre Adresse
+            </label>
+            <input
+              onChange={(e) => setFormData({ ...formData, adresse: e.target.value })}
+              type="text" name="adresse" id="adresse"
+              className="bg-indigo-50 border border-indigo-300 text-indigo-700 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-white-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-white-500"
+              placeholder="Akpakpa" required=""
+              value={formData.adresse} />
           </div>
 
           <div className='text-left'>

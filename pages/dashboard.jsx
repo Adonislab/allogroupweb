@@ -2,8 +2,11 @@ import DashLayout from "./components/layout/dashboardLayout";
 import Head from "@/utils/head";
 import React, { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import MarchandsChart from "./components/layout/MarchandsChart";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { firebaseConfig } from '../utils/firebaseConfig';
+import MarchandTable from "./components/layout/MarchandTable";
+import ChampionTable from "./components/layout/ChampionTable";
 
 function Dashboard() {
   const [user, setUser] = useState(null);
@@ -68,6 +71,7 @@ function Dashboard() {
           userDataArray.push(doc.data());
         });
 
+
         setUserData(userDataArray);
         setLoading(false);
       } else {
@@ -86,6 +90,8 @@ function Dashboard() {
     <DashLayout>
       <Head/>
       <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
+      <p className="mt-4 text-2xl text-orange-500"> Qui sont les grands utilisateurs  de Allô Group ?</p>
+        <p className="text-2xl text-blue-500">Nombre d'utilisateurs : {userData.length}</p>
         <table className="w-full table-fixed">
             <thead>
             <tr>
@@ -108,9 +114,20 @@ function Dashboard() {
         </table>
         
       </div>
-      <div>
-        <p className="mt-4 text-2xl text-orange-500"> Quelles sont les grandes tendances Allô Group ?</p>
+      <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
+        <p className="mt-4 text-2xl text-orange-500"> Quelles sont les grandes tendances marchandes de Allô Group ?</p>
+        <MarchandTable/>
+      </div>    
+      <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
+        <div>
+          <p className="text-2xl text-orange-500">Les spécialités de cuisine au sein des restaurants</p>
+          <MarchandsChart/>
+        </div>
       </div>
+      <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
+        <p className="mt-4 text-2xl text-orange-500"> Qui sont les grands Champions de Allô Group ?</p>
+        <ChampionTable/>
+      </div> 
    </DashLayout>
   );
 }
