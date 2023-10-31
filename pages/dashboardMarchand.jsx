@@ -2,51 +2,89 @@ import DashLayout from "./components/layout/dashboardLayout";
 import Head from "@/utils/head";
 import { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, collection, doc, getDoc, query, where, getDocs } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, deleteDoc, updateDoc } from 'firebase/firestore';
 import Link from 'next/link';
 import { firebaseConfig } from '../utils/firebaseConfig';
 import MarchandsChartMarchands from "./components/layout/MarchandsChartMarchands";
+import ModalMarchand from "./components/layout/Modalmarchand"; 
+
 
 function DashboardMarchand() {
   const [user, setUser] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = (product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+  
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  
   const COLUMNS = [
     { label: <span className="text-blue-500">Produits</span>, renderCell: (item) => item.title },
     {
-      label: <span className="text-blue-500">Catégorie</span>,
+      label: <span className="text-blue-500">Catégorie</span>, 
       renderCell: (item) => item.categorie,
     },
     { label: <span className="text-blue-500">Prix de vente</span>, renderCell: (item) => item.price },
     { label: <span className="text-blue-500"></span>, renderCell: (item) => (
-        <button className="text-white bg-purple-500 hover:text-white focus:outline-none" onClick={() => handleEdit(item)}>Modifiez</button>)
+        <button className="text-white bg-purple-500 hover:text-white focus:outline-none" onClick={() => openModal(item)}>Modifiez</button>)
     },
     { label: <span className="text-blue-500"></span>, renderCell: (item) => (
         <button className="bg-red-500 text-white hover:text-white focus:outline-none" onClick={() => handleDelete(item)}>Supprimez</button>)
     },
   ];
 
-  const handleEdit = (item) => {
-    alert('Modification');
+  const updateProduct = async (updatedProduct) => {
+    const auth = getAuth();
+    const db = getFirestore(firebaseConfig);
+    const userId = auth.currentUser.uid; // Utilisez auth.currentUser.uid pour obtenir l'ID de l'utilisateur connecté
+  
+    try {
+      // Mettez à jour le produit dans la base de données Firestore
+      const productRef = doc(db, "marchands", userId, "produits", updatedProduct.id);
+      const productData = {
+        title: updatedProduct.title,
+        categorie: updatedProduct.categorie,
+        price: updatedProduct.price,
+        description: updatedProduct.description,
+        during: updatedProduct.during,
+        image: updatedProduct.image,
+      };
+      await updateDoc(productRef, productData);
+      console.log("Le produit a été mis à jour avec succès.");
+      // Réactualisez les données après la modification.
+      const userDocRef = doc(db, "marchands", userId);
+      const userDocSnapshot = await getDoc(userDocRef);
+      const userDocData = userDocSnapshot.data();
+      setProducts(userDocData.produits || []);
+  
+      // Fermez le modal de modification ici
+      setSelectedProduct(null);
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour du produit", error);
+    }
   };
-
+  
   const handleDelete = async (item) => {
     if (window.confirm("Voulez-vous vraiment supprimer ce produit ?")) {
       const auth = getAuth();
       const db = getFirestore(firebaseConfig);
-      const userId = item.id;
+      const userId = user.uid;
       try {
-        await deleteDoc(doc(db, "marchands", userId));
+        await deleteDoc(doc(db, "marchands", userId, "produits", item.id));
         // Réactualisez les données après la suppression.
-        const usersRef = collection(db, "marchands");
-        const querySnapshot = await getDocs(usersRef);
-        const userDataArray = [];
-        querySnapshot.forEach((doc) => {
-          userDataArray.push({ id: doc.id, ...doc.data() });
-        });
-        setProducts(userDataArray);
-        console.log(userDataArray);
+        const userDocRef = doc(db, "marchands", userId);
+        const userDocSnapshot = await getDoc(userDocRef);
+        const userDocData = userDocSnapshot.data();
+        setProducts(userDocData.produits || []);
+        console.log(userDocData);
       } catch (error) {
         console.error("Erreur lors de la suppression du produit", error);
       }
@@ -98,6 +136,15 @@ function DashboardMarchand() {
   return (
     <DashLayout>
       <Head />
+      {selectedProduct && (
+        <ModalMarchand
+          product={selectedProduct}
+          isOpen={isModalOpen}
+          // Passez la fonction updateProduct au composant ModalMarchand
+          updateProduct={updateProduct}
+          onCancel={closeModal}     
+        />
+      )}
       <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
         <p className="mt-4 text-2xl text-orange-500">Quelles sont les grandes tendances au sein de votre boutique Allô Group ?</p>
         <p className="text-2xl text-blue-500">Nombre d'articles en vente : {products.length}</p>
@@ -123,8 +170,10 @@ function DashboardMarchand() {
         </table>
       </div>
       <div>
-        <MarchandsChartMarchands/>
+        <MarchandsChartMarchands />
       </div>
+      {/* Affichez le modal de modification */}
+      
     </DashLayout>
   );
 }

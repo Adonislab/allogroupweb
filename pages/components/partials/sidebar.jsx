@@ -143,6 +143,11 @@ export default function Sidebar() {
     ],
     [ROLES.MARCHAND]: [
       {
+        name: 'Mes ventes',
+        url: '/venteMarchand',
+        icon: 'speedometer2',
+      },  
+      {
         name: 'MarchandBoard',
         url: '/dashboardMarchand',
         icon: 'speedometer2',
@@ -162,16 +167,11 @@ export default function Sidebar() {
         url: "/users",
         icon: "question-diamond-fill"
      },
-     {
-        name: "Compte utilisateur",
-        url: "/users",
-        icon: "question-diamond-fill"
-     },
     ],
     [ROLES.CHAMPION]: [
       {
         name: 'ChampionBoard',
-        url: '/dashboard',
+        url: '/dashboardChampion',
         icon: 'speedometer2',
       },  
       {

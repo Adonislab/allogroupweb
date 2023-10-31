@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { firebaseConfig } from '../utils/firebaseConfig';
-import { getFirestore, doc, getDoc, setDoc, and } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL} from 'firebase/storage';
 import Router from 'next/router';
 import Head from "@/utils/head";
