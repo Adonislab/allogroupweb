@@ -104,7 +104,7 @@ export default function Champion() {
   
       toast.success('Vous êtes désormais un champion Allo Group');
       setTimeout(() => {
-        Router.push("/dashboard");
+        Router.push("/dashboardChampion");
       }, 2000);
     } catch (error) {
       console.error('Erreur lors de la mise à jour du profil', error);

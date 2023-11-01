@@ -1,5 +1,4 @@
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 import React, { useState, useRef } from 'react';
 import { getStorage, ref, uploadBytes, getDownloadURL} from 'firebase/storage';
 import { getAuth } from 'firebase/auth';
@@ -40,8 +39,8 @@ const ModalMarchand = ({ product, isOpen, updateProduct, onCancel }) => {
         }
       };
       
-
-      const handleSubmit = async () => {
+      const handleSubmit = async (e) => {
+        e.preventDefault();
         if (formData.selectedFile) {
           try {
             // Effectuez ici la mise à jour du produit avec les nouvelles données et l'URL de l'image.
@@ -56,27 +55,15 @@ const ModalMarchand = ({ product, isOpen, updateProduct, onCancel }) => {
               description: formData.description,
               during: formData.during,
               categorie: formData.categorie,
-              imageURL: formData.newImageURL,
+              image: newImageURL,
             };
       
             updateProduct(updatedProduct);
       
-            toast.success('Modification réussie !', {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-            });
+            
           } catch (error) {
             console.error('Erreur lors de la modification du produit :', error);
-            toast.error('Échec de la modification. Veuillez réessayer.', {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-            });
+            
           }
         }
       };
@@ -84,6 +71,7 @@ const ModalMarchand = ({ product, isOpen, updateProduct, onCancel }) => {
       
     
     const handleInputChange = (e) => {
+       
         const { name, value } = e.target;
         setFormData((prevData) => ({
           ...prevData,
@@ -101,7 +89,7 @@ const ModalMarchand = ({ product, isOpen, updateProduct, onCancel }) => {
   return (
     <div style={{ display: isOpen ? 'block' : 'none' }}>
         <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
-            <p className='text-2xl text-orange-500' >Modification du produit : {formData.title}</p>
+            <p className='text-2xl text-orange-500' >Modification du produit : {product.title}</p>
             <form onSubmit={handleSubmit} className="bg-blue-500 space-y-4 md:space-y-6" action="#">
             <div className='text-left'>
                 <label htmlFor="title" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">
@@ -198,8 +186,8 @@ const ModalMarchand = ({ product, isOpen, updateProduct, onCancel }) => {
                 ) : null}
             </label>
             
-            <button type="submit" className="w-full text-white bg-indigo-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-2xl px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Modifiez le {formData.title}</button>
-            <ToastContainer />
+            <button type="submit" className="w-full text-white bg-indigo-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-2xl px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Modifiez le {product.title}</button>
+            
             </form>
         </div>
     </div> 

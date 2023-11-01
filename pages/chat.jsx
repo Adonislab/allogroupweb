@@ -82,6 +82,22 @@ export default function Champion() {
     }
   };
 
+  const generateProductId = () => {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // +1 car les mois commencent à 0
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    const hours = currentDate.getHours().toString().padStart(2, '0');
+    const minutes = currentDate.getMinutes().toString().padStart(2, '0');
+    const seconds = currentDate.getSeconds().toString().padStart(2, '0');
+    const milliseconds = currentDate.getMilliseconds().toString().padStart(3, '0');
+  
+    // Créez un identifiant unique en utilisant la date actuelle
+    const productId = `${year}${month}${day}${hours}${minutes}${seconds}${milliseconds}`;
+  
+    return productId;
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -89,21 +105,23 @@ export default function Champion() {
       const userId = auth.currentUser.uid;
       const docRef = doc(db, 'marchands', userId);
       const docSnapshot = await getDoc(docRef);
-
+  
       if (formData.selectedFile && docSnapshot.exists()) {
         const newImageURL = await uploadImageToFirebase(formData.selectedFile);
         setImageCounter(imageCounter + 1); // Increment the image counter
-
-        // Mettre à jour le champ avatar dans Firebase Firestore avec l'URL de l'image
-        const { title, price, description, categorie, image, during } = formData;
-        
-
+  
+        // Obtenez un identifiant unique basé sur la date actuelle
+        const productId = generateProductId();
+  
+        const { title, price, description, categorie, during } = formData;
+  
         const userData = docSnapshot.data();
         const userRole = userData.marchand;
         const produits = userData.produits || [];
         if (userRole === 'oui') {
           // Ajoutez le nouveau produit au tableau des produits
           produits.push({
+            id: productId,
             title: title,
             price: price,
             description: description,
@@ -115,7 +133,7 @@ export default function Champion() {
           await setDoc(docRef, { produits }, { merge: true });
           toast.success('Votre produit a été ajouté avec succès à votre boutique');
           setTimeout(() => {
-            Router.push("/dashboard");
+            Router.push("/dashboardMarchand");
           }, 2000);
         } else {
           setTimeout(() => {
@@ -124,12 +142,12 @@ export default function Champion() {
           toast.error("Vous n'avez pas de compte marchand pour créer un produit.");
         }
       }
-      
     } catch (error) {
       console.error('Erreur lors de la mise à jour du profil', error);
       toast.error("Il a une erreur au cours de la mise à jour de votre boutique");
     }
   };
+  
   return (
     <DashLayout>
       <Head/>

@@ -7,7 +7,8 @@ import Link from 'next/link';
 import { firebaseConfig } from '../utils/firebaseConfig';
 import MarchandsChartMarchands from "./components/layout/MarchandsChartMarchands";
 import ModalMarchand from "./components/layout/Modalmarchand"; 
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function DashboardMarchand() {
   const [user, setUser] = useState(null);
@@ -42,35 +43,79 @@ function DashboardMarchand() {
   ];
 
   const updateProduct = async (updatedProduct) => {
+    console.log("updatedProduct:", updatedProduct);
     const auth = getAuth();
     const db = getFirestore(firebaseConfig);
-    const userId = auth.currentUser.uid; // Utilisez auth.currentUser.uid pour obtenir l'ID de l'utilisateur connecté
-  
-    try {
-      // Mettez à jour le produit dans la base de données Firestore
-      const productRef = doc(db, "marchands", userId, "produits", updatedProduct.id);
-      const productData = {
-        title: updatedProduct.title,
-        categorie: updatedProduct.categorie,
-        price: updatedProduct.price,
-        description: updatedProduct.description,
-        during: updatedProduct.during,
-        image: updatedProduct.image,
-      };
-      await updateDoc(productRef, productData);
-      console.log("Le produit a été mis à jour avec succès.");
-      // Réactualisez les données après la modification.
-      const userDocRef = doc(db, "marchands", userId);
-      const userDocSnapshot = await getDoc(userDocRef);
-      const userDocData = userDocSnapshot.data();
-      setProducts(userDocData.produits || []);
-  
-      // Fermez le modal de modification ici
-      setSelectedProduct(null);
-    } catch (error) {
-      console.error("Erreur lors de la mise à jour du produit", error);
+    if (auth.currentUser) {
+      const userId = auth.currentUser.uid;
+      console.log(updatedProduct.id);
+      try {
+        // Accédez au document du marchand
+        const merchantDocRef = doc(db, "marchands", userId);
+        const merchantDocSnapshot = await getDoc(merchantDocRef);
+        const merchantData = merchantDocSnapshot.data();
+
+        if (merchantData) {
+          // Accédez à la sous-collection de produits
+          const products = merchantData.produits || [];
+
+          // Recherchez le produit à mettre à jour par son ID
+          const productIndex = products.findIndex(product => product.id === updatedProduct.id);
+
+          if (productIndex !== -1) {
+            // Mettez à jour le produit dans la liste
+            products[productIndex] = updatedProduct;
+
+            // Mettez à jour la sous-collection de produits dans le document du marchand
+            await updateDoc(merchantDocRef, { produits: products });
+
+            console.log("Le produit a été mis à jour avec succès.");
+            // Réactualisez les données après la modification.
+            setProducts(products);
+
+            // Fermez le modal de modification ici
+            setSelectedProduct(null);
+
+            toast.success('Modification réussie !', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+            });
+          } else {
+            console.error("Produit introuvable dans la liste du marchand.");
+            toast.error("Produit introuvable dans la liste du marchand.", {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+            });
+          }
+        } else {
+          console.error("Document du marchand introuvable.");
+          toast.error("Document du marchand introuvable.", {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+          });
+        }
+      } catch (error) {
+        console.error("Erreur lors de la mise à jour du produit", error);
+        toast.error('Échec de la modification. Veuillez réessayer.', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+      }
     }
   };
+
   
   const handleDelete = async (item) => {
     if (window.confirm("Voulez-vous vraiment supprimer ce produit ?")) {
@@ -98,20 +143,21 @@ function DashboardMarchand() {
     onAuthStateChanged(auth, async (authUser) => {
       if (authUser) {
         setUser(authUser);
-
+        
         // Utilisez authUser.uid pour obtenir l'ID de l'utilisateur connecté
         const userId = authUser.uid;
-
+       
         // Utilisez l'ID de l'utilisateur pour chercher son document marchand
         const userDocRef = doc(db, "marchands", userId);
+        
         try {
           const userDocSnapshot = await getDoc(userDocRef);
           const userDocData = userDocSnapshot.data();
-          console.log(userDocData);
+          
 
           if (userDocData) {
             // Utilisez userDocData pour afficher les produits du marchand
-            setProducts(userDocData.produits || []); // Supposons que les produits sont stockés dans un tableau nommé "products"
+            setProducts(userDocData.produits); 
           } else {
             // Aucun document marchand trouvé pour l'utilisateur
             setProducts([]);
@@ -173,7 +219,7 @@ function DashboardMarchand() {
         <MarchandsChartMarchands />
       </div>
       {/* Affichez le modal de modification */}
-      
+      <ToastContainer /> 
     </DashLayout>
   );
 }
