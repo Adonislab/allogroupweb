@@ -6,7 +6,7 @@ import { getFirestore, doc, getDoc, deleteDoc, updateDoc } from 'firebase/firest
 import Link from 'next/link';
 import { firebaseConfig } from '../utils/firebaseConfig';
 import MarchandsChartMarchands from "./components/layout/MarchandsChartMarchands";
-import ModalMarchand from "./components/layout/Modalmarchand"; 
+import ModalMarchand from "./components/layout/ModalMarchand"; 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
