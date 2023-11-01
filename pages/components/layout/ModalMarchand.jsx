@@ -89,7 +89,7 @@ const ModalMarchand = ({ product, isOpen, updateProduct, onCancel }) => {
   return (
     <div style={{ display: isOpen ? 'block' : 'none' }}>
         <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
-            <p className='text-2xl text-orange-500' >Modification du produit : {product.title}</p>
+            <p className='text-2xl text-orange-500' >Modification du produit</p>
             <form onSubmit={handleSubmit} className="bg-blue-500 space-y-4 md:space-y-6" action="#">
             <div className='text-left'>
                 <label htmlFor="title" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">
@@ -186,7 +186,7 @@ const ModalMarchand = ({ product, isOpen, updateProduct, onCancel }) => {
                 ) : null}
             </label>
             
-            <button type="submit" className="w-full text-white bg-indigo-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-2xl px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Modifiez le {product.title}</button>
+            <button type="submit" className="w-full text-white bg-indigo-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-2xl px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Modifiez</button>
             
             </form>
         </div>
