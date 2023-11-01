@@ -5,7 +5,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, getDoc, deleteDoc, updateDoc } from 'firebase/firestore';
 import Link from 'next/link';
 import { firebaseConfig } from '../utils/firebaseConfig';
-
+import GraphiqueVente from './components/layout/GraphiqueVente';
 
 function VenteMarchand() {
   const [user, setUser] = useState(null);
@@ -102,8 +102,10 @@ function VenteMarchand() {
           </tbody>
         </table>
       </div>
-      <p>Graphique en bas </p>
-      
+      <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
+        <p className="text-2xl text-orange-500">Bilan des meilleurs ventes selon la catégorie </p>
+        <GraphiqueVente/>
+      </div>
     </DashLayout>
   );
 }
