@@ -121,20 +121,76 @@ function DashboardMarchand() {
     if (window.confirm("Voulez-vous vraiment supprimer ce produit ?")) {
       const auth = getAuth();
       const db = getFirestore(firebaseConfig);
-      const userId = user.uid;
-      try {
-        await deleteDoc(doc(db, "marchands", userId, "produits", item.id));
-        // Réactualisez les données après la suppression.
-        const userDocRef = doc(db, "marchands", userId);
-        const userDocSnapshot = await getDoc(userDocRef);
-        const userDocData = userDocSnapshot.data();
-        setProducts(userDocData.produits || []);
-        console.log(userDocData);
-      } catch (error) {
-        console.error("Erreur lors de la suppression du produit", error);
+      if (auth.currentUser) {
+        const userId = auth.currentUser.uid;
+        try {
+          // Accédez au document du marchand
+          const merchantDocRef = doc(db, "marchands", userId);
+          const merchantDocSnapshot = await getDoc(merchantDocRef);
+          const merchantData = merchantDocSnapshot.data();
+  
+          if (merchantData) {
+            // Accédez à la sous-collection de produits
+            const products = merchantData.produits || [];
+  
+            // Recherchez le produit à supprimer par son ID
+            const productIndex = products.findIndex(product => product.id === item.id);
+  
+            if (productIndex !== -1) {
+              // Supprimez le produit de la liste
+              products.splice(productIndex, 1);
+  
+              // Mettez à jour la sous-collection de produits dans le document du marchand
+              await updateDoc(merchantDocRef, { produits: products });
+  
+              console.log("Le produit a été supprimé avec succès.");
+              // Réactualisez les données après la suppression.
+              setProducts(products);
+  
+              // Fermez le modal de modification ici
+              setSelectedProduct(null);
+  
+              toast.success('Produit supprimé !', {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+              });
+            } else {
+              console.error("Produit introuvable dans la liste du marchand.");
+              toast.error("Produit introuvable dans la liste du marchand.", {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+              });
+            }
+          } else {
+            console.error("Document du marchand introuvable.");
+            toast.error("Document du marchand introuvable.", {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+            });
+          }
+        } catch (error) {
+          console.error("Erreur lors de la suppression du produit", error);
+          toast.error('Échec de la suppression. Veuillez réessayer.', {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+          });
+        }
       }
     }
   };
+  
 
   useEffect(() => {
     const auth = getAuth();
