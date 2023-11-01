@@ -9,11 +9,11 @@ const ModalMarchand = ({ product, isOpen, updateProduct, onCancel }) => {
     const [imageCounter, setImageCounter] = useState(0);
     
     const [formData, setFormData] = useState({
-        title: product.title,
-        price: product.price,
-        description: product.description,
-        during: product.during,
-        categorie: product.categorie,
+        title: "",
+        price: "",
+        description: "",
+        during: "",
+        categorie: "",
       });
 
     const fileInputRef = useRef(null);
