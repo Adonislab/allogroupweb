@@ -40,7 +40,7 @@ export default function Sidebar() {
             const rolesWithTrueHasRole = roles.filter((role) => role.hasRole).map((role) => role.role.toLowerCase());
             setRolesWithTrueHasRole(rolesWithTrueHasRole);
             setUserRoles(roles);
-            console.log(rolesWithTrueHasRole);
+            //console.log("le role",rolesWithTrueHasRole);
           })
           .catch((error) => {
             console.error('Erreur lors de la récupération des rôles:', error);
@@ -148,7 +148,7 @@ export default function Sidebar() {
         icon: 'speedometer2',
       },  
       {
-        name: 'MarchandBoard',
+        name: 'Marchand Board',
         url: '/dashboardMarchand',
         icon: 'speedometer2',
       },  
@@ -162,26 +162,16 @@ export default function Sidebar() {
         url: '/chat',
         icon: 'question-diamond-fill',
       },  
-      {
-        name: "Compte utilisateur",
-        url: "/users",
-        icon: "question-diamond-fill"
-     },
     ],
     [ROLES.CHAMPION]: [
       {
-        name: 'ChampionBoard',
+        name: 'Champion Board',
         url: '/dashboardChampion',
         icon: 'speedometer2',
       },  
       {
         name: "Compte Champion",
         url: "/champion",
-        icon: "question-diamond-fill"
-     },
-      {
-        name: "Compte utilisateur",
-        url: "/users",
         icon: "question-diamond-fill"
      },
      {

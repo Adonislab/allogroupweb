@@ -101,7 +101,7 @@ const ModalMarchand = ({ product, isOpen, updateProduct, onCancel }) => {
                     className="bg-indigo-50 border border-indigo-300 text-indigo-700 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-white-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-white-500"
                     placeholder="Les Armandes aux olives" 
                     required=""
-                    value={formData.title} />
+                    value={product.title} />
             </div>
 
             <div className='text-left'>
