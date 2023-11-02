@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { firebaseConfig } from '../../../utils/firebaseConfig';
+import Link  from "next/link";
 
 export default function MarchandTable() {
   const [user, setUser] = useState(null);
@@ -16,7 +17,8 @@ export default function MarchandTable() {
     },
     { label: <span className="text-blue-500">Téléphone</span>, renderCell: (item) => item.phoneNumber },
     { label: <span className="text-blue-500">Emplacement</span>, renderCell: (item) => item.adresse },
-    { label: <span className="text-blue-500">Produits en stock</span>, renderCell: (item) => item.produits.length },
+    { label: <span className="text-blue-500">Produits en stock</span>, renderCell: (item) => 
+    <Link href={item} className="text-orange-500">{item.produits.length}</Link> },
   ];
 
   useEffect(() => {
