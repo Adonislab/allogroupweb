@@ -91,7 +91,6 @@ export default function Marchand() {
         const userId = auth.currentUser.uid;
         const docRef = doc(db, 'marchands', userId);
         const docRefusers = doc(db, 'users', userId);
-  
         // Utilisez l'URL de téléchargement dans le champ avatar
         await setDoc(docRef, {
           fullName: fullName,
@@ -103,6 +102,7 @@ export default function Marchand() {
         }, { merge: true });
         await setDoc(docRefusers, {
           marchand:true,
+          role:"Marchand",
         }, { merge: true });
       }
   

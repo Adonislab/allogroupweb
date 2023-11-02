@@ -99,6 +99,7 @@ export default function Champion() {
         }, { merge: true });
         await setDoc(docRefusers, {
           champion:true,
+          role:"Champion",
         }, { merge: true });
       }
   

@@ -6,7 +6,7 @@ export default function head() {
         <title>ALLO GROUP</title>
         <meta name="description" content="Allo Group le sens de l'engagement" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="./Assets/favicon.ico" />
     </Head>
   )
 }

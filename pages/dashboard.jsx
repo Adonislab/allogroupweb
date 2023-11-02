@@ -3,10 +3,11 @@ import Head from "@/utils/head";
 import React, { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import MarchandsChart from "./components/layout/MarchandsChart";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDocs} from "firebase/firestore";
 import { firebaseConfig } from '../utils/firebaseConfig';
 import MarchandTable from "./components/layout/MarchandTable";
 import ChampionTable from "./components/layout/ChampionTable";
+import Image from "next/image";
 
 function Dashboard() {
   const [user, setUser] = useState(null);
@@ -15,45 +16,23 @@ function Dashboard() {
 
   
   const COLUMNS = [
-    { label: <span className="text-blue-500">Utilisateur</span>, renderCell: (item) => item.fullName },
+    { label: <span className="text-blue-500">Utilisateurs</span>, renderCell: (item) => item.fullName },
     {
       label: <span className="text-blue-500">Type de profil</span>,
-      renderCell: (item) => (item.admin),
+      renderCell: (item) => (item.role),
     },
     { label: <span className="text-blue-500">Téléphone</span>, renderCell: (item) => item.phoneNumber },
-    { label: <span className="text-blue-500"></span>, renderCell: (item) => (
-        <button className=" text-white bg-purple-500 hover:text-white focus:outline-none" onClick={() => handleEdit(item)}>Modifiez</button>)
+    { label: <span className="text-blue-500">Photo</span>, renderCell: (item) => (
+      <Image src={item.profileImageUrl} width={100} height={100} alt="Photo de profil"/> ) 
     },
-    { label: <span className="text-blue-500"></span>, renderCell: (item) => (
-        <button className=" bg-red-500 text-white hover:text-white focus:outline-none" onClick={() => handleDelete(item)}>Supprimez</button>) 
-        },
+    { label: <span className="text-blue-500">Changement de Role</span>, renderCell: (item) => (
+        <button className=" text-white bg-purple-500 hover:text-white focus:outline-none" onClick={() => handleEdit(item)}>Attribution du nouveau rôle</button>)
+    },
     ];
 
     const handleEdit = (item) => {
         alert('Modification');
-    };
-
-    const handleDelete = async (item) => {
-        if (window.confirm("Voulez-vous vraiment supprimer cet utilisateur ?")) {
-         
-          const auth = getAuth();
-          const db = getFirestore(firebaseConfig);
-          const userId = item.id; 
-          try {
-            await deleteDoc(doc(db, "users", userId));
-            // Réactualisez les données après la suppression.
-            const usersRef = collection(db, "users");
-            const querySnapshot = await getDocs(usersRef);
-            const userDataArray = [];
-            querySnapshot.forEach((doc) => {
-              userDataArray.push({ id: doc.id, ...doc.data() });
-            });
-            setUserData(userDataArray);
-          } catch (error) {
-            console.error("Erreur lors de la suppression de l'utilisateur", error);
-          }
-        }       
-    }
+    }; 
 
   useEffect(() => {
     const auth = getAuth();

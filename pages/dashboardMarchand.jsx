@@ -2,7 +2,7 @@ import DashLayout from "./components/layout/dashboardLayout";
 import Head from "@/utils/head";
 import { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, doc, getDoc, deleteDoc, updateDoc } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, updateDoc } from 'firebase/firestore';
 import Link from 'next/link';
 import { firebaseConfig } from '../utils/firebaseConfig';
 import MarchandsChartMarchands from "./components/layout/MarchandsChartMarchands";
@@ -34,7 +34,7 @@ function DashboardMarchand() {
       renderCell: (item) => item.categorie,
     },
     { label: <span className="text-blue-500">Prix de vente</span>, renderCell: (item) =>  <span>{item.price} F</span>},
-    { label: <span className="text-blue-500">Images du produits</span>, renderCell: (item) => <Image src={item.image} width={50} height={50}  alt ="Image du produit"/> },
+    { label: <span className="text-blue-500">Images du produits</span>, renderCell: (item) => <Image src={item.image} width={100} height={100}  alt ="Souci de changement de l'image"/> },
     { label: <span className="text-blue-500"></span>, renderCell: (item) => (
         <button className="text-white bg-purple-500 hover:text-white focus:outline-none" onClick={() => openModal(item)}>Modifiez</button>)
     },
