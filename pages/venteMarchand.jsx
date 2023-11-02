@@ -20,7 +20,7 @@ function VenteMarchand() {
       label: <span className="text-blue-500">Catégorie</span>, 
       renderCell: (item) => item.categorie,
     },
-    { label: <span className="text-blue-500">Prix de vente</span>, renderCell: (item) => item.price },
+    { label: <span className="text-blue-500">Prix de vente</span>, renderCell: (item) => <span>{item.price} F</span> },
     { label: <span className="text-blue-500">Nbres de Vente</span>, renderCell: (item) => (
         item.price)
     },
@@ -28,7 +28,7 @@ function VenteMarchand() {
         item.price )
     },
     { label: <span className="text-blue-500">Détails</span>, renderCell: (item) => (
-        <button className="bg-orange-500 text-white hover:text-white focus:outline-none" onClick={() => alert('N')}>Voir Plus</button>)
+        <button className="bg-orange-500 text-white hover:text-white focus:outline-none" onClick={() => alert('Détails sur le produit')}>Voir Plus</button>)
     },
   ];
 

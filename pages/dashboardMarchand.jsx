@@ -8,7 +8,7 @@ import { firebaseConfig } from '../utils/firebaseConfig';
 import MarchandsChartMarchands from "./components/layout/MarchandsChartMarchands";
 import ModalMarchand from "./components/layout/ModalMarchand"; 
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Image from 'next/image';
 
 function DashboardMarchand() {
   const [user, setUser] = useState(null);
@@ -33,7 +33,8 @@ function DashboardMarchand() {
       label: <span className="text-blue-500">Catégorie</span>, 
       renderCell: (item) => item.categorie,
     },
-    { label: <span className="text-blue-500">Prix de vente</span>, renderCell: (item) => item.price },
+    { label: <span className="text-blue-500">Prix de vente</span>, renderCell: (item) =>  <span>{item.price} F</span>},
+    { label: <span className="text-blue-500">Images du produits</span>, renderCell: (item) => <Image src={item.image} width={50} height={50}  alt ="Image du produit"/> },
     { label: <span className="text-blue-500"></span>, renderCell: (item) => (
         <button className="text-white bg-purple-500 hover:text-white focus:outline-none" onClick={() => openModal(item)}>Modifiez</button>)
     },
