@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -26,21 +26,19 @@ export default function Sidebar() {
         setUser(authUser);
 
         const db = getFirestore();
-        const usersCollection = collection(db, 'users');
+        // Utilisez authUser.uid pour obtenir l'ID de l'utilisateur connecté
+        const userId = authUser.uid;
+        
+        const userRolesDoc = doc(db, 'user_roles', userId);
 
-        // Définir les requêtes pour chaque rôle
-        const roleQueries = Object.values(ROLES).map((role) => {
-          return query(usersCollection, where(role, '==', true));
-        });
-
-        // Exécuter les requêtes en parallèle
-        Promise.all(roleQueries.map((query) => getDocs(query)))
-          .then((roleDocs) => {
-            const roles = roleDocs.map((docs, index) => ({ role: Object.keys(ROLES)[index], hasRole: docs.size > 0 }));
-            const rolesWithTrueHasRole = roles.filter((role) => role.hasRole).map((role) => role.role.toLowerCase());
-            setRolesWithTrueHasRole(rolesWithTrueHasRole);
-            setUserRoles(roles);
-            //console.log("le role",rolesWithTrueHasRole);
+        // Exécutez la requête pour récupérer les rôles de l'utilisateur
+        getDoc(userRolesDoc)
+          .then((docSnapshot) => {
+            if (docSnapshot.exists()) {
+              const data = docSnapshot.data();
+              const rolesWithTrueHasRole = Object.keys(data).filter((role) => data[role] === true);
+              setRolesWithTrueHasRole(rolesWithTrueHasRole);
+            }
           })
           .catch((error) => {
             console.error('Erreur lors de la récupération des rôles:', error);
