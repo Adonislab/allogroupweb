@@ -192,6 +192,11 @@ export default function Sidebar() {
       url: '/politique',
       icon: 'question-diamond-fill',
     },
+    {
+      name: 'Partenariat',
+      url: '/setting',
+      icon: 'question-diamond-fill',
+    },
   ];
 
   return (
