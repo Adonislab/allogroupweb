@@ -9,11 +9,11 @@ const ModalMarchand = ({ product, isOpen, updateProduct, onCancel }) => {
     const [imageCounter, setImageCounter] = useState(0);
     
     const [formData, setFormData] = useState({
-        title: "",
-        price: "",
-        description: "",
-        during: "",
-        categorie: "",
+        title: product ? product.title : "Le titre de votre produit",
+        price: product ? product.price : 500,
+        description: product ? product.description : "La description de votre produit",
+        during: product ? product.during : "La durée de traitement de votre produit",
+        categorie: product ? product.categorie : "La catégorie de votre produit",
       });
 
     const fileInputRef = useRef(null);
@@ -89,7 +89,7 @@ const ModalMarchand = ({ product, isOpen, updateProduct, onCancel }) => {
   return (
     <div style={{ display: isOpen ? 'block' : 'none' }}>
         <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
-            <p className='text-2xl text-orange-500' >Modification du produit</p>
+            <p className='text-2xl text-orange-500' >Modification du produit : {product ? product.title : " "}</p>
             <form onSubmit={handleSubmit} className="bg-blue-500 space-y-4 md:space-y-6" action="#">
             <div className='text-left'>
                 <label htmlFor="title" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">
