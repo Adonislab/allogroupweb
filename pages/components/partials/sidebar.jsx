@@ -17,7 +17,7 @@ export default function Sidebar() {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [userRoles, setUserRoles] = useState([]);
-  const [rolesWithTrueHasRole, setRolesWithTrueHasRole] = useState([]);
+
 
   useEffect(() => {
     const auth = getAuth();
@@ -29,7 +29,7 @@ export default function Sidebar() {
         // Utilisez authUser.uid pour obtenir l'ID de l'utilisateur connecté
         const userId = authUser.uid;
         
-        const userRolesDoc = doc(db, 'user_roles', userId);
+        const userRolesDoc = doc(db, 'users', userId);
 
         // Exécutez la requête pour récupérer les rôles de l'utilisateur
         getDoc(userRolesDoc)
@@ -37,7 +37,7 @@ export default function Sidebar() {
             if (docSnapshot.exists()) {
               const data = docSnapshot.data();
               const rolesWithTrueHasRole = Object.keys(data).filter((role) => data[role] === true);
-              setRolesWithTrueHasRole(rolesWithTrueHasRole);
+              setUserRoles(rolesWithTrueHasRole);
             }
           })
           .catch((error) => {
@@ -149,7 +149,12 @@ export default function Sidebar() {
         name: 'Marchand Board',
         url: '/dashboardMarchand',
         icon: 'speedometer2',
-      },  
+      }, 
+      {
+        name: "Notification de vente",
+        url: "/notification",
+        icon: "question-diamond-fill"
+      }, 
       {
         name: "Compte Marchand",
         url: "/marchand",
@@ -173,7 +178,7 @@ export default function Sidebar() {
         icon: "question-diamond-fill"
      },
      {
-      name: "Notification",
+      name: "Notification de livraison",
       url: "/notification",
       icon: "question-diamond-fill"
     },
@@ -194,24 +199,20 @@ export default function Sidebar() {
       <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
         <ul className="space-y-2 font-medium">
           {userRoles.length > 0 ? (
-            userRoles.some((role) => role.hasRole) ? (
-              userRoles
-                .filter((role) => role.hasRole)
-                .map((role) => {
-                  const roleItem = roleItems[role.role.toLowerCase()];
-                  if (roleItem) {
-                    return roleItem.map((item, index) => (
-                      <li key={index}>
-                        <Link href={item.url} className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover-bg-gray-700 group ${router.asPath === item.url ? 'bg-orange-500' : ''}`}>
-                          <i className={"bg-blue-900 p-1 px-2 rounded-md bi bi-" + item.icon}></i>
-                          <span className="ml-3 font-semibold">{item.name}</span>
-                        </Link>
-                      </li>
-                    ));
-                  }
-                  return null; // Rôle non trouvé dans roleItems
-                })
-              ) : null
+              userRoles.map((role) => {
+                const roleItem = roleItems[role];
+                if (roleItem) {
+                  return roleItem.map((item, index) => (
+                    <li key={index}>
+                      <Link href={item.url} className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover-bg-gray-700 group ${router.asPath === item.url ? 'bg-orange-500' : ''}`}>
+                        <i className={"bg-blue-900 p-1 px-2 rounded-md bi bi-" + item.icon}></i>
+                        <span className="ml-3 font-semibold">{item.name}</span>
+                      </Link>
+                    </li>
+                  ));
+                }
+                return null; // Rôle non trouvé dans roleItems
+            })
           ) : (
             // Afficher la page "Accueil" si l'utilisateur n'a pas de rôle ou si aucun rôle avec `hasRole` à `true` n'a été trouvé
             defaultMenuItem.map((item, index) => (
