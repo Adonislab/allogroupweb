@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { firebaseConfig } from '../../../utils/firebaseConfig';
-import Link  from "next/link";
+import Link from "next/link";
 
 export default function MarchandTable() {
   const [user, setUser] = useState(null);
@@ -17,10 +17,14 @@ export default function MarchandTable() {
     },
     { label: <span className="text-blue-500">Téléphone</span>, renderCell: (item) => item.phoneNumber },
     { label: <span className="text-blue-500">Emplacement</span>, renderCell: (item) => item.adresse },
-    { label: <span className="text-blue-500">Produits en stock</span>, renderCell: (item) => 
-    <Link href={item} className="text-orange-500">{item.produits.length}</Link> },
-  ];
-
+    { label: <span className="text-blue-500">Produits en stock</span>, renderCell: (item) =>  
+    <Link className=" text-white bg-orange-500 hover:text-white focus:outline-none" 
+    href={`/boutique/produits?id=${encodeURIComponent(JSON.stringify(item.produits))}`}>
+      {item.produits.length}
+      </Link>
+    },
+  ];  
+  
   useEffect(() => {
     const auth = getAuth();
     const db = getFirestore(firebaseConfig);
@@ -31,13 +35,14 @@ export default function MarchandTable() {
 
         const marchandsRef = collection(db, "marchands");
         const querySnapshot = await getDocs(marchandsRef);
-
+            
         const userDataArray = [];
         querySnapshot.forEach((doc) => {
           userDataArray.push(doc.data());
         });
 
         setUserData(userDataArray);
+        console.log('les données user',userDataArray[2].produits)
         setLoading(false);
       } else {
         setUser(null);
@@ -49,7 +54,7 @@ export default function MarchandTable() {
 
   if (loading) {
     return <p>Chargement...</p>;
-  }
+  } 
 
   return (
     <>
