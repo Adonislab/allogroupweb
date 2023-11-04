@@ -2,26 +2,36 @@ import React, { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { firebaseConfig } from '../../../utils/firebaseConfig';
-import Link from "next/link";
+import { useRouter } from 'next/router';
+import Image from "next/image";
 
 export default function MarchandTable() {
+  const router = useRouter();
   const [user, setUser] = useState(null);
   const [userData, setUserData] = useState([]);
   const [loading, setLoading] = useState(true);
+ 
 
   const COLUMNS = [
-    { label: <span className="text-blue-500">Nom de la boutique</span>, renderCell: (item) => item.fullName },
+    { label: <span className="text-blue-500">Présentation</span>, renderCell: (item) => 
+    <Image src={item.profileImageUrl} width={100} height={100} alt={item.adresse} />  },
+    { label: <span className="text-blue-500">Boutique</span>, renderCell: (item) => item.fullName },
     {
       label: <span className="text-blue-500">Type de cuisine</span>,
       renderCell: (item) => item.cuisine,
     },
     { label: <span className="text-blue-500">Téléphone</span>, renderCell: (item) => item.phoneNumber },
     { label: <span className="text-blue-500">Emplacement</span>, renderCell: (item) => item.adresse },
-    { label: <span className="text-blue-500">Produits en stock</span>, renderCell: (item) =>  
+    { label: <span className="text-blue-500">Stock</span>, renderCell: (item) =>  
+    <button 
+      className="text-white bg-orange-500 hover:bg-orange-600 focus:outline-none p-4 rounded-lg"
+      onClick={() => handleClick(item)}>{item.produits.length}
+    </button>
+    /** 
     <Link className=" text-white bg-orange-500 hover:text-white focus:outline-none" 
     href={`/boutique/produits?id=${encodeURIComponent(JSON.stringify(item.produits))}`}>
       {item.produits.length}
-      </Link>
+      </Link>*/
     },
   ];  
   
@@ -56,6 +66,17 @@ export default function MarchandTable() {
     return <p>Chargement...</p>;
   } 
 
+  const handleClick = (item) =>{
+    // Convertir l'objet item.produits en chaîne JSON pour afficher ses propriétés
+    console.log('Les données', item.produits); 
+    const id = JSON.stringify(item.produits, null, 2);
+    console.log('Les données à parser', id);
+    router.push({
+      pathname: '/boutique/produits',
+      query: { id }
+    });
+  }
+  
   return (
     <>
         <p className="text-2xl text-blue-500">Nombre de boutiques : {userData.length} </p>

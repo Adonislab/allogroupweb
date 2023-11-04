@@ -1,7 +1,6 @@
 import DashLayout from "../components/layout/dashboardLayout";
 import Head from "@/utils/head";
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 import { useRouter } from 'next/router';
 
 export default function Produits() {
