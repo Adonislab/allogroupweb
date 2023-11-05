@@ -27,11 +27,6 @@ export default function MarchandTable() {
       className="text-white bg-orange-500 hover:bg-orange-600 focus:outline-none p-4 rounded-lg"
       onClick={() => handleClick(item)}>{item.produits.length}
     </button>
-    /** 
-    <Link className=" text-white bg-orange-500 hover:text-white focus:outline-none" 
-    href={`/boutique/produits?id=${encodeURIComponent(JSON.stringify(item.produits))}`}>
-      {item.produits.length}
-      </Link>*/
     },
   ];  
   

@@ -2,6 +2,7 @@ import DashLayout from "../components/layout/dashboardLayout";
 import Head from "@/utils/head";
 import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
+import Image from "next/image";
 
 export default function Produits() {
   const router = useRouter();
@@ -25,9 +26,10 @@ export default function Produits() {
   }, [product]);
 
   const COLUMNS = [
-    { label: <span className="text-blue-500">Produits</span>, accessor: 'title' },
+    { label: <span className="text-blue-500">Présentation</span>, accessor: 'image' },
+    { label: <span className="text-blue-500">Produit</span>, accessor: 'title' },
     {
-      label: <span className="text-blue-500">Catégories</span>,
+      label: <span className="text-blue-500">Catégorie</span>,
       accessor: 'categorie',
     },
     { label: <span className="text-blue-500">Prix unitaire</span>, accessor: 'price'},
@@ -55,7 +57,17 @@ export default function Produits() {
                 <tr key={itemIndex}>
                   {COLUMNS.map((column, columnIndex) => (
                     <td key={columnIndex} className="px-4 py-2 border">
-                      {item[column.accessor]}
+                      {column.accessor === 'image' ? (
+                        // Afficher une image ici, assurez-vous de remplacer 'imageURL' par l'URL de votre image.
+                        <Image
+                          src={item.image}
+                          alt={item.title}
+                          width={100}
+                          height={100}
+                        />
+                      ) : (
+                        item[column.accessor]
+                      )}
                     </td>
                   ))}
                 </tr>
