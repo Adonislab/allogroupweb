@@ -27,9 +27,9 @@ export default function Produits() {
 
   const COLUMNS = [
     { label: <span className="text-blue-500">Présentation</span>, accessor: 'image' },
-    { label: <span className="text-blue-500">Produit</span>, accessor: 'title' },
+    { label: <span className="text-blue-500">Produits</span>, accessor: 'title' },
     {
-      label: <span className="text-blue-500">Catégorie</span>,
+      label: <span className="text-blue-500">Catégories</span>,
       accessor: 'categorie',
     },
     { label: <span className="text-blue-500">Prix unitaire</span>, accessor: 'price'},
@@ -65,6 +65,8 @@ export default function Produits() {
                           width={100}
                           height={100}
                         />
+                      ) : column.accessor === 'price' || column.accessor === 'total' ? (
+                        ` ${item[column.accessor]} F`
                       ) : (
                         item[column.accessor]
                       )}
