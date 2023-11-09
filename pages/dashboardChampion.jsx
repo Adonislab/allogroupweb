@@ -45,12 +45,14 @@ function DashboardChampion() {
 
         // Utilisez l'ID de l'utilisateur pour chercher son document marchand
         const userDocRef = doc(db, "champions", userId);
+        
         try {
           const userDocSnapshot = await getDoc(userDocRef);
           const userDocData = userDocSnapshot.data();
-          console.log(userDocData);
+          const userRole = userDocData.champion;
+          console.log(userRole);
 
-          if (userDocData) {
+          if (userDocData && userRole === "oui ") {
             // Utilisez userDocData pour afficher les produits du marchand
             setProducts(userDocData.service || []); // Supposons que les services sont stockés dans un tableau nommé "products"
           } else {
