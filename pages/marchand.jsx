@@ -93,6 +93,7 @@ export default function Marchand() {
         const docRefusers = doc(db, 'users', userId);
         // Utilisez l'URL de téléchargement dans le champ avatar
         await setDoc(docRef, {
+          id:userId,
           fullName: fullName,
           phoneNumber: phoneNumber,
           profileImageUrl: newImageURL, 
