@@ -109,7 +109,7 @@ export default function Marchand() {
   
       toast.success('Vous êtes désormais un marchand chez Allo Group');
       setTimeout(() => {
-        Router.push("/dashboardMarchand");
+        Router.push("/chat");
       }, 2000);
     } catch (error) {
       console.error('Erreur lors de la mise à jour du profil', error);
