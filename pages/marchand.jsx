@@ -100,6 +100,7 @@ export default function Marchand() {
           adresse: adresse, 
           cuisine: cuisine, 
           marchand: marchand,
+          produits:[],
         }, { merge: true });
         await setDoc(docRefusers, {
           marchand:true,
