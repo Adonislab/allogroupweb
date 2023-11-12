@@ -22,12 +22,14 @@ function Dashboard() {
       renderCell: (item) => (item.role),
     },
     { label: <span className="text-blue-500">Téléphone</span>, renderCell: (item) => item.phoneNumber },
-    { label: <span className="text-blue-500">Photo</span>, renderCell: (item) => (
-      <Image src={item.profileImageUrl} width={100} height={100} alt="Photo de profil"/> ) 
+    { label: <span className="text-blue-500">Photo</span>, renderCell: (item) => 
+      <Image src={item.profileImageUrl} width={50} height={50}  alt={item.fullName}/>  
     },
-    { label: <span className="text-blue-500">Changement de Role</span>, renderCell: (item) => (
-        <button className=" text-white bg-purple-500 hover:text-white focus:outline-none" onClick={() => handleEdit(item)}>Attribution du nouveau rôle</button>)
-    },
+    { label: <span className="text-blue-500">Portefeuille</span>, renderCell: (item) => (
+      <>
+        {item.wallet} F
+      </>
+    )},
     ];
 
     const handleEdit = (item) => {
