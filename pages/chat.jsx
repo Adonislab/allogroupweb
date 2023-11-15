@@ -128,7 +128,7 @@ export default function Champion() {
             categorie: categorie,
             image: newImageURL,
             during: during,
-            isFavorite:true,
+            isFavorite:false,
           });
           // Mettez à jour le document utilisateur avec le tableau mis à jour des produits
           await setDoc(docRef, { produits }, { merge: true });
