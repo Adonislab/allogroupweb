@@ -6,7 +6,7 @@ import { getAuth } from 'firebase/auth';
 const auth = getAuth();
 
 const ModalMarchand = ({ product, isOpen, updateProduct, onCancel }) => {
-    const [imageCounter, setImageCounter] = useState(0);
+    
     
     const [formData, setFormData] = useState({
         title: product ? product.title : "Le titre de votre produit",
@@ -21,6 +21,7 @@ const ModalMarchand = ({ product, isOpen, updateProduct, onCancel }) => {
     const uploadImageToFirebase = async (imageFile) => {
         try {
           const storage = getStorage();
+          const imageCounter = Date.now();
           const fileName = auth.currentUser.uid + `produit${imageCounter}`;
           const storageRef = ref(storage, `articles/${fileName}`);
           const snapshot = await uploadBytes(storageRef, imageFile);
@@ -46,7 +47,7 @@ const ModalMarchand = ({ product, isOpen, updateProduct, onCancel }) => {
             // Effectuez ici la mise à jour du produit avec les nouvelles données et l'URL de l'image.
             // Utilisez la fonction updateProduct pour effectuer cette mise à jour.
             const newImageURL = await uploadImageToFirebase(formData.selectedFile);
-            setImageCounter(imageCounter + 1); // Increment the image counter
+           
             // Exemple :
             const updatedProduct = {
               ...product,

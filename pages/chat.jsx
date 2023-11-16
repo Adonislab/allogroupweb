@@ -15,7 +15,7 @@ import Head from "@/utils/head";
 const db = getFirestore(firebaseConfig);
 const auth = getAuth();
 
-export default function Champion() {
+export default function ProduitAdd() {
   const [formData, setFormData] = useState({
     price: "",
     title: "",
@@ -25,11 +25,12 @@ export default function Champion() {
     profileImageUrl: "",
     during:"",
   });
-  const [imageCounter, setImageCounter] = useState(0);
   const fileInputRef = useRef(null);
+  
 
   const uploadImageToFirebase = async (imageFile) => {
     const storage = getStorage();
+    const imageCounter = Date.now();
     const fileName = auth.currentUser.uid + `produit${imageCounter}`; 
     const storageRef = ref(storage, `articles/${fileName}`);
     const snapshot = await uploadBytes(storageRef, imageFile);
@@ -108,8 +109,7 @@ export default function Champion() {
   
       if (formData.selectedFile && docSnapshot.exists()) {
         const newImageURL = await uploadImageToFirebase(formData.selectedFile);
-        setImageCounter(imageCounter + 1); // Increment the image counter
-  
+        
         // Obtenez un identifiant unique basé sur la date actuelle
         const productId = generateProductId();
   

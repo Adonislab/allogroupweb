@@ -8,6 +8,7 @@ import { firebaseConfig } from '../utils/firebaseConfig';
 import MarchandsChartMarchands from "./components/layout/MarchandsChartMarchands";
 import ModalMarchand from "./components/layout/ModalMarchand"; 
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image';
 
 function DashboardMarchand() {
