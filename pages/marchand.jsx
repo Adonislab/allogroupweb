@@ -25,6 +25,7 @@ export default function Marchand() {
     avatar: "",
     adresse: "",
     cuisine:"",
+    descriptionboutique:"",
   });
   const country = 'bj';
   const fileInputRef = useRef(null);
@@ -57,6 +58,7 @@ export default function Marchand() {
               marchand: data.marchand,
               adresse:data.adresse,
               cuisine:data.cuisine,
+              descriptionboutique:data.descriptionboutique,
             }));
           } else {
             console.log("Aucune donnée trouvée pour cet utilisateur.");
@@ -87,7 +89,7 @@ export default function Marchand() {
         const newImageURL = await uploadImageToFirebase(formData.selectedFile);
   
         // Mettre à jour le champ avatar dans Firebase Firestore avec l'URL de l'image
-        const { fullName, phoneNumber, marchand, adresse, cuisine } = formData;
+        const { fullName, phoneNumber, marchand, adresse, cuisine,descriptionboutique } = formData;
         const userId = auth.currentUser.uid;
         const docRef = doc(db, 'marchands', userId);
         const docRefusers = doc(db, 'users', userId);
@@ -100,6 +102,7 @@ export default function Marchand() {
           adresse: adresse, 
           cuisine: cuisine, 
           marchand: marchand,
+          descriptionboutique:descriptionboutique,
           produits:[],
         }, { merge: true });
         await setDoc(docRefusers, {
@@ -147,9 +150,25 @@ export default function Marchand() {
               onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
               type="text" name="fullName" id="name"
               className="bg-indigo-50 border border-indigo-300 text-indigo-700 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-white-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-white-500"
-              placeholder="John" required=""
+              placeholder="Chez Lui" required=""
               value={formData.fullName} />
           </div>
+
+          
+          <div className='text-left'>
+            <label htmlFor="descriptionboutique" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">
+              Description de votre boutique 
+            </label>
+            <textarea
+              onChange={(e) => setFormData({ ...formData, descriptionboutique: e.target.value })}
+              name="descriptionboutique" id="descriptionboutique"
+              className="bg-indigo-50 border border-indigo-300 text-indigo-700 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-white-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-white-500"
+              placeholder="Il faut vendre votre boutique" required=""
+              value={formData.descriptionboutique}
+              rows={6} // Nombre de lignes du textarea
+            />
+          </div>
+
 
           <div className='text-left'>
             <label htmlFor="phone" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">Complétez votre numéro de téléphone</label>
