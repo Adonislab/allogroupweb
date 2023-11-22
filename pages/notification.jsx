@@ -98,30 +98,34 @@ export default function notification() {
   
       if (formData.selectedFile && docSnapshot.exists()) {
         const newImageURL = await uploadImageToFirebase(formData.selectedFile);
-        
-        // Obtenez un identifiant unique basé sur la date actuelle
-        const productId = generateProductId();
   
         const { title, content } = formData;
   
+        // Obtenir les données existantes
         const userData = docSnapshot.data();
-        const pub = userData.promotion || [];
-          
+        const pub = userData.promotion || []; // Récupérer la liste existante ou initialiser une nouvelle liste
+  
+        // Ajouter une nouvelle publicité à la liste
+        const productId = generateProductId();
         pub.push({
-            id: productId,
-            title: title,
-            content:content,
-            image:newImageURL,
-          });
-          
-          await setDoc(docRef, { pub }, { merge: true });
-          toast.success('Vous avez posté une promtion avec succes');
+          id: productId,
+          date: Date.now(),
+          title: title,
+          content: content,
+          image: newImageURL,
+        });
+  
+        // Mettre à jour les données dans Firebase
+        await setDoc(docRef, { promotion: pub }, { merge: true });
+  
+        toast.success('Vous avez posté une promotion avec succès');
       }
     } catch (error) {
-      console.error('Erreur lors de la mise à jour du profil', error);
-      toast.error("Il a une erreur au cours de l'édition d'une promotion");
+      console.error('Erreur lors de la mise à jour de la publicité', error);
+      toast.error("Il y a eu une erreur lors de l'édition d'une publicité");
     }
   };
+  
 
   
   return (
