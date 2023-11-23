@@ -102,6 +102,8 @@ export default function Marchand() {
           adresse: adresse, 
           cuisine: cuisine, 
           marchand: marchand,
+          livraison:[],
+          commandes:[],
           descriptionboutique:descriptionboutique,
           produits:[],
         }, { merge: true });
