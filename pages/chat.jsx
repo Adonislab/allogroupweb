@@ -24,6 +24,7 @@ export default function ProduitAdd() {
     categorie:"",
     profileImageUrl: "",
     during:"",
+    note:"",
   });
   const fileInputRef = useRef(null);
   
@@ -51,6 +52,7 @@ export default function ProduitAdd() {
             const data = docSnapshot.data();
             setFormData((prevData) => ({
               ...prevData,
+              note:data.note,
               title: data.title,
               price: data.price,
               image: data.image,
@@ -113,7 +115,7 @@ export default function ProduitAdd() {
         // Obtenez un identifiant unique basé sur la date actuelle
         const productId = generateProductId();
   
-        const { title, price, description, categorie, during } = formData;
+        const { title, price, description, categorie, during, note } = formData;
   
         const userData = docSnapshot.data();
         const userRole = userData.marchand;
@@ -122,6 +124,7 @@ export default function ProduitAdd() {
           // Ajoutez le nouveau produit au tableau des produits
           produits.push({
             id: productId,
+            note:note,
             title: title,
             price: price,
             description: description,
@@ -213,6 +216,16 @@ export default function ProduitAdd() {
               className="bg-indigo-50 border border-indigo-300 text-indigo-700 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-white-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-white-500"
               placeholder="5min" required=""
               value={formData.during} />      
+          </div> 
+
+          <div className='text-left'>
+            <label htmlFor="note" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">Quelle note spéciale avez vous pour la promtion de ce produit ?</label>
+            <input
+              onChange={(e) => setFormData({ ...formData, note: e.target.value })}
+              type="text" name="note" id="note"
+              className="bg-indigo-50 border border-indigo-300 text-indigo-700 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-white-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-white-500"
+              placeholder="Promotion" 
+              value={formData.note} />      
           </div> 
 
           <div className='text-left'>

@@ -14,6 +14,7 @@ const ModalMarchand = ({ product, isOpen, updateProduct, onCancel }) => {
         description: product ? product.description : "La description de votre produit",
         during: product ? product.during : "La durée de traitement de votre produit",
         categorie: product ? product.categorie : "La catégorie de votre produit",
+        note: product ? product.note : "Trois pour Cinq"
       });
 
     const fileInputRef = useRef(null);
@@ -52,6 +53,7 @@ const ModalMarchand = ({ product, isOpen, updateProduct, onCancel }) => {
             const updatedProduct = {
               ...product,
               title: formData.title,
+              note:formData.note,
               price: formData.price,
               description: formData.description,
               during: formData.during,
@@ -169,6 +171,16 @@ const ModalMarchand = ({ product, isOpen, updateProduct, onCancel }) => {
                 <option value="Amuse bouche">Amuse bouche</option>
                 </select>
             </div>
+
+            <div className='text-left'>
+              <label htmlFor="note" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">Quelle note spéciale avez vous pour la promtion de ce produit ?</label>
+              <input
+                onChange={(e) => setFormData({ ...formData, note: e.target.value })}
+                type="text" name="note" id="note"
+                className="bg-indigo-50 border border-indigo-300 text-indigo-700 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-white-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-white-500"
+                placeholder="Promotion" 
+                value={formData.note} />      
+            </div> 
 
             <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-500 dark:hover:bg-gray-800 dark:bg-gray-100 hover-bg-gray-100 dark:border-gray-600 dark:hover:border-gray-200">
                 <div className="flex flex-col items-center justify-center pt-5 pb-6">
