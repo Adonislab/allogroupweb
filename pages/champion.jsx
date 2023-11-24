@@ -97,6 +97,7 @@ export default function Champion() {
           profileImageUrl: newImageURL,
           champion:champion,
           adresse:adresse,
+          commandes:[],
         }, { merge: true });
         await setDoc(docRefusers, {
           champion:true,
