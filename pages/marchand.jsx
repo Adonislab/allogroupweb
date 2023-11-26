@@ -93,6 +93,8 @@ export default function Marchand() {
         const userId = auth.currentUser.uid;
         const docRef = doc(db, 'marchands', userId);
         const docRefusers = doc(db, 'users', userId);
+        const fcmToken = docRefusers.fcmToken;
+
         // Utilisez l'URL de téléchargement dans le champ avatar
         await setDoc(docRef, {
           id:userId,
@@ -106,6 +108,7 @@ export default function Marchand() {
           commandes:[],
           descriptionboutique:descriptionboutique,
           produits:[],
+          fcmToken:fcmToken,
         }, { merge: true });
         await setDoc(docRefusers, {
           marchand:true,

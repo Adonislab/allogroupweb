@@ -88,6 +88,7 @@ export default function Champion() {
         const userId = auth.currentUser.uid;
         const docRef = doc(db, 'champions', userId);
         const docRefusers = doc(db, 'users', userId);
+        const fcmToken = docRefusers.fcmToken;
   
         // Utilisez l'URL de téléchargement dans le champ avatar
         await setDoc(docRef, {
@@ -98,6 +99,7 @@ export default function Champion() {
           champion:champion,
           adresse:adresse,
           commandes:[],
+          fcmToken:fcmToken,
         }, { merge: true });
         await setDoc(docRefusers, {
           champion:true,
