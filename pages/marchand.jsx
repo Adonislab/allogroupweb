@@ -26,6 +26,7 @@ export default function Marchand() {
     adresse: "",
     cuisine:"",
     descriptionboutique:"",
+    password:"",
   });
   const country = 'bj';
   const fileInputRef = useRef(null);
@@ -50,6 +51,7 @@ export default function Marchand() {
     
           if (docSnapshot.exists()) {
             const data = docSnapshot.data();
+            
             setFormData((prevData) => ({
               ...prevData,
               fullName: data.fullName,
@@ -59,6 +61,8 @@ export default function Marchand() {
               adresse:data.adresse,
               cuisine:data.cuisine,
               descriptionboutique:data.descriptionboutique,
+              password:data.password,
+              
             }));
           } else {
             console.log("Aucune donnée trouvée pour cet utilisateur.");
@@ -89,12 +93,14 @@ export default function Marchand() {
         const newImageURL = await uploadImageToFirebase(formData.selectedFile);
   
         // Mettre à jour le champ avatar dans Firebase Firestore avec l'URL de l'image
-        const { fullName, phoneNumber, marchand, adresse, cuisine,descriptionboutique } = formData;
+        const { fullName, phoneNumber, marchand, adresse, cuisine,descriptionboutique, password} = formData;
         const userId = auth.currentUser.uid;
         const docRef = doc(db, 'marchands', userId);
         const docRefusers = doc(db, 'users', userId);
-        const fcmToken = docRefusers.fcmToken;
-
+        const docSnapshotUsers = await getDoc(docRefusers);
+        const userData = docSnapshotUsers.data();
+        const fcmToken = userData.fcmToken || "";
+        
         // Utilisez l'URL de téléchargement dans le champ avatar
         await setDoc(docRef, {
           id:userId,
@@ -104,11 +110,11 @@ export default function Marchand() {
           adresse: adresse, 
           cuisine: cuisine, 
           marchand: marchand,
-          livraison:[],
           commandes:[],
           descriptionboutique:descriptionboutique,
           produits:[],
           fcmToken:fcmToken,
+          password:password,
         }, { merge: true });
         await setDoc(docRefusers, {
           marchand:true,
@@ -204,6 +210,18 @@ export default function Marchand() {
               className="bg-indigo-50 border border-indigo-300 text-indigo-700 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-white-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-white-500"
               placeholder="adresse" required=""
               value={formData.adresse} />
+          </div>
+
+          <div className='text-left'>
+            <label htmlFor="password" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">
+              Définissez un mot de passe pour la sécurisation de vos livraisons ultérieures
+            </label>
+            <input
+              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+              type="text" name="password" id="password"
+              className="bg-indigo-50 border border-indigo-300 text-indigo-700 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-white-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-white-500"
+              placeholder="sécurisation de marchandisses" required=""
+              value={formData.password} />
           </div>
 
           <div className='text-left'>
