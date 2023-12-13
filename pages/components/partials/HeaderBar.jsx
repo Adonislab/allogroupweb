@@ -267,7 +267,7 @@ function HeaderBar() {
             <div
               className={`${
                 menuOpen ? "block" : "hidden"
-              } absolute w-40 bg-white rounded-md border border-gray-200 right-0 mt-12 z-10`}
+              } absolute h-auto w-80 bg-white rounded-md border border-gray-200 right-0 mt-10`}
             >
              <ul className="space-y-2 font-medium">
           {userRoles.length > 0 ? (
