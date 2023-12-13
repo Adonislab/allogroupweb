@@ -134,7 +134,7 @@ export default function Champion() {
           />
 
           <p className="text-xl text-white-400 dark:text-white">
-            Merci !!! 
+            Allô Group, le sens de l'engagement !!! 
           </p>
         </div>
 
