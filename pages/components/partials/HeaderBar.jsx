@@ -268,7 +268,7 @@ function HeaderBar() {
             <div
               className={`${
                 menuOpen ? "block" : "hidden"
-              } absolute h-auto w-80 bg-white rounded-md border border-gray-200 right-0 my-20`}
+              } z-50 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-white-700 dark:divide-gray-600 w-60`}
             >
              <ul className="space-y-2 font-medium">
           {userRoles.length > 0 ? (
@@ -307,7 +307,6 @@ function HeaderBar() {
               alt="FlowBite Logo"
             />
             <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
-              ALLO GROUP
             </span>
           </div>
           <div className="flex items-center">
@@ -321,11 +320,7 @@ function HeaderBar() {
                   data-dropdown-toggle="dropdown-user"
                 >
                   <span className="sr-only">Open user menu</span>
-                  <img
-                    className="w-8 h-8 rounded-full"
-                    src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                    alt="user photo"
-                  />
+                 
                 </button>
               </div>
             </div>
