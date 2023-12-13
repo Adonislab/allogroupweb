@@ -182,6 +182,11 @@ function HeaderBar() {
         url: '/politique',
         icon: 'question-diamond-fill',
       },
+      {
+        name: 'Payement',
+        url: '/paiementMarchand',
+        icon: 'question-diamond-fill',
+      },
     ],
     [ROLES.CHAMPION]: [
       {
@@ -202,6 +207,11 @@ function HeaderBar() {
     {
       name: 'Politique',
       url: '/politique',
+      icon: 'question-diamond-fill',
+    },
+    {
+      name: 'Payement',
+      url: '/paiementChampion',
       icon: 'question-diamond-fill',
     },
     ]

@@ -170,6 +170,11 @@ export default function Sidebar() {
         url: '/politique',
         icon: 'question-diamond-fill',
       },
+      {
+        name: 'Payement',
+        url: '/paiementMarchand',
+        icon: 'question-diamond-fill',
+      },
     ],
     [ROLES.CHAMPION]: [
       {
@@ -190,6 +195,11 @@ export default function Sidebar() {
     {
       name: 'Politique',
       url: '/politique',
+      icon: 'question-diamond-fill',
+    },
+    {
+      name: 'Payement',
+      url: '/paiementChampion',
       icon: 'question-diamond-fill',
     },
     ]
