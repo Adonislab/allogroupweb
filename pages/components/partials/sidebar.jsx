@@ -151,11 +151,6 @@ export default function Sidebar() {
         icon: 'speedometer2',
       }, 
       {
-        name: "Notification de vente",
-        url: "/notification",
-        icon: "question-diamond-fill"
-      }, 
-      {
         name: "Compte Marchand",
         url: "/marchand",
         icon: "question-diamond-fill"
@@ -165,6 +160,16 @@ export default function Sidebar() {
         url: '/chat',
         icon: 'question-diamond-fill',
       },  
+      {
+        name: "Portefeuille",
+        url: "/wallet",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: 'Politique',
+        url: '/politique',
+        icon: 'question-diamond-fill',
+      },
     ],
     [ROLES.CHAMPION]: [
       {
@@ -178,9 +183,14 @@ export default function Sidebar() {
         icon: "question-diamond-fill"
      },
      {
-      name: "Notification de livraison",
-      url: "/notification",
+      name: "Portefeuille",
+      url: "/wallet",
       icon: "question-diamond-fill"
+    },
+    {
+      name: 'Politique',
+      url: '/politique',
+      icon: 'question-diamond-fill',
     },
     ]
   };

@@ -163,11 +163,6 @@ function HeaderBar() {
         icon: 'speedometer2',
       }, 
       {
-        name: "Notification de vente",
-        url: "/notification",
-        icon: "question-diamond-fill"
-      }, 
-      {
         name: "Compte Marchand",
         url: "/marchand",
         icon: "question-diamond-fill"
@@ -177,6 +172,16 @@ function HeaderBar() {
         url: '/chat',
         icon: 'question-diamond-fill',
       },  
+      {
+        name: "Portefeuille",
+        url: "/wallet",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: 'Politique',
+        url: '/politique',
+        icon: 'question-diamond-fill',
+      },
     ],
     [ROLES.CHAMPION]: [
       {
@@ -190,9 +195,14 @@ function HeaderBar() {
         icon: "question-diamond-fill"
      },
      {
-      name: "Notification de livraison",
-      url: "/notification",
+      name: "Portefeuille",
+      url: "/wallet",
       icon: "question-diamond-fill"
+    },
+    {
+      name: 'Politique',
+      url: '/politique',
+      icon: 'question-diamond-fill',
     },
     ]
   };
@@ -207,6 +217,11 @@ function HeaderBar() {
     {
       name: 'Partenariat',
       url: '/setting',
+      icon: 'question-diamond-fill',
+    },
+    {
+      name: 'Politique',
+      url: '/politique',
       icon: 'question-diamond-fill',
     },
   ];
