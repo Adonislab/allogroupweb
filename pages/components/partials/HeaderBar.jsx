@@ -153,24 +153,24 @@ function HeaderBar() {
     ],
     [ROLES.MARCHAND]: [
       {
-        name: 'Mes ventes',
-        url: '/venteMarchand',
-        icon: 'speedometer2',
-      },  
-      {
-        name: 'Marchand Board',
-        url: '/dashboardMarchand',
-        icon: 'speedometer2',
-      }, 
-      {
         name: "Compte Marchand",
         url: "/marchand",
         icon: "question-diamond-fill"
      },
+     {
+      name: 'Marchand Board',
+      url: '/dashboardMarchand',
+      icon: 'speedometer2',
+    }, 
+    {
+      name: 'Création de produits',
+      url: '/chat',
+      icon: 'question-diamond-fill',
+    },  
       {
-        name: 'Création de produits',
-        url: '/chat',
-        icon: 'question-diamond-fill',
+        name: 'Mes ventes',
+        url: '/venteMarchand',
+        icon: 'speedometer2',
       },  
       {
         name: "Portefeuille",
@@ -190,24 +190,25 @@ function HeaderBar() {
     ],
     [ROLES.CHAMPION]: [
       {
-        name: 'Champion Board',
-        url: '/dashboardChampion',
-        icon: 'speedometer2',
-      },  
+        name: 'Politique',
+        url: '/politique',
+        icon: 'question-diamond-fill',
+      },
       {
         name: "Compte Champion",
         url: "/champion",
         icon: "question-diamond-fill"
      },
+      {
+        name: 'Champion Board',
+        url: '/dashboardChampion',
+        icon: 'speedometer2',
+      },  
+      
      {
       name: "Portefeuille",
       url: "/wallet",
       icon: "question-diamond-fill"
-    },
-    {
-      name: 'Politique',
-      url: '/politique',
-      icon: 'question-diamond-fill',
     },
     {
       name: 'Payement',
@@ -267,7 +268,7 @@ function HeaderBar() {
             <div
               className={`${
                 menuOpen ? "block" : "hidden"
-              } absolute h-auto w-80 bg-white rounded-md border border-gray-200 right-0 mt-10`}
+              } absolute h-auto w-80 bg-white rounded-md border border-gray-200 right-0 my-20`}
             >
              <ul className="space-y-2 font-medium">
           {userRoles.length > 0 ? (
