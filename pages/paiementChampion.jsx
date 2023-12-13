@@ -1,8 +1,14 @@
-import React from 'react'
+import DashLayout from "./components/layout/dashboardLayout";
+import Head from "@/utils/head";
+
 
 function paiementChampion() {
   return (
-    <div>paiementChampion</div>
+    <DashLayout>
+    <Head/>
+      <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
+      paiementChampion</div>
+    </DashLayout> 
   )
 }
 

@@ -1,7 +1,14 @@
-import React from 'react'
+import DashLayout from "./components/layout/dashboardLayout";
+import Head from "@/utils/head";
+
 
 export default function paiement() {
   return (
-    <div>paiement</div>
+    <DashLayout>
+    <Head/>
+      <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
+      paiement
+      </div>
+    </DashLayout> 
   )
 }
