@@ -147,8 +147,7 @@ export default function Marchand() {
           />
 
           <p className="text-xl text-white-400 dark:text-white">
-            Merci !!! Sans vous, pas de Allô Group pour cette cause travaillons ensemble. Vous pouvez
-            commencer avec la création de votre boutique.
+            Merci !!! 
           </p>
         </div>
 

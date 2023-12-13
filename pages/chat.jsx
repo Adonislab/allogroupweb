@@ -166,8 +166,7 @@ export default function ProduitAdd() {
           />
 
           <p className="text-xl text-white-400 dark:text-white">
-            Merci !!! Sans vous, pas de Allô Group pour cette cause travaillons ensemble. Vous pouvez
-            commencer avec la création de votre produit.
+            Merci !!! 
           </p>
         </div>
 
