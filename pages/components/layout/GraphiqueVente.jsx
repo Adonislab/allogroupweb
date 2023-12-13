@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Bar } from 'react-chartjs-2';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { firebaseConfig } from '../../../utils/firebaseConfig';
 import {
   Chart as ChartJS,
@@ -34,15 +34,17 @@ export default function GraphiqueVente() {
     onAuthStateChanged(auth, async (authUser) => {
       if (authUser) {
         setUser(authUser);
+        // Utilisez authUser.uid pour obtenir l'ID de l'utilisateur connecté
+        const userId = authUser.uid;
 
-        const marchandsRef = collection(db, "marchands");
-        const querySnapshot = await getDocs(marchandsRef);
-
+        const marchandsRef = doc(db, "marchands", userId);
+        const querySnapshot = await getDoc(marchandsRef);
+        const categorie = querySnapshot.data();
+        const categorieVente = categorie.livraison;
         const cuisineCount = {};
 
-        querySnapshot.forEach((doc) => {
-          const data = doc.data();
-          const cuisine = data.cuisine;
+        categorieVente.forEach((data) => {
+          const cuisine = data.categorie;
 
           if (cuisineCount[cuisine]) {
             cuisineCount[cuisine] += 1;

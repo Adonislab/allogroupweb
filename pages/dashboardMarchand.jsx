@@ -35,7 +35,7 @@ function DashboardMarchand() {
       renderCell: (item) => item.categorie,
     },
     { label: <span className="text-blue-500">Prix de vente</span>, renderCell: (item) =>  <span>{item.price} F</span>},
-    { label: <span className="text-blue-500">Images du produits</span>, renderCell: (item) => <Image src={item.image} width={100} height={100}  alt ="Souci de changement de l'image"/> },
+    { label: <span className="text-blue-500">Produits</span>, renderCell: (item) => <Image src={item.image} width={100} height={100}  alt ="Souci de changement de l'image"/> },
     { label: <span className="text-blue-500"></span>, renderCell: (item) => (
         <button className="text-white bg-purple-500 hover:text-white focus:outline-none" onClick={() => openModal(item)}>Modifiez</button>)
     },

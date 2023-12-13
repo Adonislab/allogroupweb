@@ -15,17 +15,17 @@ function VenteMarchand() {
 
   
   const COLUMNS = [
-    { label: <span className="text-blue-500">Produits</span>, renderCell: (item) => item.title },
+    { label: <span className="text-blue-500">Produits</span>, renderCell: (item) => item.titre },
     {
       label: <span className="text-blue-500">Catégorie</span>, 
       renderCell: (item) => item.categorie,
     },
-    { label: <span className="text-blue-500">Prix de vente</span>, renderCell: (item) => <span>{item.price} F</span> },
+    { label: <span className="text-blue-500">Prix de vente</span>, renderCell: (item) => <span>{item.prix} F</span> },
     { label: <span className="text-blue-500">Nbres de Vente</span>, renderCell: (item) => (
-        item.price)
+        item.quantite)
     },
     { label: <span className="text-blue-500">Votre Avoir</span>, renderCell: (item) => (
-        item.price )
+      <span>{item.prix * item.quantite} F </span>)
     },
     { label: <span className="text-blue-500">Détails</span>, renderCell: (item) => (
         <button className="bg-orange-500 text-white hover:text-white focus:outline-none" onClick={() => alert('Détails sur le produit')}>Voir Plus</button>)
@@ -52,7 +52,7 @@ function VenteMarchand() {
 
           if (userDocData) {
             // Utilisez userDocData pour afficher les produits du marchand
-            setProducts(userDocData.produits || []); // Supposons que les produits sont stockés dans un tableau nommé "products"
+            setProducts(userDocData.livraison || []); // Supposons que les produits sont stockés dans un tableau nommé "products"
           } else {
             // Aucun document marchand trouvé pour l'utilisateur
             setProducts([]);

@@ -15,17 +15,21 @@ function DashboardChampion() {
   
   
   const COLUMNS = [
-    { label: <span className="text-blue-500">Livrasion</span>, renderCell: (item) => item.title },
+    { label: <span className="text-blue-500">Quoi</span>, renderCell: (item) => item.title },
     {
-      label: <span className="text-blue-500">Lieu de départ</span>, 
-      renderCell: (item) => item.categorie,
+      label: <span className="text-blue-500">Départ</span>, 
+      renderCell: (item) => item.addressRecuperation,
     },
-    { label: <span className="text-blue-500">Lieu arrivée</span>, renderCell: (item) => item.price },
-    { label: <span className="text-blue-500">Statut</span>, renderCell: (item) => (
-        (item) => item.price )
+    { label: <span className="text-blue-500">Arrivée</span>, renderCell: (item) => item.addressLivraison },
+    { label: <span className="text-blue-500">Prix</span>, 
+       renderCell: (item) =>(
+        <span>
+          {item.prix} FCFA
+        </span>
+      ),
     },
     { label: <span className="text-blue-500">Détails</span>, renderCell: (item) => (
-        <button className="bg-blue-500 text-white hover:text-white focus:outline-none" onClick={() => handleDelete(item)}>Supprimez</button>)
+        <button className="bg-blue-500 text-white hover:text-white focus:outline-none">Plus</button>)
     },
   ];
 
@@ -39,22 +43,21 @@ function DashboardChampion() {
     onAuthStateChanged(auth, async (authUser) => {
       if (authUser) {
         setUser(authUser);
-
+        
         // Utilisez authUser.uid pour obtenir l'ID de l'utilisateur connecté
         const userId = authUser.uid;
-
+       
         // Utilisez l'ID de l'utilisateur pour chercher son document marchand
         const userDocRef = doc(db, "champions", userId);
         
         try {
           const userDocSnapshot = await getDoc(userDocRef);
           const userDocData = userDocSnapshot.data();
-          const userRole = userDocData.champion;
-          console.log(userRole);
+          
 
-          if (userDocData && userRole === "oui ") {
-            // Utilisez userDocData pour afficher les produits du marchand
-            setProducts(userDocData.service || []); // Supposons que les services sont stockés dans un tableau nommé "products"
+          if (userDocData) {
+            // Utilisez userDocData pour afficher les livraions  
+            setProducts(userDocData.livraisons); 
           } else {
             // Aucun document marchand trouvé pour l'utilisateur
             setProducts([]);
