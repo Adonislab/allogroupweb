@@ -1,11 +1,17 @@
 import Image from "next/image";
 import Logo from "../../../utils/Assets/Logo.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 function HeaderBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const router = useRouter();
+  const [formData, setFormData] = useState({
+    phoneNumber: "",
+    fullName: "",
+  });
 
   const handleMenuClick = () => {
     setMenuOpen(!menuOpen);
@@ -15,6 +21,37 @@ function HeaderBar() {
     router.push(href);
     setMenuOpen(false);
   };
+
+  useEffect(() => {
+    const auth = getAuth();
+    const fetchData = async (user) => {
+      if (user) {
+        const userId = user.uid;
+        try {
+          const docRef = doc(db, 'users', userId);
+          const docSnapshot = await getDoc(docRef);
+    
+          if (docSnapshot.exists()) {
+            const data = docSnapshot.data();
+            setFormData((prevData) => ({
+              ...prevData,
+              fullName: data.fullName,
+              phoneNumber: data.phoneNumber,
+            }));
+          } else {
+            console.log("Aucune donnée trouvée pour cet utilisateur.");
+          }
+        } catch (error) {
+          console.error('Erreur lors de la récupération des données depuis Firestore', error);
+        }
+      } else {
+        console.log("L'utilisateur n'est pas authentifié.");
+      }
+    };
+    
+    onAuthStateChanged(auth, fetchData);
+  }, []);
+
 
   return (
     <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
@@ -68,7 +105,7 @@ function HeaderBar() {
                 </li>
                 <li>
                   <button
-                    onClick={() => handleLinkClick("/settings")}
+                    onClick={() => handleLinkClick("/setting")}
                     className="block px-4 py-2 text-sm hover:bg-gray-100"
                   >
                     Settings
@@ -120,46 +157,6 @@ function HeaderBar() {
                     alt="user photo"
                   />
                 </button>
-              </div>
-              <div
-                className={`${
-                  menuOpen ? "block" : "hidden"
-                } z-50 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600`}
-                id="dropdown-user"
-              >
-                <div className="px-4 py-3" role="none">
-                  <p className="text-sm text-gray-900 dark:text-white" role="none">
-                    Neil Sims
-                  </p>
-                  <p
-                    className="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
-                    role="none"
-                  >
-                    neil.sims@flowbite.com
-                  </p>
-                </div>
-                <ul className="py-1" role="none">
-                  <li>
-                    <button className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">
-                      Dashboard
-                    </button>
-                  </li>
-                  <li>
-                    <button className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">
-                      Settings
-                    </button>
-                  </li>
-                  <li>
-                    <button className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">
-                      Earnings
-                    </button>
-                  </li>
-                  <li>
-                    <button className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">
-                      Sign out
-                    </button>
-                  </li>
-                </ul>
               </div>
             </div>
           </div>
