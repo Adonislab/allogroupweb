@@ -80,7 +80,6 @@ function VenteMarchand() {
       <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
         <p className="mt-4 text-2xl text-blue-500">Quelles sont les grandes tendances au sein de votre boutique Allô Group ?</p>
         <p className="text-2xl text-orange-500">Nombre d'articles en stock : {products.length}</p>
-        <p className="text-2xl text-orange-500">Nombre d'articles en vendu : {products.length}</p>
         <table className="w-full table-fixed">
           <thead>
             <tr>
