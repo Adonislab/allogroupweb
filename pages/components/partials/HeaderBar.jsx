@@ -251,7 +251,7 @@ function HeaderBar() {
                 if (roleItem) {
                   return roleItem.map((item, index) => (
                     <li key={index}>
-                      <Link href={item.url} className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-black hover-bg-gray-700 group ${router.asPath === item.url ? 'bg-orange-500' : ''}`}>
+                      <Link href={item.url} className={`flex items-center p-2 text-white rounded-lg dark:text-black hover-bg-gray-700 group ${router.asPath === item.url ? 'bg-orange-500' : ''}`}>
                         <i className={"bg-blue-900 p-1 px-2 rounded-md bi bi-" + item.icon}></i>
                         <span className="ml-3 font-semibold">{item.name}</span>
                       </Link>
@@ -264,7 +264,7 @@ function HeaderBar() {
             // Afficher la page "Accueil" si l'utilisateur n'a pas de rôle ou si aucun rôle avec `hasRole` à `true` n'a été trouvé
             defaultMenuItem.map((item, index) => (
               <li key={index}>
-                <Link href={item.url} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover-bg-gray-700 group">
+                <Link href={item.url} className="flex items-center p-2 text-white rounded-lg dark:text-black hover-bg-gray-700 group">
                   <i className={"bg-blue-900 p-1 px-2 rounded-md bi bi-" + item.icon}></i>
                   <span className="ml-3 font-semibold">{item.name}</span>
                 </Link>
