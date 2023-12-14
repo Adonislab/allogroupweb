@@ -3,13 +3,14 @@ import Head from "@/utils/head";
 import { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, getDoc, updateDoc } from 'firebase/firestore';
-import Link from 'next/link';
 import { firebaseConfig } from '../utils/firebaseConfig';
 import MarchandsChartMarchands from "./components/layout/MarchandsChartMarchands";
 import ModalMarchand from "./components/layout/ModalMarchand"; 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 function DashboardMarchand() {
   const [user, setUser] = useState(null);
@@ -29,18 +30,14 @@ function DashboardMarchand() {
   };
   
   const COLUMNS = [
-    { label: <span className="text-blue-500">Produits</span>, renderCell: (item) => item.title },
-    {
-      label: <span className="text-blue-500">Catégorie</span>, 
-      renderCell: (item) => item.categorie,
-    },
-    { label: <span className="text-blue-500">Prix de vente</span>, renderCell: (item) =>  <span>{item.price} F</span>},
-    { label: <span className="text-blue-500">Produits</span>, renderCell: (item) => <Image src={item.image} width={100} height={100}  alt ="Souci de changement de l'image"/> },
+    { label: <span className="text-blue-500">Identifiant</span>, renderCell: (item) => item.title },
+    { label: <span className="text-blue-500">Prix</span>, renderCell: (item) =>  <span>{item.price} F</span>},
+    { label: <span className="text-blue-500">Produit</span>, renderCell: (item) => <Image src={item.image} width={100} height={100}  alt ="Souci de changement de l'image"/> },
     { label: <span className="text-blue-500"></span>, renderCell: (item) => (
-        <button className="text-white bg-purple-500 hover:text-white focus:outline-none" onClick={() => openModal(item)}>Modifiez</button>)
+        <button className="text-white bg-purple-500 hover:text-white focus:outline-none" onClick={() => openModal(item)}> <FontAwesomeIcon icon={faEdit} /></button>)
     },
     { label: <span className="text-blue-500"></span>, renderCell: (item) => (
-        <button className="bg-red-500 text-white hover:text-white focus:outline-none" onClick={() => handleDelete(item)}>Supprimez</button>)
+        <button className="bg-red-500 text-white hover:text-white focus:outline-none" onClick={() => handleDelete(item)}><FontAwesomeIcon icon={faTrashAlt} /></button>)
     },
   ];
 

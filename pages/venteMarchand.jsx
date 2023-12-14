@@ -3,7 +3,6 @@ import Head from "@/utils/head";
 import { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, getDoc, deleteDoc, updateDoc } from 'firebase/firestore';
-import Link from 'next/link';
 import { firebaseConfig } from '../utils/firebaseConfig';
 import GraphiqueVente from './components/layout/GraphiqueVente';
 
@@ -15,16 +14,12 @@ function VenteMarchand() {
 
   
   const COLUMNS = [
-    { label: <span className="text-blue-500">Produits</span>, renderCell: (item) => item.titre },
-    {
-      label: <span className="text-blue-500">Catégorie</span>, 
-      renderCell: (item) => item.categorie,
-    },
-    { label: <span className="text-blue-500">Prix de vente</span>, renderCell: (item) => <span>{item.prix} F</span> },
-    { label: <span className="text-blue-500">Nbres de Vente</span>, renderCell: (item) => (
+    { label: <span className="text-blue-500">Produit</span>, renderCell: (item) => item.titre },
+    { label: <span className="text-blue-500">Prix</span>, renderCell: (item) => <span>{item.prix} F</span> },
+    { label: <span className="text-blue-500">Qte</span>, renderCell: (item) => (
         item.quantite)
     },
-    { label: <span className="text-blue-500">Votre Avoir</span>, renderCell: (item) => (
+    { label: <span className="text-blue-500">Avoir</span>, renderCell: (item) => (
       <span>{item.prix * item.quantite} F </span>)
     },
     { label: <span className="text-blue-500">Détails</span>, renderCell: (item) => (
