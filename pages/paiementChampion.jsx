@@ -64,10 +64,10 @@ function paiementChampion() {
   return (
     <DashLayout>
     <Head/>
-    <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
+    <div className="bg-indigo-700 p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
       <form onSubmit={handleSubmit} className='my-10'>
           <div className='my-5'>
-          <p> Votre numéro </p>
+          <p className="text-white"> Votre numéro </p>
           <input
               type='text'
               label="Votre numéro"
@@ -80,7 +80,7 @@ function paiementChampion() {
             />
           </div>
           <div className='my-5'>
-          <p> Votre solde actuel</p>
+          <p className="text-white"> Votre solde actuel</p>
 
             <input
               type='text'
@@ -90,10 +90,10 @@ function paiementChampion() {
               value={formData.wallet}
               onChange={handleInputChange}
               className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-1"
-            />
-          </div>
+            />  <span className="text-white">FCFA</span>
+          </div> 
           
-          <input type="submit" value="Paie du service" className='montserrat-medium py-3 w-full bg-orange text-lg cursor-pointer' />
+          <input type="submit" value="Paiement d'un service" className='bg-white montserrat-medium py-3 w-full bg-orange text-lg cursor-pointer text-orange-500' />
           
       </form>
     </div>

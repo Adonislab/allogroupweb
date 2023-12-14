@@ -238,7 +238,7 @@ function HeaderBar() {
   ];
 
   return (
-    <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-indigo-700 dark:border-indigo-700">
+    <nav className="fixed top-0 z-50 w-full border-b border-gray-200 dark:bg-indigo-700 dark:border-indigo-700">
       <div className="px-3 py-3 lg:px-5 lg:pl-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center justify-start">
@@ -277,7 +277,7 @@ function HeaderBar() {
                 if (roleItem) {
                   return roleItem.map((item, index) => (
                     <li key={index}>
-                      <Link href={item.url} className={`flex items-center p-2 text-white rounded-lg dark:text-black hover-bg-gray-700 group ${router.asPath === item.url ? 'bg-orange-500' : ''}`}>
+                      <Link href={item.url} className={`flex items-center p-2 text-white rounded-lg dark:text-blue-500 hover-bg-gray-700 group ${router.asPath === item.url ? 'bg-orange-500' : ''}`}>
                         <i className={"bg-blue-900 p-1 px-2 rounded-md bi bi-" + item.icon}></i>
                         <span className="ml-3 font-semibold">{item.name}</span>
                       </Link>
@@ -303,7 +303,7 @@ function HeaderBar() {
               src={Logo}
               className="h-8 mr-3"
               width={50}
-              height={300}
+              height={50}
               alt="FlowBite Logo"
             />
             <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
