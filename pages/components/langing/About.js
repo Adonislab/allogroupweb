@@ -8,15 +8,17 @@ const About = () => {
       <div className="about-section-text-container text-white p-8">
         <p className="text-2xl font-bold text-orange-500">ALLÔ GROUP</p>
         <h1 className="text-4xl font-bold mt-4 text-blue-500">
-          Etre leader dans le service d'intermédiation au Bénin.
+        Votre Solution de Livraison de Confiance au Bénin ! 
         </h1>
         <p className="text-xl mt-4 text-black">
-          Lorem ipsum dolor sit amet consectetur. Non tincidunt magna non et
-          elit. Dolor turpis molestie dui magnis facilisis at fringilla quam.
+        Nous sommes déterminés à rendre chaque livraison aussi fluide que possible.
+         Que vous soyez un particulier ou une entreprise, Allô Group est là pour répondre 
+         à vos besoins logistiques avec un service client exceptionnel et une équipe dévouée.
         </p>
         <p className="text-xl mt-4 text-black">
-          Non tincidunt magna non et elit. Dolor turpis molestie dui magnis
-          facilisis at fringilla quam.
+        Confiez vos envois à Allô Group, et découvrez la tranquillité d'esprit que procure une 
+        livraison sans tracas au Bénin. Contactez-nous dès aujourd'hui pour bénéficier de nos services
+         de classe mondiale!
         </p>
         <div className="mt-8">
           <button className="bg-blue-600 text-white py-2 px-6 rounded-lg text-base mr-4">Plus</button>

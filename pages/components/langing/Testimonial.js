@@ -10,10 +10,10 @@ const Testimonial = () => {
         <div className="mb-8">
           <p className="text-gray-600">Avis des clients</p>
           <h1 className="text-3xl font-semibold text-orange-500">What They Are Saying</h1>
-          <p className="mt-4 text-gray-700">
+          {/* <p className="mt-4 text-gray-700">
             Lorem ipsum dolor sit amet consectetur. Non tincidunt magna non et
             elit. Dolor turpis molestie dui magnis facilisis at fringilla quam.
-          </p>
+          </p> */}
         </div>
         <div className="flex flex-col items-center">
           <Image
@@ -24,8 +24,9 @@ const Testimonial = () => {
               className="w-20 h-20 rounded-full"
           />
           <p className="text-gray-700 mt-4">
-            Lorem ipsum dolor sit amet consectetur. Non tincidunt magna non et
-            elit. Dolor turpis molestie dui magnis facilisis at fringilla quam.
+          Le service de livraison d'Allô Group a transformé notre expérience d'achat en ligne. 
+          Les colis arrivent toujours à temps, en parfait état, et le suivi en temps réel apporte une
+           tranquillité d'esprit inestimable
           </p>
           <div className="flex items-center mt-4">
             <AiFillStar className="text-yellow-500" />
