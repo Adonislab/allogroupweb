@@ -180,7 +180,7 @@ const Navbar = () => {
             key={index}
             onClick={item.onClick ? item.onClick : () => scrollToSection(item.anchor)}
             // className={`text-gray-700 hover:text-orange-600 cursor-pointer ${item.className ? item.className : ""}`}
-            className={`text-gray-700  cursor-pointer ${item.className ? item.className : ""}`}
+            className={`text-gray-700 cursor-pointer ${item.className ? item.className : ""}`}
           >
             {item.text}
             <span className="ml-2">{item.icon}</span>

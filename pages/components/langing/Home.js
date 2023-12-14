@@ -2,7 +2,8 @@ import React from "react";
 import Navbar from "./Navbar";
 import { FiArrowRight } from "react-icons/fi";
 import BannerBackground from "../../../utils/Assets/home-banner-background.png";
-import BannerImage from "../../../utils/Assets/home-banner-image.jpeg";
+import BannerImage from "../../../utils/Assets/newimg.jpeg";
+// import BannerImage from "../../../utils/Assets/home-banner-image.jpeg";
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -54,3 +55,39 @@ const Home = () => {
 };
 
 export default Home;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
