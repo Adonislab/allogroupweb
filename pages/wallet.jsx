@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import {  doc, getDoc,getFirestore } from 'firebase/firestore';
 
+
 function wallet() {
   const db = getFirestore(firebaseConfig);
   const auth = getAuth();
