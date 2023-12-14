@@ -19,7 +19,7 @@ const Footer = () => {
               alt="Logo"
             /> 
           </div>
-          <div className="footer-icons mt-2">
+          <div className="footer-icons mt-2 grid grid-cols-1 md:grid-cols-4">
             <BsTwitter className="mr-2" />
             <SiLinkedin className="mr-2" />
             <BsYoutube className="mr-2" />
@@ -28,22 +28,23 @@ const Footer = () => {
         </div>
         <div className="footer-section-two text-center md:text-left">
           <div className="footer-section-columns mb-4 md:mb-0">
-            <span className="block md:inline-block mr-4">A propos</span>
+            {/* <span className="block md:inline-block mr-4">A propos</span>
             <span className="block md:inline-block mr-4">Aide</span>
             <span className="block md:inline-block mr-4">Gestion</span>
             <span className="block md:inline-block mr-4">Partenariats</span>
             <span className="block md:inline-block mr-4">Clients</span>
-            <span className="block md:inline-block mr-4">Boutique</span>
+            <span className="block md:inline-block mr-4">Boutique</span> */}
+            Allô Group - Votre partenaire de confiance pour toutes vos livraisons au Bénin!
           </div>
           <div className="footer-section-columns mb-4 md:mb-0">
-            <span className="block md:inline-block mr-4">244-5333-7783</span>
+            {/* <span className="block md:inline-block mr-4">244-5333-7783</span>
             <span className="block md:inline-block mr-4">hello@food.com</span>
             <span className="block md:inline-block mr-4">press@food.com</span>
-            <span className="block md:inline-block mr-4">contact@food.com</span>
+            <span className="block md:inline-block mr-4">contact@food.com</span> */}
           </div>
           <div className="footer-section-columns">
-            <span className="block md:inline-block mr-4">Guide d'utulisation</span>
-            <span className="block md:inline-block">Politique de confidentialité</span>
+            {/* <span className="block md:inline-block mr-4">Guide d'utulisation</span>
+            <span className="block md:inline-block">Politique de confidentialité</span> */}
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ const Testimonial = () => {
       <div className="container mx-auto text-center">
         <div className="mb-8">
           <p className="text-gray-600">Avis des clients</p>
-          <h1 className="text-3xl font-semibold text-orange-500">What They Are Saying</h1>
+          <h1 className="text-3xl font-semibold text-orange-500">Que disent nos clients ?</h1>
           {/* <p className="mt-4 text-gray-700">
             Lorem ipsum dolor sit amet consectetur. Non tincidunt magna non et
             elit. Dolor turpis molestie dui magnis facilisis at fringilla quam.
