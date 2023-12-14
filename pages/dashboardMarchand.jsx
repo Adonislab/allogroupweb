@@ -30,7 +30,7 @@ function DashboardMarchand() {
   };
   
   const COLUMNS = [
-    { label: <span className="text-blue-500">Identifiant</span>, renderCell: (item) => item.title },
+    { label: <span className="text-blue-500">ID</span>, renderCell: (item) => item.title },
     { label: <span className="text-blue-500">Prix</span>, renderCell: (item) =>  <span>{item.price} F</span>},
     { label: <span className="text-blue-500">Produit</span>, renderCell: (item) => <Image src={item.image} width={100} height={100}  alt ="Souci de changement de l'image"/> },
     { label: <span className="text-blue-500"></span>, renderCell: (item) => (

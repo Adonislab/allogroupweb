@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, getDoc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { firebaseConfig } from '../utils/firebaseConfig';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle  } from '@fortawesome/free-solid-svg-icons';
 import GraphiqueVente from './components/layout/GraphiqueVente';
 
 function VenteMarchand() {
@@ -14,7 +16,7 @@ function VenteMarchand() {
 
   
   const COLUMNS = [
-    { label: <span className="text-blue-500">Produit</span>, renderCell: (item) => item.titre },
+    { label: <span className="text-blue-500">ID</span>, renderCell: (item) => item.titre },
     { label: <span className="text-blue-500">Prix</span>, renderCell: (item) => <span>{item.prix} F</span> },
     { label: <span className="text-blue-500">Qte</span>, renderCell: (item) => (
         item.quantite)
@@ -22,8 +24,8 @@ function VenteMarchand() {
     { label: <span className="text-blue-500">Avoir</span>, renderCell: (item) => (
       <span>{item.prix * item.quantite} F </span>)
     },
-    { label: <span className="text-blue-500">Détails</span>, renderCell: (item) => (
-        <button className="bg-orange-500 text-white hover:text-white focus:outline-none" onClick={() => alert('Détails sur le produit')}>Voir Plus</button>)
+    { label: <span className="text-blue-500">Plus</span>, renderCell: (item) => (
+        <button className="bg-orange-500 text-white hover:text-white focus:outline-none" onClick={() => alert('Détails sur le produit')}><FontAwesomeIcon icon={faInfoCircle } /></button>)
     },
   ];
 
