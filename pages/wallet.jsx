@@ -1,8 +1,8 @@
 import DashLayout from "./components/layout/dashboardLayout";
 import Head from "@/utils/head";
 // import { getFirestore, collection, getDocs } from "firebase/firestore";
-import { firebaseConfig } from '../utils/firebaseConfig';
 import React, { useState, useEffect } from 'react';
+import { firebaseConfig } from '../utils/firebaseConfig';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import {  doc, getDoc,getFirestore } from 'firebase/firestore';
 

@@ -57,29 +57,6 @@ function paiementChampion() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    try {
-      const response = await fetch('https://cdn.fedapay.com/checkout.js?v=1.1.7', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-      
-      if (response.ok) {
-        // Extrayez les données JSON de la réponse
-        const data = await response.json();
-        console.log(data);
-        
-      } else {
-        // Gérez les erreurs ici, par exemple, affichez un message d'erreur à l'utilisateur
-        console.log("ok");
-        console.log("erreur");
-        setErrorMessage("Email ou mot de passe incorrect.");
-      }
-    } catch (error) {
-      console.error('Erreur lors de la soumission du formulaire', error);
-    }
   };
 
 
