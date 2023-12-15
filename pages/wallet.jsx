@@ -53,9 +53,6 @@ function wallet() {
     <DashLayout>
       <Head />
       <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
-        wallet
-      </div>
-      <div className="border rounded-md p-4">
         <div className="space-y-1">
           <h2 className="text-2xl">Votre portefeuille</h2>
           {/* <p>Vos informations</p> */}

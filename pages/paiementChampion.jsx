@@ -24,18 +24,51 @@ function paiementChampion() {
   });
  
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    open(formData.credit);
+  };
+  
   function successHandler(response) {
-    toast.success(`Vous avez crédité votre compte`); 
-      setTimeout(() => {
+    const userId = auth.currentUser.uid;
+    const docRef = doc(db, 'users', userId); 
+    const creditActuel = formData.credit;
+    console.log(creditActuel);
+    getDoc(docRef)
+      .then((docSnapshot) => {
+        if (docSnapshot.exists()) {
+          const currentWallet = docSnapshot.data().wallet || 0;
+          const updatedWallet = parseInt(currentWallet, 10) + parseInt(creditActuel, 10);
+          console.log(updatedWallet);
+  
+          return setDoc(
+            docRef,
+            {
+              wallet: updatedWallet,
+            },
+            { merge: true }
+          );
+        } else {
+          console.log("Aucune donnée trouvée pour cet utilisateur.");
+          throw new Error("Aucune donnée trouvée pour cet utilisateur.");
+        }
+      })
+      .then(() => {
+        // La mise à jour du compte utilisateur après le succès du paiement
+        toast.success(`Paiement réussi de ${creditActuel} F`);
+        setTimeout(() => {
           Router.push("/wallet");
-    },5000);
-  }
+        }, 5000);
+      })
+      .catch((error) => {
+        console.error('Erreur lors de la mise à jour du compte utilisateur', error);
+        toast.error('Erreur lors de la mise à jour de votre compte');
+      });
+  };
   
   function failureHandler(error) {
-    console.log('Echec');
     console.log(error);
-    toast.error("Votre paiement au service est un échec");
-  }
+  };
   
    
   useEffect(() => {
@@ -94,40 +127,7 @@ function paiementChampion() {
     });
     
   }
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    open(formData.credit);
-    const userId = auth.currentUser.uid;
-    const docRef = doc(db, 'users', userId);
-    const credit = formData.credit;
-    console.log(credit);
-    getDoc(docRef)
-      .then((docSnapshot) => {
-        if (docSnapshot.exists()) {
-          const currentWallet = docSnapshot.data().wallet || 0;
-          const updatedWallet = parseInt(currentWallet, 10) + parseInt(credit, 10);
-          console.log(updatedWallet);
-  
-          return setDoc(
-            docRef,
-            {
-              wallet: updatedWallet,
-            },
-            { merge: true }
-          );
-        } else {
-          console.log("Aucune donnée trouvée pour cet utilisateur.");
-          throw new Error("Aucune donnée trouvée pour cet utilisateur.");
-        }
-      })
-      .then(() => {
-  
-      })
-      .catch((error) => {
-        console.error('Erreur lors de la mise à jour du compte utilisateur', error);
-      });
-  };
-
+ 
   return (
     <DashLayout>
     <Head/>
