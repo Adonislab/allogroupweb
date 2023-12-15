@@ -25,42 +25,11 @@ function paiementChampion() {
  
 
   function successHandler(response) {
-    const userId = auth.currentUser.uid;
-    const docRef = doc(db, 'users', userId);
-    const credit = formData.credit;
-    console.log(credit);
-    getDoc(docRef)
-      .then((docSnapshot) => {
-        if (docSnapshot.exists()) {
-          const currentWallet = docSnapshot.data().wallet || 0;
-          const updatedWallet = parseInt(currentWallet, 10) + parseInt(credit, 10);
-          console.log(updatedWallet);
-  
-          return setDoc(
-            docRef,
-            {
-              wallet: updatedWallet,
-            },
-            { merge: true }
-          );
-        } else {
-          console.log("Aucune donnée trouvée pour cet utilisateur.");
-          throw new Error("Aucune donnée trouvée pour cet utilisateur.");
-        }
-      })
-      .then(() => {
-        toast.success(`Vous avez crédité votre compte de ${credit} F`); 
-        setTimeout(() => {
+    toast.success(`Vous avez crédité votre compte`); 
+      setTimeout(() => {
           Router.push("/wallet");
-        }, 5000);
-      })
-      .catch((error) => {
-        console.error('Erreur lors de la mise à jour du compte utilisateur', error);
-        toast.error('Erreur lors de la mise à jour de votre compte');
-      });
+    },5000);
   }
-  
-  
   
   function failureHandler(error) {
     console.log('Echec');
@@ -128,6 +97,35 @@ function paiementChampion() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     open(formData.credit);
+    const userId = auth.currentUser.uid;
+    const docRef = doc(db, 'users', userId);
+    const credit = formData.credit;
+    console.log(credit);
+    getDoc(docRef)
+      .then((docSnapshot) => {
+        if (docSnapshot.exists()) {
+          const currentWallet = docSnapshot.data().wallet || 0;
+          const updatedWallet = parseInt(currentWallet, 10) + parseInt(credit, 10);
+          console.log(updatedWallet);
+  
+          return setDoc(
+            docRef,
+            {
+              wallet: updatedWallet,
+            },
+            { merge: true }
+          );
+        } else {
+          console.log("Aucune donnée trouvée pour cet utilisateur.");
+          throw new Error("Aucune donnée trouvée pour cet utilisateur.");
+        }
+      })
+      .then(() => {
+  
+      })
+      .catch((error) => {
+        console.error('Erreur lors de la mise à jour du compte utilisateur', error);
+      });
   };
 
   return (
