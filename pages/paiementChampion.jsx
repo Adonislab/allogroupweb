@@ -14,7 +14,7 @@ function paiementChampion() {
   const { openKkiapayWidget, 
           addKkiapayListener,
           removeKkiapayListener 
-        } = useKKiaPay();
+        } = useKKiaPay();      
   const db = getFirestore(firebaseConfig);
   const auth = getAuth();
   const [formData, setFormData] = useState({
@@ -26,14 +26,11 @@ function paiementChampion() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    open(formData.credit);
-  };
-  
-  function successHandler(response) {
+    open(formData.credit);  
     const userId = auth.currentUser.uid;
     const docRef = doc(db, 'users', userId); 
     const creditActuel = formData.credit;
-    console.log(creditActuel);
+    console.log('La valeur de solde ' + creditActuel);
     getDoc(docRef)
       .then((docSnapshot) => {
         if (docSnapshot.exists()) {
@@ -55,19 +52,28 @@ function paiementChampion() {
       })
       .then(() => {
         // La mise à jour du compte utilisateur après le succès du paiement
-        toast.success(`Paiement réussi de ${creditActuel} F`);
-        setTimeout(() => {
-          Router.push("/wallet");
-        }, 5000);
+        
       })
       .catch((error) => {
         console.error('Erreur lors de la mise à jour du compte utilisateur', error);
         toast.error('Erreur lors de la mise à jour de votre compte');
       });
   };
+    
+  function successHandler(response) {
+    console.log(response);
+    toast.success(`Paiement réussi`);
+        setTimeout(() => {
+          Router.push("/wallet");
+        }, 5000);
+  };
   
   function failureHandler(error) {
     console.log(error);
+    toast.success(`Echec du paiement`);
+        setTimeout(() => {
+          Router.push("/wallet");
+        }, 5000);
   };
   
    
