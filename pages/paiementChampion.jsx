@@ -20,35 +20,47 @@ function paiementChampion() {
   const [formData, setFormData] = useState({
     phoneNumber: "",
     wallet:"",
-    credit:"",
+    credit:0,
   });
  
-  
-   function successHandler(response) {
-    console.log("reussite");
-    console.log(response);
-    const { credit } = formData;
+
+  function successHandler(response) {
     const userId = auth.currentUser.uid;
     const docRef = doc(db, 'users', userId);
-    const actuel = docRef['wallet'] + credit;
-    setDoc(
-      docRef,
-      {
-        wallet: actuel,
-      },
-      { merge: true }
-    )
+    const credit = formData.credit;
+    console.log(credit);
+    getDoc(docRef)
+      .then((docSnapshot) => {
+        if (docSnapshot.exists()) {
+          const currentWallet = docSnapshot.data().wallet || 0;
+          const updatedWallet = parseInt(currentWallet, 10) + parseInt(credit, 10);
+          console.log(updatedWallet);
+  
+          return setDoc(
+            docRef,
+            {
+              wallet: updatedWallet,
+            },
+            { merge: true }
+          );
+        } else {
+          console.log("Aucune donnée trouvée pour cet utilisateur.");
+          throw new Error("Aucune donnée trouvée pour cet utilisateur.");
+        }
+      })
       .then(() => {
-        toast.success(`Vous avez crédité votre compte de ${credit} F`);
+        toast.success(`Vous avez crédité votre compte de ${credit} F`); 
         setTimeout(() => {
           Router.push("/wallet");
-        }, 2000);
+        }, 5000);
       })
       .catch((error) => {
         console.error('Erreur lors de la mise à jour du compte utilisateur', error);
-        toast.error('Erreur lors de la mise à jour du compte utilisateur');
+        toast.error('Erreur lors de la mise à jour de votre compte');
       });
-  };
+  }
+  
+  
   
   function failureHandler(error) {
     console.log('Echec');
@@ -111,6 +123,7 @@ function paiementChampion() {
       email: "randomgail@gmail.com",
       phone: "97000000",
     });
+    
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -151,6 +164,7 @@ function paiementChampion() {
 
             <input
               type='number'
+              min="5"
               label="Montant"
               name="credit"
               required={true}
