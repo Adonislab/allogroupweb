@@ -150,7 +150,7 @@ function paiementChampion() {
           <p className="text-white"> Votre paiement </p>
 
             <input
-              type='text'
+              type='number'
               label="Montant"
               name="credit"
               required={true}
