@@ -59,6 +59,11 @@ export default function Sidebar() {
         icon: 'speedometer2',
       },
       {
+        name: 'Gestion portefeuille champion',
+        url: '/gestionPaiementChampion',
+        icon: 'speedometer2',
+      },
+      {
         name: "Liste des marchands",
         url: "/listeMarchand",
         icon: "question-diamond-fill"

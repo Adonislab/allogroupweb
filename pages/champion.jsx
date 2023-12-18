@@ -23,6 +23,7 @@ export default function Champion() {
     champion: "",
     avatar: "",
     adresse:"",
+
   });
   const country = 'bj';
   const fileInputRef = useRef(null);
@@ -102,6 +103,7 @@ export default function Champion() {
           adresse:adresse,
           commandes:[],
           fcmToken:fcmToken,
+          wallet: userData["wallet"],
         }, { merge: true });
         await setDoc(docRefusers, {
           champion:true,

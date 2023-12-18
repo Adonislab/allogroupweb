@@ -115,6 +115,8 @@ export default function Marchand() {
           produits:[],
           fcmToken:fcmToken,
           password:password,
+          wallet: userData["wallet"],
+
         }, { merge: true });
         await setDoc(docRefusers, {
           marchand:true,
