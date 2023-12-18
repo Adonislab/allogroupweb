@@ -109,6 +109,16 @@ export default function Sidebar() {
         url: "/users",
         icon: "question-diamond-fill"
       },
+      {
+        name: 'Paiement Marchant',
+        url: '/paiementMarchand',
+        icon: 'question-diamond-fill',
+      },
+      {
+      name: 'Paiement Champion',
+      url: '/paiementChampion',
+      icon: 'question-diamond-fill',
+    },
     ],
     [ROLES.DECIDEUR]: [
       {
@@ -175,11 +185,11 @@ export default function Sidebar() {
         url: '/politique',
         icon: 'question-diamond-fill',
       },
-      {
-        name: 'Paiement',
-        url: '/paiementMarchand',
-        icon: 'question-diamond-fill',
-      },
+      // {
+      //   name: 'Paiement',
+      //   url: '/paiementMarchand',
+      //   icon: 'question-diamond-fill',
+      // },
     ],
     [ROLES.CHAMPION]: [
       {
@@ -202,11 +212,11 @@ export default function Sidebar() {
       url: '/politique',
       icon: 'question-diamond-fill',
     },
-    {
-      name: 'Paiement',
-      url: '/paiementChampion',
-      icon: 'question-diamond-fill',
-    },
+    // {
+    //   name: 'Paiement',
+    //   url: '/paiementChampion',
+    //   icon: 'question-diamond-fill',
+    // },
     ]
   };
 

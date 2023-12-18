@@ -81,69 +81,103 @@ export default function Gestion_Portefeuille_Champion() {
     }, []);
 
 
+ 
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
     const updateProduct = async (updatedProduct) => {
         console.log("updatedProduct:", updatedProduct);
         const auth = getAuth();
         const db = getFirestore(firebaseConfig);
+    
         if (auth.currentUser) {
             const userId = auth.currentUser.uid;
             console.log(updatedProduct.id);
+    
             try {
-                // Accédez au document du marchand
-                const merchantDocRef = doc(db, "champions", userId);
-                const merchantDocSnapshot = await getDoc(merchantDocRef);
-                const merchantData = merchantDocSnapshot.data();
-
-                if (merchantData) {
-                    // Accédez à la sous-collection de produits
-                    const products = merchantData.produits || [];
-
-                    // Recherchez le produit à mettre à jour par son ID
-                    const productIndex = products.findIndex(product => product.id === updatedProduct.id);
-
-                    if (productIndex !== -1) {
-                        // Mettez à jour le produit dans la liste
-                        products[productIndex] = updatedProduct;
-
-                        // Mettez à jour la sous-collection de produits dans le document du marchand
-                        await updateDoc(merchantDocRef, { produits: products });
-
-                        console.log("Le produit a été mis à jour avec succès.");
-                        // Réactualisez les données après la modification.
-                        products(products);
-
-                        // Fermez le modal de modification ici
-                        setSelectedProduct(null);
-
-                        toast.success('Modification réussie !', {
-                            position: 'top-right',
-                            autoClose: 3000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                        });
+                // Accédez à la collection "champions"
+                const championsRef = collection(db, "champions");
+    
+                // Récupérez tous les documents de la collection "champions"
+                const championsSnapshot = await getDocs(championsRef);
+    
+                // Créez un tableau pour stocker les données des champions
+                const championsData = [];
+    
+                // Parcourez chaque document
+                championsSnapshot.forEach((doc) => {
+                    championsData.push(doc.data());
+                });
+    
+                console.log("--------------championsData: ", championsData);
+    
+                // Mettez à jour le tableau avec les données du champion modifié
+                const updatedChampionsData = championsData.map((champion) => {
+                    if (champion.id === updatedProduct.id) {
+                        return { ...champion, wallet: updatedProduct.wallet };
                     } else {
-                        console.error("Produit introuvable dans la liste du marchand.");
-                        toast.error("Produit introuvable dans la liste du marchand.", {
-                            position: 'top-right',
-                            autoClose: 3000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                        });
+                        return champion;
                     }
+                });
+    
+                // Mettez à jour la collection "champions" avec les données modifiées
+                await Promise.all(updatedChampionsData.map(async (champion) => {
+                    const championDocRef = doc(championsRef, champion.id);
+                    await updateDoc(championDocRef, { wallet: champion.wallet });
+                }));
+    
+                console.log("Le produit a été mis à jour avec succès dans la collection champions.");
+    
+                // Accédez à la collection "users"
+                const usersRef = collection(db, "users");
+    
+                // Récupérez tous les documents de la collection "users"
+                const usersSnapshot = await getDocs(usersRef);
+    
+                // Recherchez l'index du document correspondant à updatedProduct.id
+                const userIndex = usersSnapshot.docs.findIndex((user) => user.id === updatedProduct.id);
+    
+                if (userIndex !== -1) {
+                    // Mettez à jour le document de l'utilisateur avec le nouveau portefeuille
+                    const userDocRef = doc(usersRef, usersSnapshot.docs[userIndex].id);
+                    await updateDoc(userDocRef, { wallet: updatedProduct.wallet });
+    
+                    console.log("Le portefeuille de l'utilisateur a été mis à jour avec succès dans la collection users.");
                 } else {
-                    console.error("Document du marchand introuvable.");
-                    toast.error("Document du marchand introuvable.", {
-                        position: 'top-right',
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                    });
+                    console.error("Utilisateur introuvable dans la collection users.");
                 }
+    
+                // Réactualisez les données après la modification.
+                setUserData(updatedChampionsData);
+
+                // Fermez le modal de modification ici
+                toast.success('Modification réussie !', {
+                    position: 'top-right',
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                });
+                setSelectedProduct(null);
+    
+    
             } catch (error) {
-                console.error("Erreur lors de la mise à jour du produit", error);
+                console.error("Erreur lors de la mise à jour du produit ou du portefeuille de l'utilisateur", error);
                 toast.error('Échec de la modification. Veuillez réessayer.', {
                     position: 'top-right',
                     autoClose: 3000,
@@ -154,6 +188,11 @@ export default function Gestion_Portefeuille_Champion() {
             }
         }
     };
+    
+    
+
+
+    
 
 
 
@@ -195,6 +234,7 @@ export default function Gestion_Portefeuille_Champion() {
                     ))}
                 </tbody>
             </table>
+
         </DashLayout>
     )
 }
