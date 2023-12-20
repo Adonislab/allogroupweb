@@ -3,9 +3,9 @@ import Link from 'next/link';
 import React, { useState, useEffect, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-phone-input-2/lib/style.css';
 import Image from 'next/image';
 import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { firebaseConfig } from '../utils/firebaseConfig';
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
@@ -155,6 +155,7 @@ export default function Champion() {
 
           <div className='text-left'>
             <label htmlFor="phone" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">Complétez votre numéro de téléphone</label>
+            
             <PhoneInput
               country={country}
               value={formData.phoneNumber}

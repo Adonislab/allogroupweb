@@ -228,8 +228,8 @@ export default function Sidebar() {
       icon: 'question-diamond-fill',
     },
     {
-      name: 'Partenariat',
-      url: '/setting',
+      name: 'Demande de partenariat',
+      url: '/demandePartenariat',
       icon: 'question-diamond-fill',
     },
   ];
