@@ -24,7 +24,7 @@ export default function Setting() {
         details: "",
         email: "",
         categorie: "",
-        id:""
+        id:"",
 
     });
 
@@ -120,7 +120,8 @@ export default function Setting() {
                         categorie: categorie,
                         details: details,
                         email: email,
-                        id:id
+                        id:id,
+                        approuve : false
                     }),
                 });
             }

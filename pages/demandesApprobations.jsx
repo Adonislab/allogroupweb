@@ -18,7 +18,8 @@ export default function DemandesApprobations() {
         email: "",
         categorie: "",
         idCard: "",
-        id:""
+        id:"",
+        approuve: ""
 
     });
     const [user, setUser] = useState(null);
@@ -43,13 +44,23 @@ export default function DemandesApprobations() {
             label: <span className="text-blue-500">Email</span>,
             renderCell: (item) => item.email,
         },
-        { label: <span className="text-blue-500">Téléphone</span>, renderCell: (item) => item.phoneNumber },
+        { label: <span className="text-blue-500">Téléphone</span>, renderCell: (item) => item.phoneNumber, },
         
         {
-            label: <span className="text-blue-500"></span>, renderCell: (item) => (
+            label: <span className="text-blue-500">Statut</span>,
+            renderCell: (item) => {
+                if(item.approuve == false){
+                    return "Décliné"
+                } else{ return "Approuvé"}
+            },
+        },
+        {
+            label: <span className="text-blue-500">Approuver</span>, renderCell: (item) => (
                 <button className="text-white bg-blue-500 hover:text-white focus:outline-none" onClick={() => openModal(item)}> <FontAwesomeIcon icon={faEye} /></button>)
         },
+        
     ];
+    
 
     
 
@@ -77,13 +88,15 @@ export default function DemandesApprobations() {
                             details: examen.details,
                             categorie: examen.categorie,
                             idCard : examen.idCard,
-                            id: examen.id
+                            id: examen.id,
+                            approuve : examen.approuve
                             // Add other fields as needed
+
                         });
+                        console.log("***********************",userDataArray[0]["approuve"]);
                     });
 
                     setUserData(userDataArray);
-                    console.log(userDataArray);
                     setLoading(false);
                 } catch (error) {
                     console.error("Error fetching data:", error);
