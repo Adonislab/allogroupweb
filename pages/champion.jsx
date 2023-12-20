@@ -81,17 +81,20 @@ export default function Champion() {
     e.preventDefault();
   
     try {
-      if (formData.selectedFile) {
+
+      const userId = auth.currentUser.uid;
+      const docRef = doc(db, 'champions', userId);
+      const docRefusers = doc(db, 'users', userId);
+      const docSnapshotUsers = await getDoc(docRefusers);
+      const userData = docSnapshotUsers.data();
+      const fcmToken = userData.fcmToken || "";
+
+      if (formData.selectedFile && userData.approuve === true) {
         const newImageURL = await uploadImageToFirebase(formData.selectedFile);
   
         // Mettre à jour le champ avatar dans Firebase Firestore avec l'URL de l'image
         const { fullName, phoneNumber, champion, adresse } = formData;
-        const userId = auth.currentUser.uid;
-        const docRef = doc(db, 'champions', userId);
-        const docRefusers = doc(db, 'users', userId);
-        const docSnapshotUsers = await getDoc(docRefusers);
-        const userData = docSnapshotUsers.data();
-        const fcmToken = userData.fcmToken || "";
+        
   
         // Utilisez l'URL de téléchargement dans le champ avatar
         await setDoc(docRef, {
@@ -109,12 +112,17 @@ export default function Champion() {
           champion:true,
           role:"Champion",
         }, { merge: true });
-      }
-  
+      
       toast.success('Vous êtes désormais un champion Allo Group');
       setTimeout(() => {
-        Router.push("/notification");
+        Router.push("/dashboardChampion");
       }, 2000);
+
+    }else {
+      // Si la clé "approuvé" n'est pas définie à true
+      toast.error('Votre demande n\'a pas encore été approuvée.');
+    }
+      
     } catch (error) {
       console.error('Erreur lors de la mise à jour du profil', error);
       toast.error('Une erreur s\'est produite lors de la mise à jour du profil.');
