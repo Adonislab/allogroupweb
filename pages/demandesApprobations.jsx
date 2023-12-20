@@ -40,10 +40,6 @@ export default function DemandesApprobations() {
 
     const COLUMNS = [
         { label: <span className="text-blue-500">Noms et prénoms</span>, renderCell: (item) => item.fullName },
-        {
-            label: <span className="text-blue-500">Email</span>,
-            renderCell: (item) => item.email,
-        },
         { label: <span className="text-blue-500">Téléphone</span>, renderCell: (item) => item.phoneNumber, },
         
         {
@@ -55,7 +51,7 @@ export default function DemandesApprobations() {
             },
         },
         {
-            label: <span className="text-blue-500">Approuver</span>, renderCell: (item) => (
+            label: <span className="text-blue-500">Approbation</span>, renderCell: (item) => (
                 <button className="text-white bg-blue-500 hover:text-white focus:outline-none" onClick={() => openModal(item)}> <FontAwesomeIcon icon={faEye} /></button>)
         },
         
