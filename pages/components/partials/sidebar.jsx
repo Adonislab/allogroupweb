@@ -59,6 +59,11 @@ export default function Sidebar() {
         icon: 'speedometer2',
       },
       {
+        name: 'Approbations',
+        url: '/demandesApprobations',
+        icon: 'speedometer2',
+      },
+      {
         name: 'Gestion portefeuille champion',
         url: '/gestionPaiementChampion',
         icon: 'speedometer2',

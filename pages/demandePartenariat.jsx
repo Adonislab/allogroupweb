@@ -5,8 +5,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image';
 // import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { firebaseConfig } from '../utils/firebaseConfig';
-import { getFirestore, doc, getDoc, setDoc,updateDoc  ,arrayUnion,collection } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes, getDownloadURL} from 'firebase/storage';
+import { getFirestore, doc, getDoc, setDoc, updateDoc, arrayUnion, collection } from 'firebase/firestore';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 import Router from 'next/router';
@@ -23,7 +23,8 @@ export default function Setting() {
         fullName: "",
         details: "",
         email: "",
-        categorie: ""
+        categorie: "",
+        id:""
 
     });
 
@@ -64,6 +65,7 @@ export default function Setting() {
                             phoneNumber: data.phoneNumber,
                             profileImageUrl: data.profileImageUrl,
                             email: user.email,
+                            id: userId
                         }));
                     } else {
                         console.log("Aucune donnée trouvée pour cet utilisateur.");
@@ -93,31 +95,22 @@ export default function Setting() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+
         try {
             if (formData.selectedFile) {
                 const newImageURL = await uploadImageToFirebase(formData.selectedFile);
                 // const newImageURL1 = await uploadImageToFirebase(formData.selectedFile1);
-    
+
                 // Mettre à jour le champ avatar dans Firebase Firestore avec l'URL de l'image
-    
-                const { fullName, phoneNumber, categorie, details ,email} = formData;
+
+                const { fullName, phoneNumber, categorie, details, email, id } = formData;
                 const userId = auth.currentUser.uid;
                 const docRef = collection(db, 'administrateur');
-                const docRefusers = doc(docRef,'admin');
+                const docRefusers = doc(docRef, 'admin');
                 const docSnapshotUsers = await getDoc(docRefusers);
                 const userData = docSnapshotUsers.data();
-    
-                // Utilisez l'URL de téléchargement dans le champ avatar
-                // await setDoc(docRefusers, {
-                //     id: userId,
-                //     fullName: fullName,
-                //     phoneNumber: phoneNumber,
-                //     idCard: newImageURL1,
-                //     categorie: categorie,
-                //     details: details,
-                // }, { merge: true });
-    
+
+
                 // Add the data to the "examen" array field
                 await updateDoc(docRefusers, {
                     examen: arrayUnion({
@@ -127,10 +120,11 @@ export default function Setting() {
                         categorie: categorie,
                         details: details,
                         email: email,
+                        id:id
                     }),
                 });
             }
-    
+
             toast.success('Votre demande est en cours de traitement. Nous vous reviendrons dans 1h');
             setTimeout(() => {
                 Router.push("/politique");
@@ -140,7 +134,7 @@ export default function Setting() {
             toast.error('Echec d\'envoi');
         }
     };
-    
+
     console.log(formData);
     return (
         <DashLayout>
@@ -169,22 +163,22 @@ export default function Setting() {
                     <div className='text-left'>
                         <label htmlFor="phoneNumber" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Téléphone</label>
                         {/* <input onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })} value={formData.phoneNumber} type="number" name="phoneNumber" id="phoneNumber" className="bg-indigo-50 border border-indigo-300 text-indigo-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="+229 XX-XX-XX-XX" required="true" /> */}
-            
-            <PhoneInput
-              country={country}
-              value={   formData.phoneNumber}
-              onChange={(phoneNumber) => setFormData({ ...formData, phoneNumber })}
-              inputProps={{
-                id: 'phone',
-                name: 'phone',
-                required: true,
-                placeholder: '   +229000000',
-                className: 'bg-indigo-50 border border-indigo-300 text-indigo-900  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
-              }}
-              inputComponent={({ country, ...restProps }) => (
-                <input {...restProps} />
-              )}
-            />
+
+                        <PhoneInput
+                            country={country}
+                            value={formData.phoneNumber}
+                            onChange={(phoneNumber) => setFormData({ ...formData, phoneNumber })}
+                            inputProps={{
+                                id: 'phone',
+                                name: 'phone',
+                                required: true,
+                                placeholder: '   +229000000',
+                                className: 'bg-indigo-50 border border-indigo-300 text-indigo-900  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
+                            }}
+                            inputComponent={({ country, ...restProps }) => (
+                                <input {...restProps} />
+                            )}
+                        />
                     </div>
                     <div className='text-left'>
                         <label htmlFor="email" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Votre email</label>
@@ -222,7 +216,7 @@ export default function Setting() {
                             <option value="pas précis">Sélectionnez une option</option>
                             <option value="Marchand">Marchand</option>
                             <option value="Champion">Champion</option>
-                            
+
                         </select>
                     </div>
                     <label htmlFor="idCard" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Chargez votre Chargez votre Pièce d'identité(CIP,CIN,Passeport,Carte biométrique)</label>
