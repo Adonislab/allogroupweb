@@ -15,7 +15,34 @@ function VenteMarchand() {
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(5);
 
+  const formatDateTime = (timestamp) => {
+  if (!timestamp || isNaN(timestamp)) {
+    return ''; // ou une valeur par défaut si timestamp est undefined, null ou non un nombre
+  }
 
+  const date = new Date(Number(timestamp));
+  const options = {
+    day: 'numeric',
+    month: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second:'numeric'
+  };
+
+  return new Intl.DateTimeFormat('fr-FR', options).format(date);
+};
+
+
+  const productInfos = (item) => {
+    alert(`
+      Client: ${item.numeroLivraison}
+      Nom de l'article: ${item.titre}
+      Quantité: ${item.quantite}
+      Reception de la commande : ${formatDateTime(item.id)}
+    `);
+  };
+  
   const COLUMNS = [
     { label: <span className="text-blue-500">ID</span>, renderCell: (item) => item.titre },
     { label: <span className="text-blue-500">Prix</span>, renderCell: (item) => <span>{item.prix} F</span> },
@@ -29,10 +56,11 @@ function VenteMarchand() {
     },
     {
       label: <span className="text-blue-500">Plus</span>, renderCell: (item) => (
-        <button className="bg-orange-500 text-white hover:text-white focus:outline-none" onClick={() => alert('Détails sur le produit')}><FontAwesomeIcon icon={faInfoCircle} /></button>)
+        <button className="bg-orange-500 text-white hover:text-white focus:outline-none" onClick={() => productInfos(item)}><FontAwesomeIcon icon={faInfoCircle} /></button>)
     },
   ];
 
+  
 
   useEffect(() => {
     const auth = getAuth();
