@@ -119,8 +119,9 @@ export default function ProduitAdd() {
   
         const userData = docSnapshot.data();
         const userRole = userData.marchand;
+        const userApprobation = userData.approuve;
         const produits = userData.produits || [];
-        if (userRole === 'oui') {
+        if (userRole === 'oui' && userApprobation===true) {
           // Ajoutez le nouveau produit au tableau des produits
           produits.push({
             id: productId,
