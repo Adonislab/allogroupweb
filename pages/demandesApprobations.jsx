@@ -5,7 +5,7 @@ import { getFirestore, collection, getDoc,doc ,updateDoc, getDocs,getDownloadURL
 import { firebaseConfig } from '../utils/firebaseConfig';
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faEye, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faEye, faTrashAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import ModalApprobation from "./components/layout/ModalApprobation";
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -53,8 +53,12 @@ export default function DemandesApprobations() {
             },
         },
         {
-            label: <span className="text-blue-500">Approbation</span>, renderCell: (item) => (
+            label: <span className="text-blue-500">Approuver</span>, renderCell: (item) => (
                 <button className="text-white bg-blue-500 hover:text-white focus:outline-none" onClick={() => openModal(item)}> <FontAwesomeIcon icon={faEye} /></button>)
+        },
+        {
+            label: <span className="text-blue-500">Supprimer</span>, renderCell: (item) => (
+                <button className="text-white bg-red-500 hover:text-white focus:outline-none" onClick={() => retirer(item)}> <FontAwesomeIcon icon={faTrash}  /></button>)
         },
         
     ];
@@ -109,15 +113,6 @@ export default function DemandesApprobations() {
  
 
     
-
-
-
-
-
-
-
-
-
     const updateProduct = async (updatedProduct) => {
         console.log("updatedProduct:", updatedProduct);
         const auth = getAuth();
@@ -192,6 +187,91 @@ export default function DemandesApprobations() {
         }
     };
     
+
+
+
+
+    const retirer = async (updatedProduct) => {
+        const auth = getAuth();
+        const db = getFirestore(firebaseConfig);
+        console.log(" updatedProduct: ", updatedProduct);
+        
+        if (auth.currentUser) {
+            try {
+                // Accédez à la collection "administrateur"
+                const adminRef = collection(db, "administrateur");
+                const adminDocRef = doc(adminRef, "admin");
+                const adminDocSnapshot = await getDoc(adminDocRef);
+    
+                // Récupérez la liste d'examens de l'administrateur
+                const examenArray = adminDocSnapshot.data().examen || [];
+    
+                // Recherchez l'index de l'examen correspondant à updatedProduct.id
+                console.log("Examen array avant la recherche d'index : ", examenArray);
+                console.log("Examen array avant la recherche d'index : ", updatedProduct.id);
+                const examenIndex = examenArray.findIndex((examen) => examen.id === updatedProduct.id);
+                console.log("Index de l'examen à retirer : ", examenIndex);
+    
+                if (examenIndex !== -1) {
+                    // Affichez l'examen à retirer
+                    console.log("Examen à retirer : ", examenArray[examenIndex]);
+    
+                    // Vérifiez si "approuve" est à true
+                    if (examenArray[examenIndex].approuve) {
+                        // Supprimez l'examen correspondant à updatedProduct.id
+                        examenArray.splice(examenIndex, 1);
+    
+                        // Mettez à jour le document administrateur avec la nouvelle liste d'examens
+                        await updateDoc(adminDocRef, { examen: examenArray });
+    
+                        console.log("L'examen a été retiré de la collection administrateur.");
+    
+                        // Fermez le modal ici si nécessaire
+                        setSelectedProduct(null);
+    
+                        // Réactualisez les données après la modification.
+                        setUserData(examenArray);
+                    } else {
+                        // Affichez un toast si "approuve" est à false
+                        toast.error("Cet utilisateur n'est pas encore vérifié.", {
+                            position: 'top-right',
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                        });
+                    }
+                } else {
+                    console.error("Examen introuvable dans la collection administrateur.");
+                }
+            } catch (error) {
+                console.error("Erreur lors de la suppression de l'examen", error);
+                toast.error('Échec de la suppression. Veuillez réessayer.', {
+                    position: 'top-right',
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                });
+            }
+        }
+    };
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const indexOfLastUser = currentPage * usersPerPage;
     const indexOfFirstUser = indexOfLastUser - usersPerPage;
     const currentUsers = userData.slice(indexOfFirstUser, indexOfLastUser);
