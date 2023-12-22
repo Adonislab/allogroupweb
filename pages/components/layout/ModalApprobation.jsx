@@ -6,6 +6,7 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { Textarea } from "@material-tailwind/react";
 import Image from 'next/image';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const auth = getAuth();
@@ -24,14 +25,14 @@ const ModalApprobation = ({ product, isOpen, updateProduct, onCancel }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+
         // Check if the radio button with value "ok" is selected
         const droneValue = document.querySelector('input[name="drone"]:checked')?.value;
-    
+
         if (droneValue === 'ok') {
             try {
-                
-    
+
+
                 const updatedProduct = {
                     ...product,
                     ...formData,
@@ -47,7 +48,7 @@ const ModalApprobation = ({ product, isOpen, updateProduct, onCancel }) => {
             console.log("You must accept to proceed.");
         }
     };
-    
+
 
 
     const handleInputChange = (e) => {
@@ -66,14 +67,16 @@ const ModalApprobation = ({ product, isOpen, updateProduct, onCancel }) => {
 
             <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
                 <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-blue-500">
-                    <Image
-                        src={formData.idCard}
-                        width={500}
-                        height={500}
-                        alt="Avatar"
-                        objectPosition="center"
-                        className="w-16 h-16 rounded-full border-4 border-white-500 dark:border-white"
-                    />
+                    <a href={formData.idCard} target="_blank" rel="noopener noreferrer">
+                        <Image
+                            src={formData.idCard}
+                            width={500}
+                            height={500}
+                            alt="Avatar"
+                            objectPosition="center"
+                            className="w-16 h-16 rounded-full border-4 border-white-500 dark:border-white"
+                        />
+                    </a>
 
                     {/* <p className="text-xl text-white-400 dark:text-white">
                         Allô Group, le sens de l'engagement !
@@ -138,7 +141,7 @@ const ModalApprobation = ({ product, isOpen, updateProduct, onCancel }) => {
 
 
 
-                   
+
 
                     <div>
                         <input type="radio" id="dewey" name="drone" value="ok" />

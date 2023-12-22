@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faEye, faTrashAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import ModalApprobation from "./components/layout/ModalApprobation";
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function DemandesApprobations() {
