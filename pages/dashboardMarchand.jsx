@@ -17,7 +17,8 @@ function DashboardMarchand() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(5);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = (product) => {
@@ -230,6 +231,16 @@ function DashboardMarchand() {
     });
   }, []);
 
+  // Pagination
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const nextPage = () => setCurrentPage(currentPage + 1);
+  const prevPage = () => setCurrentPage(currentPage - 1);
+
+
   if (loading) {
     return <p>Chargement...</p>;
   }
@@ -241,13 +252,11 @@ function DashboardMarchand() {
         <ModalMarchand
           product={selectedProduct}
           isOpen={isModalOpen}
-          // Passez la fonction updateProduct au composant ModalMarchand
           updateProduct={updateProduct}
           onCancel={closeModal}     
         />
       )}
       <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
-        <p className="mt-4 text-2xl text-orange-500">Quelles sont les grandes tendances au sein de votre boutique Allô Group ?</p>
         <p className="text-2xl text-blue-500">Nombre d'articles en vente : {products.length}</p>
         <table className="w-full table-fixed">
           <thead>
@@ -258,7 +267,7 @@ function DashboardMarchand() {
             </tr>
           </thead>
           <tbody>
-            {products.map((item, index) => (
+            {currentProducts.map((item, index) => (
               <tr key={index}>
                 {COLUMNS.map((column, columnIndex) => (
                   <td key={columnIndex} className="px-4 py-2 border">
@@ -269,12 +278,43 @@ function DashboardMarchand() {
             ))}
           </tbody>
         </table>
+
+        {/* Pagination */}
+        <div className="mt-4 flex justify-between">
+          <button
+            onClick={prevPage}
+            disabled={currentPage === 1}
+            className="bg-blue-500 text-white px-4 py-2 rounded-full"
+          >
+            Précédent
+          </button>
+          <div className="flex space-x-2">
+            {Array.from({ length: Math.ceil(products.length / productsPerPage) }).map((_, index) => (
+              <div
+                key={index}
+                onClick={() => paginate(index + 1)}
+                className={`cursor-pointer hover:underline px-2 py-2 ${
+                  currentPage === index + 1 ? 'bg-blue-500 text-white rounded-full' : ''
+                }`}
+              >
+                {index + 1}
+              </div>
+            ))}
+          </div>
+          <button
+            onClick={nextPage}
+            disabled={currentPage === Math.ceil(products.length / productsPerPage)}
+            className="bg-blue-500 text-white px-4 py-2 rounded-full"
+          >
+            Suivant
+          </button>
+        </div>
       </div>
+
       <div>
         <MarchandsChartMarchands />
       </div>
-      {/* Affichez le modal de modification */}
-      <ToastContainer /> 
+      <ToastContainer />
     </DashLayout>
   );
 }

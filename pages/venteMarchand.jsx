@@ -5,29 +5,34 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, getDoc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { firebaseConfig } from '../utils/firebaseConfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfoCircle  } from '@fortawesome/free-solid-svg-icons';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import GraphiqueVente from './components/layout/GraphiqueVente';
 
 function VenteMarchand() {
   const [user, setUser] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(5);
 
-  
+
   const COLUMNS = [
     { label: <span className="text-blue-500">ID</span>, renderCell: (item) => item.titre },
     { label: <span className="text-blue-500">Prix</span>, renderCell: (item) => <span>{item.prix} F</span> },
-    { label: <span className="text-blue-500">Qte</span>, renderCell: (item) => (
+    {
+      label: <span className="text-blue-500">Qte</span>, renderCell: (item) => (
         item.quantite)
     },
-    { label: <span className="text-blue-500">Avoir</span>, renderCell: (item) => (
-      <span>{item.prix * item.quantite} F </span>)
+    {
+      label: <span className="text-blue-500">Avoir</span>, renderCell: (item) => (
+        <span>{item.prix * item.quantite} F </span>)
     },
-    { label: <span className="text-blue-500">Plus</span>, renderCell: (item) => (
-        <button className="bg-orange-500 text-white hover:text-white focus:outline-none" onClick={() => alert('Détails sur le produit')}><FontAwesomeIcon icon={faInfoCircle } /></button>)
+    {
+      label: <span className="text-blue-500">Plus</span>, renderCell: (item) => (
+        <button className="bg-orange-500 text-white hover:text-white focus:outline-none" onClick={() => alert('Détails sur le produit')}><FontAwesomeIcon icon={faInfoCircle} /></button>)
     },
   ];
+
 
   useEffect(() => {
     const auth = getAuth();
@@ -67,6 +72,18 @@ function VenteMarchand() {
     });
   }, []);
 
+
+  // Pagination
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const nextPage = () => setCurrentPage(currentPage + 1);
+  const prevPage = () => setCurrentPage(currentPage - 1);
+
+
   if (loading) {
     return <p>Chargement...</p>;
   }
@@ -75,7 +92,7 @@ function VenteMarchand() {
     <DashLayout>
       <Head />
       <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
-        <p className="mt-4 text-2xl text-blue-500">Quelles sont les grandes tendances au sein de votre boutique Allô Group ?</p>
+        {/* <p className="mt-4 text-2xl text-blue-500">Quelles sont les grandes tendances au sein de votre boutique Allô Group ?</p> */}
         <p className="text-2xl text-orange-500">Nombre d'articles en stock : {products.length}</p>
         <table className="w-full table-fixed">
           <thead>
@@ -86,7 +103,7 @@ function VenteMarchand() {
             </tr>
           </thead>
           <tbody>
-            {products.map((item, index) => (
+            {currentProducts.map((item, index) => (
               <tr key={index}>
                 {COLUMNS.map((column, columnIndex) => (
                   <td key={columnIndex} className="px-4 py-2 border">
@@ -97,12 +114,43 @@ function VenteMarchand() {
             ))}
           </tbody>
         </table>
+
+        {/* Pagination */}
+        <div className="mt-4 flex justify-between">
+          <button
+            onClick={prevPage}
+            disabled={currentPage === 1}
+            className="bg-blue-500 text-white px-4 py-2 rounded-full"
+          >
+            Précédent
+          </button>
+          <div className="flex space-x-2">
+            {Array.from({ length: Math.ceil(products.length / productsPerPage) }).map((_, index) => (
+              <div
+                key={index}
+                onClick={() => paginate(index + 1)}
+                className={`cursor-pointer hover:underline px-2 py-2 ${
+                  currentPage === index + 1 ? 'bg-blue-500 text-white rounded-full' : ''
+                }`}
+              >
+                {index + 1}
+              </div>
+            ))}
+          </div>
+          <button
+            onClick={nextPage}
+            disabled={currentPage === Math.ceil(products.length / productsPerPage)}
+            className="bg-blue-500 text-white px-4 py-2 rounded-full"
+          >
+            Suivant
+          </button>
+        </div>
       </div>
       <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
         <p className="text-2xl text-orange-500">Bilan des meilleurs ventes selon la catégorie </p>
         <GraphiqueVente/>
       </div>
-    </DashLayout>
+    </DashLayout >
   );
 }
 

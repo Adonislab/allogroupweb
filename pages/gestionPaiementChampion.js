@@ -16,7 +16,8 @@ export default function Gestion_Portefeuille_Champion() {
     const [userData, setUserData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedProduct, setSelectedProduct] = useState(null);
-
+    const [currentPage, setCurrentPage] = useState(1);
+    const [usersPerPage] = useState(5);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openModal = (product) => {
@@ -82,23 +83,6 @@ export default function Gestion_Portefeuille_Champion() {
 
 
  
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
 
     const updateProduct = async (updatedProduct) => {
         console.log("updatedProduct:", updatedProduct);
@@ -191,7 +175,18 @@ export default function Gestion_Portefeuille_Champion() {
     
     
 
+// Pagination
+const indexOfLastUser = currentPage * usersPerPage;
+const indexOfFirstUser = indexOfLastUser - usersPerPage;
+const currentUsers = userData.slice(indexOfFirstUser, indexOfLastUser);
 
+const paginate = (pageNumber) => setCurrentPage(pageNumber);
+const nextPage = () => setCurrentPage(currentPage + 1);
+const prevPage = () => setCurrentPage(currentPage - 1);
+
+if (loading) {
+  return <p>Chargement...</p>;
+}
     
 
 
@@ -199,42 +194,72 @@ export default function Gestion_Portefeuille_Champion() {
 
     return (
         <DashLayout>
-            <Head />
-            {selectedProduct && (
+      <Head />
+      {selectedProduct && (
         <ModalModificationChampion
           product={selectedProduct}
           isOpen={isModalOpen}
-          // Passez la fonction updateProduct au composant ModalMarchand
           updateProduct={updateProduct}
-          onCancel={closeModal}     
+          onCancel={closeModal}
         />
       )}
-            <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
-                Gestion des portefeuilles Champions
-            </div>
-            <p className="mt-4 text-2xl text-orange-500"> Qui sont les grands utilisateurs  de Allô Group ?</p>
-            <p className="text-2xl text-blue-500">Nombre d'utilisateurs : {userData.length}</p>
-            <table className="w-full table-fixed">
-                <thead>
-                    <tr>
-                        {COLUMNS.map((column, index) => (
-                            <th key={index} className="px-4 py-2">{column.label}</th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {userData.map((item, index) => (
-                        <tr key={index}>
-                            {COLUMNS.map((column, columnIndex) => (
-                                <td key={columnIndex} className="px-4 py-2 border">
-                                    {column.renderCell(item)}
-                                </td>
-                            ))}
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+      <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
+        Gestion des portefeuilles Champions
+      </div>
+      {/* <p className="mt-4 text-2xl text-orange-500"> Qui sont les grands utilisateurs de Allô Group ?</p> */}
+      <p className="text-2xl text-blue-500">Nombre d'utilisateurs : {userData.length}</p>
+      <table className="w-full table-fixed">
+        <thead>
+          <tr>
+            {COLUMNS.map((column, index) => (
+              <th key={index} className="px-4 py-2">{column.label}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {currentUsers.map((item, index) => (
+            <tr key={index}>
+              {COLUMNS.map((column, columnIndex) => (
+                <td key={columnIndex} className="px-4 py-2 border">
+                  {column.renderCell(item)}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
-        </DashLayout>
+      {/* Pagination */}
+      <div className="mt-4 flex justify-between">
+        <button
+          onClick={prevPage}
+          disabled={currentPage === 1}
+          className="bg-blue-500 text-white px-4 py-2 rounded-full"
+        >
+          Précédent
+        </button>
+        <div className="flex space-x-2">
+          {Array.from({ length: Math.ceil(userData.length / usersPerPage) }).map((_, index) => (
+            <div
+              key={index}
+              onClick={() => paginate(index + 1)}
+              className={`cursor-pointer hover:underline px-2 py-2 ${
+                currentPage === index + 1 ? 'bg-blue-500 text-white rounded-full' : ''
+              }`}
+            >
+              {index + 1}
+            </div>
+          ))}
+        </div>
+        <button
+          onClick={nextPage}
+          disabled={currentPage === Math.ceil(userData.length / usersPerPage)}
+          className="bg-blue-500 text-white px-4 py-2 rounded-full"
+        >
+          Suivant
+        </button>
+      </div>
+      {/* End Pagination */}
+    </DashLayout>
     )
 }
