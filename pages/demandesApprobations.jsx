@@ -26,6 +26,8 @@ export default function DemandesApprobations() {
     const [userData, setUserData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedProduct, setSelectedProduct] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [usersPerPage] = useState(5);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -46,8 +48,8 @@ export default function DemandesApprobations() {
             label: <span className="text-blue-500">Statut</span>,
             renderCell: (item) => {
                 if(item.approuve == false){
-                    return "Décliné"
-                } else{ return "Approuvé"}
+                    return  <button className="text-white bg-red-500 hover:text-white focus:outline-none" onClick={() => openModal(item)}> En attente </button>
+                } else{ return <button className="text-white bg-orange-500 hover:text-white focus:outline-none" onClick={() => openModal(item)}> Approuvé</button>}
             },
         },
         {
@@ -190,7 +192,11 @@ export default function DemandesApprobations() {
         }
     };
     
-    
+    const indexOfLastUser = currentPage * usersPerPage;
+    const indexOfFirstUser = indexOfLastUser - usersPerPage;
+    const currentUsers = userData.slice(indexOfFirstUser, indexOfLastUser);
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     
 
@@ -234,6 +240,37 @@ export default function DemandesApprobations() {
                     ))}
                 </tbody>
             </table>
+            {/* Pagination */}
+        <div className="mt-4 flex justify-between">
+          <button
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="bg-blue-500 text-white px-4 py-2 rounded-full"
+          >
+            Précédent
+          </button>
+          <div className="flex space-x-2">
+            {Array.from({ length: Math.ceil(userData.length / usersPerPage) }).map((_, index) => (
+              <div
+                key={index}
+                onClick={() => paginate(index + 1)}
+                className={`cursor-pointer hover:underline px-2 py-2 ${
+                  currentPage === index + 1 ? 'bg-blue-500 text-white rounded-full' : ''
+                }`}
+              >
+                {index + 1}
+              </div>
+            ))}
+          </div>
+          <button
+            onClick={() => paginate(currentPage + 1)}
+            disabled={currentPage === Math.ceil(userData.length / usersPerPage)}
+            className="bg-blue-500 text-white px-4 py-2 rounded-full"
+          >
+            Suivant
+          </button>
+        </div>
+        {/* End Pagination */}
         <ToastContainer/>
         </DashLayout>
     )
