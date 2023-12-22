@@ -7,6 +7,8 @@ export default function MarchandTable() {
   const [user, setUser] = useState(null);
   const [userData, setUserData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersPerPage] = useState(5);
 
   const COLUMNS = [
     { label: <span className="text-blue-500">Nom du Champion</span>, renderCell: (item) => item.fullName },
@@ -75,6 +77,13 @@ export default function MarchandTable() {
     });
   }, []);
 
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = userData.slice(indexOfFirstUser, indexOfLastUser);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+
   if (loading) {
     return <p>Chargement...</p>;
   }
@@ -91,7 +100,7 @@ export default function MarchandTable() {
             </tr>
         </thead>
         <tbody>
-            {userData.map((item, index) => (
+            {currentUsers.map((item, index) => (
             <tr key={index}>
                 {COLUMNS.map((column, columnIndex) => (
                 <td key={columnIndex} className="px-4 py-2 border">
@@ -102,6 +111,38 @@ export default function MarchandTable() {
             ))}
         </tbody>
         </table>
+        
+        {/* Pagination */}
+        <div className="mt-4 flex justify-between">
+          <button
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="bg-blue-500 text-white px-4 py-2 rounded-full"
+          >
+            Précédent
+          </button>
+          <div className="flex space-x-2">
+            {Array.from({ length: Math.ceil(userData.length / usersPerPage) }).map((_, index) => (
+              <div
+                key={index}
+                onClick={() => paginate(index + 1)}
+                className={`cursor-pointer hover:underline px-2 py-2 ${
+                  currentPage === index + 1 ? 'bg-blue-500 text-white rounded-full' : ''
+                }`}
+              >
+                {index + 1}
+              </div>
+            ))}
+          </div>
+          <button
+            onClick={() => paginate(currentPage + 1)}
+            disabled={currentPage === Math.ceil(userData.length / usersPerPage)}
+            className="bg-blue-500 text-white px-4 py-2 rounded-full"
+          >
+            Suivant
+          </button>
+        </div>
+        {/* End Pagination */}
     </> 
   );
 }
