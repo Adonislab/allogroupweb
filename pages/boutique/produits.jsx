@@ -33,8 +33,8 @@ export default function Produits() {
       accessor: 'categorie',
     },
     { label: <span className="text-blue-500">Prix unitaire</span>, accessor: 'price'},
-    { label: <span className="text-blue-500">Nombre de vente</span>, accessor: 'sales' },
-    { label: <span className="text-blue-500">Total</span>, accessor: 'total'},
+    // { label: <span className="text-blue-500">Nombre de vente</span>, accessor: 'sales' },
+    // { label: <span className="text-blue-500">Total</span>, accessor: 'total'},
   ];  
 
   return (
