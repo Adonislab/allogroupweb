@@ -166,7 +166,7 @@ function HeaderBar() {
     [ROLES.COMPTABLE]: [
       {
         name: 'Tableau de Vison',
-        url: '/dashboard',
+        url: '/listeComptable',
         icon: 'speedometer2',
       }, 
       {

@@ -170,7 +170,7 @@ export default function Sidebar() {
     [ROLES.COMPTABLE]: [
       {
         name: 'Tableau de Vison',
-        url: '/dashboard',
+        url: '/listeComptable',
         icon: 'speedometer2',
       }, 
       {
