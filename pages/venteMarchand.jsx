@@ -56,7 +56,7 @@ function VenteMarchand() {
     },
     {
       label: <span className="text-blue-500">Avoir</span>, renderCell: (item) => (
-        <span>{item.prix * item.quantite} F </span>)
+        <span>{parseInt(item.paye)-  (parseInt(item.paye) * 0.025)} F </span>)
     },
     {
       label: <span className="text-blue-500">Plus</span>, renderCell: (item) => (
