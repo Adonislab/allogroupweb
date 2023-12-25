@@ -45,10 +45,14 @@ function VenteMarchand() {
   
   const COLUMNS = [
     { label: <span className="text-blue-500">ID</span>, renderCell: (item) => item.titre },
-    { label: <span className="text-blue-500">Prix</span>, renderCell: (item) => <span>{item.prix} F</span> },
     {
       label: <span className="text-blue-500">Qte</span>, renderCell: (item) => (
         item.quantite)
+    },
+    { label: <span className="text-blue-500">Prix total</span>, renderCell: (item) => <span>{item.paye} F</span> },
+    {
+      label: <span className="text-blue-500">Commissions</span>, renderCell: (item) => (
+        <span>{parseInt(item.paye) * 0.025} F </span>)
     },
     {
       label: <span className="text-blue-500">Avoir</span>, renderCell: (item) => (
