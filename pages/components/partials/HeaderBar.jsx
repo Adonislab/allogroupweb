@@ -85,14 +85,14 @@ function HeaderBar() {
         url: "/listeChampion",
         icon: "question-diamond-fill"
       },
-      {
-        name: "Vues des décideurs",
-        url: "/listeDecideur",
-        icon: "question-diamond-fill"
-      },
-      {
-        name: "Vue des comptables",
-        url: "/listeComptable",
+      // {
+      //   name: "Vues des décideurs",
+      //   url: "/listeDecideur",
+      //   icon: "question-diamond-fill"
+      // },
+       {
+        name: "Gestion Paiement Marchands",
+        url: "/paiementMarchandsAllogroup",
         icon: "question-diamond-fill"
       },
       {
@@ -130,7 +130,7 @@ function HeaderBar() {
       },
       {
         name: 'Tableau de décison',
-        url: '/dashboard',
+        url: "/listeDecideur",
         icon: 'speedometer2',
       },  
       {
@@ -143,6 +143,25 @@ function HeaderBar() {
       url: "/notification",
       icon: "question-diamond-fill"
       },
+      {
+        name: 'Gestion portefeuille champion',
+        url: '/gestionPaiementChampion',
+        icon: 'speedometer2',
+      },
+
+      // {
+      //   name: "Vue des comptables",
+      //   url: "/listeComptable",
+      //   icon: "question-diamond-fill"
+      // },
+      {
+        name: "Gestion Paiement Marchands",
+        url: "/paiementMarchandsAllogroup",
+        icon: "question-diamond-fill"
+      },
+
+
+
     ],
     [ROLES.COMPTABLE]: [
       {

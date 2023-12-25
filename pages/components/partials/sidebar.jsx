@@ -79,8 +79,8 @@ export default function Sidebar() {
         icon: "question-diamond-fill"
       },
       {
-        name: "Vues des décideurs",
-        url: "/listeDecideur",
+        name: "Gestion Paiement Marchands",
+        url: "/paiementMarchandsAllogroup",
         icon: "question-diamond-fill"
       },
       {
@@ -133,7 +133,8 @@ export default function Sidebar() {
       },
       {
         name: 'Tableau de décison',
-        url: '/dashboard',
+        url: "/listeDecideur",
+
         icon: 'speedometer2',
       },  
       {
@@ -146,6 +147,25 @@ export default function Sidebar() {
       url: "/notification",
       icon: "question-diamond-fill"
       },
+      {
+        name: 'Gestion portefeuille champion',
+        url: '/gestionPaiementChampion',
+        icon: 'speedometer2',
+      },
+
+      // {
+      //   name: "Vue des comptables",
+      //   url: "/listeComptable",
+      //   icon: "question-diamond-fill"
+      // },
+      {
+        name: "Gestion Paiement Marchands",
+        url: "/paiementMarchandsAllogroup",
+        icon: "question-diamond-fill"
+      },
+
+
+
     ],
     [ROLES.COMPTABLE]: [
       {
