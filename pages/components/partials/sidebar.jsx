@@ -64,6 +64,11 @@ export default function Sidebar() {
         icon: 'speedometer2',
       },
       {
+        name: "Champion Actif",
+        url: "/ChampionActivite",
+        icon: "question-diamond-fill"
+      },
+      {
         name: 'Gestion portefeuille champion',
         url: '/gestionPaiementChampion',
         icon: 'speedometer2',
@@ -153,11 +158,11 @@ export default function Sidebar() {
         icon: 'speedometer2',
       },
 
-      // {
-      //   name: "Vue des comptables",
-      //   url: "/listeComptable",
-      //   icon: "question-diamond-fill"
-      // },
+      {
+        name: "Champion Actif",
+        url: "/ChampionActivite",
+        icon: "question-diamond-fill"
+      },
       {
         name: "Gestion Paiement Marchands",
         url: "/paiementMarchandsAllogroup",
