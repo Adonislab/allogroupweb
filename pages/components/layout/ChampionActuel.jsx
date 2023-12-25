@@ -69,7 +69,7 @@ export default function MarchandTable() {
 
   return (
     <>
-        <p className="text-2xl text-blue-500">Champion en activité</p>
+        <p className="text-2xl text-blue-500">Nombre de champion en activité : {userData.length}</p>
         <table className="w-full table-fixed">
         <thead>
             <tr>
