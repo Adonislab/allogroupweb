@@ -58,10 +58,16 @@ function VenteMarchand() {
       label: <span className="text-blue-500">Avoir</span>, renderCell: (item) => (
         <span>{parseInt(item.paye)-  (parseInt(item.paye) * 0.025)} F </span>)
     },
+    { label: <span className="text-blue-500">Paye</span>, renderCell: (item) => 
+      <div>
+        <input type="checkbox" id="scales" name="scales"  />
+      </div>
+  },
     {
       label: <span className="text-blue-500">Plus</span>, renderCell: (item) => (
         <button className="bg-orange-500 text-white hover:text-white focus:outline-none" onClick={() => productInfos(item)}><FontAwesomeIcon icon={faInfoCircle} /></button>)
     },
+    
   ];
 
   
@@ -115,6 +121,9 @@ function VenteMarchand() {
   const nextPage = () => setCurrentPage(currentPage + 1);
   const prevPage = () => setCurrentPage(currentPage - 1);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  };
 
   if (loading) {
     return <p>Chargement...</p>;
@@ -123,7 +132,11 @@ function VenteMarchand() {
   return (
     <DashLayout>
       <Head />
+      
       <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
+      <form onSubmit={handleSubmit} className="bg-blue-500 space-y-4 md:space-y-6" action="#" >
+        <button type="submit" className="w-full text-white bg-indigo-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-2xl px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Payez ma commission de {}</button>      
+      </form>
         {/* <p className="mt-4 text-2xl text-blue-500">Quelles sont les grandes tendances au sein de votre boutique Allô Group ?</p> */}
         <p className="text-2xl text-orange-500">Nombre d'articles en stock : {products.length}</p>
         <table className="w-full table-fixed">
