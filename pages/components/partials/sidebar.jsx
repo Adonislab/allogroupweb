@@ -89,6 +89,11 @@ export default function Sidebar() {
         icon: "question-diamond-fill"
       },
       {
+        name: "Commande en instance",
+        url: "/boutiqueProduits",
+        icon: "question-diamond-fill"
+      },
+      {
         name: "Vue des comptables",
         url: "/listeComptable",
         icon: "question-diamond-fill"
@@ -162,7 +167,11 @@ export default function Sidebar() {
         url: '/gestionPaiementChampion',
         icon: 'speedometer2',
       },
-
+      {
+        name: "Commande en instance",
+        url: "/boutiqueProduits",
+        icon: "question-diamond-fill"
+      },
       {
         name: "Champion Actif",
         url: "/ChampionActivite",

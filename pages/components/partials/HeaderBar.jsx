@@ -81,6 +81,11 @@ function HeaderBar() {
         icon: "question-diamond-fill"
       },
       {
+        name: "Commande en instance",
+        url: "/boutiqueProduits",
+        icon: "question-diamond-fill"
+      },
+      {
         name: "Liste des champions",
         url: "/listeChampion",
         icon: "question-diamond-fill"
@@ -157,6 +162,11 @@ function HeaderBar() {
         name: 'Gestion portefeuille champion',
         url: '/gestionPaiementChampion',
         icon: 'speedometer2',
+      },
+      {
+        name: "Commande en instance",
+        url: "/boutiqueProduits",
+        icon: "question-diamond-fill"
       },
       {
          name: "Livraison disponible",
