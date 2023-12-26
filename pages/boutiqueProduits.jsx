@@ -72,7 +72,6 @@ export default function MarchandTableSuivi() {
   const handleClick = (item) =>{
     // Convertir l'objet item.produits en chaîne JSON pour afficher ses propriétés
     const id = JSON.stringify(item.commandes, null, 2);
-    console.log('Les données à parser', id);
     router.push({
       pathname: '/boutique/instanceProduit',
       query: { id }

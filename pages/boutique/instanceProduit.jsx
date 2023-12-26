@@ -25,14 +25,43 @@ export default function Produits() {
     }
   }, [product]);
 
+  const formatDateTime = (timestamp) => {
+    if (!timestamp || isNaN(timestamp)) {
+      return ''; // ou une valeur par défaut si timestamp est undefined, null ou non un nombre
+    }
+  
+    const date = new Date(Number(timestamp));
+    const options = {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second:'numeric'
+    };
+  
+    return new Intl.DateTimeFormat('fr-FR', options).format(date);
+  };
+
   const COLUMNS = [
-    { label: <span className="text-blue-500">Présentation</span>, accessor: 'image' },
-    { label: <span className="text-blue-500">Produits</span>, accessor: 'titre' },
+    { label: <span className="text-blue-500">Article</span>, accessor: 'image' },
+    { label: <span className="text-blue-500">Identifiant</span>, accessor: 'titre' },
     {
-      label: <span className="text-blue-500">Catégories</span>,
+      label: <span className="text-blue-500">Catégorie</span>,
       accessor: 'categorie',
     },
-    { label: <span className="text-blue-500">Valeur marchande</span>, accessor: 'paye'},
+    {
+        label: <span className="text-blue-500">Qte</span>,
+        accessor: 'quantite',
+      },
+    { label: <span className="text-blue-500">Fraix</span>, accessor: 'paye'},
+    { label: <span className="text-blue-500">Date</span>, renderCell: (item) => 
+    <button 
+      className="text-white bg-orange-500 hover:bg-orange-600 focus:outline-none p-4 rounded-lg"
+      onClick={() => handleClick(item.commandes && item.commandes.length > 0 ? item.commandes[0] : '')}
+      >{item.commandes && item.commandes.length > 0 ? item.commandes[0]['dateLivraison'] : ''}
+    </button>  
+    }, 
   ];  
 
   return (
@@ -63,11 +92,15 @@ export default function Produits() {
                           width={100}
                           height={100}
                         />
-                      ) : column.accessor === 'paye' ? (
-                        ` ${item[column.accessor]} F`
-                      ) : (
-                        item[column.accessor]
-                      )}
+                        ) : column.accessor === 'paye' ? (
+                            `${item[column.accessor]} F`
+                          ) : column.accessor === 'dateLivraison' ? (
+                            //console.log("OOLLLL"+item[column.accessor])
+                            formatDateTime(item[column.accessor])
+                          ) : (
+                            item[column.accessor]
+                          
+                          )}
                     </td>
                   ))}
                 </tr>
