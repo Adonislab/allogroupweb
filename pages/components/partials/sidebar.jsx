@@ -104,6 +104,11 @@ export default function Sidebar() {
         icon: 'clipboard2-data',
       },
       {
+        name: "Livraison disponible",
+        url: "/demandeLivraison",
+        icon: "question-diamond-fill"
+      },
+      {
         name: "Gestion des notifications",
         url: "/notification",
         icon: "question-diamond-fill"
@@ -161,6 +166,11 @@ export default function Sidebar() {
       {
         name: "Champion Actif",
         url: "/ChampionActivite",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Livraison disponible",
+        url: "/demandeLivraison",
         icon: "question-diamond-fill"
       },
       {

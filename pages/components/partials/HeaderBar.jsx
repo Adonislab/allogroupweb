@@ -85,6 +85,11 @@ function HeaderBar() {
         url: "/listeChampion",
         icon: "question-diamond-fill"
       },
+      {
+        name: "Livraison disponible",
+        url: "/demandeLivraison",
+        icon: "question-diamond-fill"
+      },
      {
          name: "Champion Actif",
          url: "/ChampionActivite",
@@ -153,12 +158,11 @@ function HeaderBar() {
         url: '/gestionPaiementChampion',
         icon: 'speedometer2',
       },
-
-      // {
-      //   name: "Vue des comptables",
-      //   url: "/listeComptable",
-      //   icon: "question-diamond-fill"
-      // },
+      {
+         name: "Livraison disponible",
+         url: "/demandeLivraison",
+         icon: "question-diamond-fill"
+       },
       {
         name: "Gestion Paiement Marchands",
         url: "/paiementMarchandsAllogroup",

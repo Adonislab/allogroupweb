@@ -33,7 +33,7 @@ export default function MarchandTable() {
 
 const handleClick = (item) =>{
   const message = 
-  `Receveur :${item.addressLivraison}\nNuméro du receveur : ${item.numeroALivraison}\nZone du commanditaire : ${item.addressRecuperation}\nNuméro du commanditaire : ${item.numeroARecuperation}\nType de Livraison : ${item.type_courses}\nTitre de la livraison : ${item.title}\nDétails sur la livraison : ${item.title}\nPrix de livraison : ${item.prix} F\nCode de transcation : ${item.password}`; 
+  `Receveur :${item.addressLivraison}\nNuméro du receveur : ${item.numeroALivraison}\nZone du commanditaire : ${item.addressRecuperation}\nNuméro du commanditaire : ${item.numeroARecuperation}\nType de Livraison : ${item.type_courses}\nTitre de la livraison : ${item.title}\nDétails sur la livraison : ${item.title}\nPrix de livraison : ${item.prix} F\nCode de transcation : ${item.password}\nDate de Livraison : ${item.dateDeLivraison}`; 
  alert(
   message
  );

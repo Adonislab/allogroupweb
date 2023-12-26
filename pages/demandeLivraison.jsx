@@ -9,7 +9,7 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 
 
-function DashboardChampion() {
+function DashboardLivraison() {
   const [user, setUser] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -92,7 +92,7 @@ function DashboardChampion() {
         const userId = authUser.uid;
        
         // Utilisez l'ID de l'utilisateur pour chercher son document marchand
-        const userDocRef = doc(db, "champions", userId);
+        const userDocRef = doc(db, "administrateur", "commandeCourses");
         
         try {
           const userDocSnapshot = await getDoc(userDocRef);
@@ -101,7 +101,7 @@ function DashboardChampion() {
 
           if (userDocData) {
             // Utilisez userDocData pour afficher les livraions  
-            setProducts(userDocData.livraisons); 
+            setProducts(userDocData.courses); 
           } else {
             // Aucun document marchand trouvé pour l'utilisateur
             setProducts([]);
@@ -137,7 +137,7 @@ function DashboardChampion() {
       
       <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
         {/* <p className="mt-4 text-2xl text-orange-500">Quelles sont les grandes tendances de livraion Allô Group ?</p> */}
-        <p className="text-2xl text-blue-500">Nombre de livraison effectué : {products.length}</p>
+        <p className="text-2xl text-blue-500">Nombre de disponible : {products.length}</p>
         <table className="w-full table-fixed">
           <thead>
           <tr>
@@ -201,4 +201,4 @@ function DashboardChampion() {
   );
 }
 
-export default DashboardChampion;
+export default DashboardLivraison;
