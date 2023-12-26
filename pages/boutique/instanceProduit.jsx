@@ -55,13 +55,13 @@ export default function Produits() {
         accessor: 'quantite',
       },
     { label: <span className="text-blue-500">Fraix</span>, accessor: 'paye'},
-    { label: <span className="text-blue-500">Date</span>, renderCell: (item) => 
-    <button 
-      className="text-white bg-orange-500 hover:bg-orange-600 focus:outline-none p-4 rounded-lg"
-      onClick={() => handleClick(item.commandes && item.commandes.length > 0 ? item.commandes[0] : '')}
-      >{item.commandes && item.commandes.length > 0 ? item.commandes[0]['dateLivraison'] : ''}
-    </button>  
-    }, 
+    { 
+        label: <span className="text-blue-500">Date</span>, 
+        accessor: 'dateLivraison', 
+        renderCell: (item) => (
+          <span>{formatDateTime(item.dateLivraison)}</span>
+        ),
+      },
   ];  
 
   return (
@@ -95,7 +95,6 @@ export default function Produits() {
                         ) : column.accessor === 'paye' ? (
                             `${item[column.accessor]} F`
                           ) : column.accessor === 'dateLivraison' ? (
-                            //console.log("OOLLLL"+item[column.accessor])
                             formatDateTime(item[column.accessor])
                           ) : (
                             item[column.accessor]
