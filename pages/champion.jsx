@@ -110,7 +110,7 @@ export default function Champion() {
         }, { merge: true });
         await setDoc(docRefusers, {
           champion:true,
-          role:"Champion",
+          role:"Livreur",
         }, { merge: true });
       
       toast.success('Vous êtes désormais un champion Allo Group');

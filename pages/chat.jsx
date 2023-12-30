@@ -121,7 +121,7 @@ export default function ProduitAdd() {
         const userRole = userData.marchand;
         const userApprobation = userData.approuve;
         const produits = userData.produits || [];
-        if (userRole === 'oui' && userApprobation===true) {
+        if (userRole === true && userApprobation===true) {
           // Ajoutez le nouveau produit au tableau des produits
           produits.push({
             id: productId,
