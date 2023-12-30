@@ -6,8 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { firebaseConfig } from '../utils/firebaseConfig';
-import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes, getDownloadURL} from 'firebase/storage';
+import { getFirestore, doc, getDoc, setDoc, collection } from 'firebase/firestore';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import Router from 'next/router';
 import Head from "@/utils/head";
 
@@ -21,18 +21,18 @@ export default function ProduitAdd() {
     title: "",
     description: "",
     image: "",
-    categorie:"",
+    categorie: "",
     profileImageUrl: "",
-    during:"",
-    note:"",
+    during: "",
+    note: "",
   });
   const fileInputRef = useRef(null);
-  
+
 
   const uploadImageToFirebase = async (imageFile) => {
     const storage = getStorage();
     const imageCounter = Date.now();
-    const fileName = auth.currentUser.uid + `produit${imageCounter}`; 
+    const fileName = auth.currentUser.uid + `produit${imageCounter}`;
     const storageRef = ref(storage, `articles/${fileName}`);
     const snapshot = await uploadBytes(storageRef, imageFile);
     const downloadURL = await getDownloadURL(snapshot.ref);
@@ -47,18 +47,18 @@ export default function ProduitAdd() {
         try {
           const docRef = doc(db, 'marchands', userId);
           const docSnapshot = await getDoc(docRef);
-    
+
           if (docSnapshot.exists()) {
             const data = docSnapshot.data();
             setFormData((prevData) => ({
               ...prevData,
-              note:data.note,
+              note: data.note,
               title: data.title,
               price: data.price,
               image: data.image,
               description: data.description,
-              categorie:data.categorie,
-              during:data.during,
+              categorie: data.categorie,
+              during: data.during,
             }));
             setFormData((prevData) => ({
               ...prevData,
@@ -74,7 +74,7 @@ export default function ProduitAdd() {
         console.log("L'utilisateur n'est pas authentifié.");
       }
     };
-    
+
     onAuthStateChanged(auth, fetchData);
   }, []);
 
@@ -94,68 +94,153 @@ export default function ProduitAdd() {
     const minutes = currentDate.getMinutes().toString().padStart(2, '0');
     const seconds = currentDate.getSeconds().toString().padStart(2, '0');
     const milliseconds = currentDate.getMilliseconds().toString().padStart(3, '0');
-  
+
     // Créez un identifiant unique en utilisant la date actuelle
     const productId = `${year}${month}${day}${hours}${minutes}${seconds}${milliseconds}`;
-  
+
     return productId;
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+
+  //     try {
+  //       const userId = auth.currentUser.uid;
+  //       const docRef = doc(db, 'marchands', userId);
+  //       const docSnapshot = await getDoc(docRef);
+
+
+  //       if (formData.selectedFile && docSnapshot.exists()) {
+  //         const newImageURL = await uploadImageToFirebase(formData.selectedFile);
+
+
+  //         // Obtenez un identifiant unique basé sur la date actuelle
+  //         const productId = generateProductId();
+
+  //         const { title, price, description, categorie, during, note } = formData;
+
+  //         const userData = docSnapshot.data();
+  //         const userRole = userData.marchand;
+  //         // const userApprobation = userData.approuve;
+  //         const produits = userData.produits || [];
+  //         // if (userRole === true && userApprobation === true) {
+  //           if (userRole === "oui" ) {
+  //           // Ajoutez le nouveau produit au tableau des produits
+  //           produits.push({
+  //             id: productId,
+  //             note: note,
+  //             title: title,
+  //             price: price,
+  //             description: description,
+  //             categorie: categorie,
+  //             image: newImageURL,
+  //             during: during,
+  //             isFavorite: false,
+  //           });
+  //           // Mettez à jour le document utilisateur avec le tableau mis à jour des produits
+  //           await setDoc(docRef, { produits }, { merge: true });
+  //           toast.success('Votre produit a été ajouté avec succès à votre boutique');
+  //           setTimeout(() => {
+  //             Router.push("/dashboardMarchand");
+  //           }, 2000);
+  //         } else {
+  //           setTimeout(() => {
+  //             Router.push("/marchand");
+  //           }, 2000);
+  //           toast.error("Vous n'avez pas de compte marchand pour créer un produit.");
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error('Erreur lors de la mise à jour du profil', error);
+  //       toast.error("Il a une erreur au cours de la mise à jour de votre boutique");
+  //     }
+
+  // };
   
   const handleSubmit = async (e) => {
     e.preventDefault();
   
     try {
       const userId = auth.currentUser.uid;
-      const docRef = doc(db, 'marchands', userId);
-      const docSnapshot = await getDoc(docRef);
   
-      if (formData.selectedFile && docSnapshot.exists()) {
-        const newImageURL = await uploadImageToFirebase(formData.selectedFile);
-        
-        // Obtenez un identifiant unique basé sur la date actuelle
-        const productId = generateProductId();
+      // Get the marchand document from the "marchands" collection
+      const marchandDocRef = doc(db, 'marchands', userId);
+      const marchandDocSnapshot = await getDoc(marchandDocRef);
   
-        const { title, price, description, categorie, during, note } = formData;
+      // Check if the marchand document exists
+      if (marchandDocSnapshot.exists()) {
+        // Get the user document from the "users" collection
+        const userDocRef = doc(db, 'users', userId);
+        const userDocSnapshot = await getDoc(userDocRef);
   
-        const userData = docSnapshot.data();
-        const userRole = userData.marchand;
-        const userApprobation = userData.approuve;
-        const produits = userData.produits || [];
-        if (userRole === true && userApprobation===true) {
-          // Ajoutez le nouveau produit au tableau des produits
-          produits.push({
-            id: productId,
-            note:note,
-            title: title,
-            price: price,
-            description: description,
-            categorie: categorie,
-            image: newImageURL,
-            during: during,
-            isFavorite:false,
-          });
-          // Mettez à jour le document utilisateur avec le tableau mis à jour des produits
-          await setDoc(docRef, { produits }, { merge: true });
-          toast.success('Votre produit a été ajouté avec succès à votre boutique');
-          setTimeout(() => {
-            Router.push("/dashboardMarchand");
-          }, 2000);
+        // Check if the user document exists
+        if (userDocSnapshot.exists()) {
+          const userApprobation = userDocSnapshot.data().approuve;
+          console.log("User Approbation:", userApprobation);
+  
+          // Check if formData.selectedFile is defined
+          if (formData.selectedFile) {
+            const newImageURL = await uploadImageToFirebase(formData.selectedFile);
+            // Obtenez un identifiant unique basé sur la date actuelle
+            const productId = generateProductId();
+
+            const { title, price, description, categorie, during, note } = formData;
+
+            const userData = marchandDocSnapshot.data();
+            const userRole = userData.marchand;
+            // const userApprobation = userData.approuve;
+            const produits = userData.produits || [];
+            // if (userRole === true && userApprobation === true) {
+            if (userRole === "oui") {
+              // Ajoutez le nouveau produit au tableau des produits
+              produits.push({
+                id: productId,
+                note: note,
+                title: title,
+                price: price,
+                description: description,
+                categorie: categorie,
+                image: newImageURL,
+                during: during,
+                isFavorite: false,
+              });
+              // Mettez à jour le document utilisateur avec le tableau mis à jour des produits
+              await setDoc(marchandDocRef, { produits }, { merge: true });
+              toast.success('Votre produit a été ajouté avec succès à votre boutique');
+              setTimeout(() => {
+                Router.push("/dashboardMarchand");
+              }, 2000);
+            } else {
+              setTimeout(() => {
+                Router.push("/marchand");
+              }, 2000);
+              toast.error("Vous n'avez pas de compte marchand pour créer un produit.");
+            }
+            // Rest of your code...
+          } else {
+            console.log("formData.selectedFile is undefined.");
+            // Handle the case where formData.selectedFile is undefined
+          }
         } else {
-          setTimeout(() => {
-            Router.push("/marchand");
-          }, 2000);
-          toast.error("Vous n'avez pas de compte marchand pour créer un produit.");
+          console.log("User document does not exist.");
+          // Handle the case where the user document does not exist
         }
+      } else {
+        console.log("Marchand document does not exist.");
+        // Handle the case where the marchand document does not exist
       }
     } catch (error) {
-      console.error('Erreur lors de la mise à jour du profil', error);
-      toast.error("Il a une erreur au cours de la mise à jour de votre boutique");
+      console.error('Error updating profile:', error);
+      toast.error("An error occurred during the update of your shop");
     }
   };
   
+
+
   return (
     <DashLayout>
-      <Head/>
+      <Head />
       <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
         <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-blue-500">
           <Image
@@ -167,7 +252,7 @@ export default function ProduitAdd() {
           />
 
           <p className="text-xl text-white-400 dark:text-white">
-            Allô Group, le sens de l'engagement !!! 
+            Allô Group, le sens de l'engagement !!!
           </p>
         </div>
 
@@ -191,9 +276,9 @@ export default function ProduitAdd() {
               type="number" name="price" id="price"
               className="bg-indigo-50 border border-indigo-300 text-indigo-700 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-white-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-white-500"
               placeholder="500F" required=""
-              value={formData.price} />      
-          </div> 
-          
+              value={formData.price} />
+          </div>
+
           <div className='text-left'>
             <label htmlFor="description" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">
               Comment pourriez-vous décrire votre produit ?
@@ -204,7 +289,7 @@ export default function ProduitAdd() {
               className="bg-indigo-50 border border-indigo-300 text-indigo-700 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-white-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-white-500"
               placeholder="Vendez les mérites de votre produit"
               value={formData.description}
-              rows={8} 
+              rows={8}
             />
           </div>
 
@@ -215,8 +300,8 @@ export default function ProduitAdd() {
               type="number" name="during" id="during"
               className="bg-indigo-50 border border-indigo-300 text-indigo-700 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-white-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-white-500"
               placeholder="5min" required=""
-              value={formData.during} />      
-          </div> 
+              value={formData.during} />
+          </div>
 
           <div className='text-left'>
             <label htmlFor="note" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">Quelle note spéciale avez vous pour la promtion de ce produit ?</label>
@@ -224,13 +309,13 @@ export default function ProduitAdd() {
               onChange={(e) => setFormData({ ...formData, note: e.target.value })}
               type="text" name="note" id="note"
               className="bg-indigo-50 border border-indigo-300 text-indigo-700 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-white-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-white-500"
-              placeholder="Promotion" 
-              value={formData.note} />      
-          </div> 
+              placeholder="Promotion"
+              value={formData.note} />
+          </div>
 
           <div className='text-left'>
             <label htmlFor="categorie" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">
-                A quelle catégorie appartient votre produit ?
+              A quelle catégorie appartient votre produit ?
             </label>
 
             <select
