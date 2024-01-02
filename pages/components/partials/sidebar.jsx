@@ -126,6 +126,16 @@ export default function Sidebar() {
         icon: "question-diamond-fill"
       },
       {
+        name: "Création d'évènement",
+        url: "/creationEvent",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Gestion d'évènement",
+        url: "/gestionEvent",
+        icon: "question-diamond-fill"
+      }, 
+      {
         name: 'Rapports',
         url: '/repports',
         icon: 'clipboard2-data',
@@ -159,6 +169,16 @@ export default function Sidebar() {
 
         icon: 'speedometer2',
       },  
+      {
+        name: "Création d'évènement",
+        url: "/creationEvent",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Gestion d'évènement",
+        url: "/gestionEvent",
+        icon: "question-diamond-fill"
+      }, 
       {
         name: "Compte utilisateur",
         url: "/users",

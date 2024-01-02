@@ -141,13 +141,22 @@ function HeaderBar() {
         name: 'Rapports',
         url: '/repports',
         icon: 'clipboard2-data',
-      },
+      }, 
       {
         name: "Gestion des notifications",
         url: "/notification",
         icon: "question-diamond-fill"
       },
-      
+      {
+        name: "Création d'évènement",
+        url: "/creationEvent",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Gestion d'évènement",
+        url: "/gestionEvent",
+        icon: "question-diamond-fill"
+      }, 
       {
         name: "Gestion de l'Application",
         url: "/gestion_appli",
@@ -165,6 +174,16 @@ function HeaderBar() {
         url: '/reports',
         icon: 'clipboard2-data',
       },
+      {
+        name: "Création d'évènement",
+        url: "/creationEvent",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Gestion d'évènement",
+        url: "/gestionEvent",
+        icon: "question-diamond-fill"
+      }, 
       {
         name: 'Tableau de décison',
         url: "/listeDecideur",

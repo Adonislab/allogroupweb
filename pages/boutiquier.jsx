@@ -125,7 +125,7 @@ export default function Marchand() {
         }, { merge: true });
         await setDoc(docRefusers, {
           marchand:true,
-          role:"shopkeeper",
+          role:"Shopkeeper",
         }, { merge: true });
         toast.success('Vous êtes désormais un marchand chez Allo Group');
         setTimeout(() => {

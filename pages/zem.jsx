@@ -110,7 +110,7 @@ export default function Zem() {
         }, { merge: true });
         await setDoc(docRefusers, {
           champion:true,
-          role:"chauffeur",
+          role:"Chauffeur",
         }, { merge: true });
       
       toast.success('Vous êtes désormais un chauffeur Allo Group');
