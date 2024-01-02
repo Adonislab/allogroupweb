@@ -83,18 +83,43 @@ function HeaderBar() {
         icon: "question-diamond-fill"
       },
       {
-        name: "Commande en instance",
+        name: "Commande de repas en instance",
         url: "/boutiqueProduits",
         icon: "question-diamond-fill"
       },
       {
-        name: "Liste des champions",
+        name: "Liste des boutiques",
+        url: "/listeShop",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Commande de produit en instance",
+        url: "/boutiqueProduits",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Liste des livreurs",
         url: "/listeChampion",
         icon: "question-diamond-fill"
       },
       {
         name: "Livraison disponible",
         url: "/demandeLivraison",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Liste des chauffeurs",
+        url: "/listeChauffeur",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Demande de zem",
+        url: "/demandeLivraison",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Chauffeur Actif",
+        url: "/ChampionActivite",
         icon: "question-diamond-fill"
       },
      {

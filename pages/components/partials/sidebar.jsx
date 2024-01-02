@@ -61,16 +61,6 @@ export default function Sidebar() {
         icon: 'speedometer2',
       },
       {
-        name: 'Approbations',
-        url: '/demandesApprobations',
-        icon: 'speedometer2',
-      },
-      {
-        name: "Champion Actif",
-        url: "/ChampionActivite",
-        icon: "question-diamond-fill"
-      },
-      {
         name: 'Gestion portefeuille champion',
         url: '/gestionPaiementChampion',
         icon: 'speedometer2',
@@ -81,23 +71,53 @@ export default function Sidebar() {
         icon: "question-diamond-fill"
       },
       {
-        name: "Liste des champions",
-        url: "/listeChampion",
-        icon: "question-diamond-fill"
-      },
-      {
-        name: "Gestion Paiement Marchands",
-        url: "/paiementMarchandsAllogroup",
-        icon: "question-diamond-fill"
-      },
-      {
-        name: "Commande en instance",
+        name: "Commande de repas en instance",
         url: "/boutiqueProduits",
         icon: "question-diamond-fill"
       },
       {
-        name: "Vue des comptables",
-        url: "/listeComptable",
+        name: "Liste des boutiques",
+        url: "/listeShop",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Commande de produit en instance",
+        url: "/boutiqueProduits",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Liste des livreurs",
+        url: "/listeChampion",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Livraison disponible",
+        url: "/demandeLivraison",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Liste des chauffeurs",
+        url: "/listeChauffeur",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Demande de zem",
+        url: "/demandeLivraison",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Chauffeur Actif",
+        url: "/ChampionActivite",
+        icon: "question-diamond-fill"
+      },
+     {
+         name: "Champion Actif",
+         url: "/ChampionActivite",
+         icon: "question-diamond-fill"
+       },
+       {
+        name: "Gestion Paiement Marchands",
+        url: "/paiementMarchandsAllogroup",
         icon: "question-diamond-fill"
       },
       {
@@ -109,11 +129,6 @@ export default function Sidebar() {
         name: 'Rapports',
         url: '/repports',
         icon: 'clipboard2-data',
-      },
-      {
-        name: "Livraison disponible",
-        url: "/demandeLivraison",
-        icon: "question-diamond-fill"
       },
       {
         name: "Gestion des notifications",
@@ -131,16 +146,6 @@ export default function Sidebar() {
         url: "/users",
         icon: "question-diamond-fill"
       },
-      {
-        name: 'Paiement Marchant',
-        url: '/paiementMarchand',
-        icon: 'question-diamond-fill',
-      },
-      {
-      name: 'Paiement Champion',
-      url: '/paiementChampion',
-      icon: 'question-diamond-fill',
-    },
     ],
     [ROLES.DECIDEUR]: [
       {

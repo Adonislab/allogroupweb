@@ -35,7 +35,7 @@ export default function MarchandsChart() {
       if (authUser) {
         setUser(authUser);
 
-        const marchandsRef = collection(db, "marchands");
+        const marchandsRef = collection(db, "zems");
         const querySnapshot = await getDocs(marchandsRef);
 
         const cuisineCount = {};
@@ -82,7 +82,7 @@ export default function MarchandsChart() {
       },
       title: {
         display: true,
-        text: 'Nombre de boutique par spécialité de cuisine',
+        text: 'Nombre de boutique par spécialité',
       },
     },
   };
