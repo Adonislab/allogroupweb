@@ -3,10 +3,13 @@ import Head from "@/utils/head";
 import React, { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import MarchandsChart from "./components/layout/MarchandsChart";
+import BoutiquesChart from "./components/layout/BoutiquesChart";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { firebaseConfig } from '../utils/firebaseConfig';
 import MarchandTable from "./components/layout/MarchandTable";
 import ChampionTable from "./components/layout/ChampionTable";
+import BoutiqueTable from "./components/layout/BoutiqueTable";
+import ChauffeurTable from "./components/layout/ChauffeurTable";
 import Image from "next/image";
 
 function Dashboard() {
@@ -156,8 +159,22 @@ function Dashboard() {
         </div>
       </div>
       <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
-        <p className="mt-4 text-2xl text-orange-500"> Qui sont les grands Champions de Allô Group ?</p>
+        {/* <p className="mt-4 text-2xl text-orange-500"> Quelles sont les grandes tendances marchandes de Allô Group ?</p> */}
+        <BoutiqueTable />
+      </div>
+      <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
+        <div>
+          <p className="text-2xl text-orange-500">Les spécialités au sein des boutiques</p>
+          <BoutiquesChart />
+        </div>
+      </div>
+      <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
+        <p className="mt-4 text-2xl text-orange-500">Livreurs</p>
         <ChampionTable />
+      </div>
+      <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
+        <p className="mt-4 text-2xl text-orange-500">Chauffeurs </p>
+        <ChauffeurTable />
       </div>
     </DashLayout>
   );

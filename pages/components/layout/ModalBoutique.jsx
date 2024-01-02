@@ -5,7 +5,7 @@ import { getAuth } from 'firebase/auth';
 
 const auth = getAuth();
 
-const ModalMarchand = ({ product, isOpen, updateProduct, onCancel }) => {
+const ModalBoutique = ({ product, isOpen, updateProduct, onCancel }) => {
 
 
   const [formData, setFormData] = useState({
@@ -24,7 +24,7 @@ const ModalMarchand = ({ product, isOpen, updateProduct, onCancel }) => {
       const storage = getStorage();
       const imageCounter = Date.now();
       const fileName = auth.currentUser.uid + `produit${imageCounter}`;
-      const storageRef = ref(storage, `profile_images_marchand/${fileName}`);
+      const storageRef = ref(storage, `profile_images_boutique/${fileName}`);
       const snapshot = await uploadBytes(storageRef, imageFile);
       const downloadURL = await getDownloadURL(snapshot.ref);
 
@@ -152,7 +152,7 @@ const ModalMarchand = ({ product, isOpen, updateProduct, onCancel }) => {
             </label>
 
             <select
-              onChange={handleInputChange}
+              onChange={(e) => setFormData({ ...formData, categorie: e.target.value })}
               name="categorie"
               id="categorie"
               className="bg-indigo-50 border border-indigo-300 text-indigo-700 text-xl rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -160,15 +160,13 @@ const ModalMarchand = ({ product, isOpen, updateProduct, onCancel }) => {
               value={formData.categorie}
             >
               <option value="pas précis">Sélectionnez une option</option>
-              <option value="Fast Food">Fast Food</option>
-              <option value="Cuisine Africaine">Cuisine Africaine</option>
-              <option value="Cuisine Américaine">Cuisine Américaine</option>
-              <option value="Spécialité Européenne">Cuisine Européenne</option>
-              <option value="Spécialité Béninoise">Spécialité Béninoise</option>
-              <option value="Viandes-Poissons-etc">Viandes-Poissons-etc</option>
-              <option value="Dessert">Dessert</option>
-              <option value="Coktails">Coktails</option>
-              <option value="Amuse bouche">Amuse bouche</option>
+              <option value="Santé, beauté, cosmétiques bio">Santé, beauté, cosmétiques bio</option>
+              <option value="Articles pour animaux de compagnie">Articles pour animaux de compagnie</option>
+              <option value="Produits et accessoires pour le sport">Produits et accessoires pour le sport</option>
+              <option value="Produits pour bébés et enfants">Produits pour bébés et enfants</option>
+              <option value="Appareils électroniques et accessoires connectés">Appareils électroniques et accessoires connectés</option>
+              <option value="DIY et produits artisanaux, éco-responsables">DIY et produits artisanaux, éco-responsables</option>
+              <option value="Alimentation et produits locaux">Alimentation et produits locaux</option>
             </select>
           </div>
 
@@ -207,4 +205,4 @@ const ModalMarchand = ({ product, isOpen, updateProduct, onCancel }) => {
   );
 };
 
-export default ModalMarchand;
+export default ModalBoutique;

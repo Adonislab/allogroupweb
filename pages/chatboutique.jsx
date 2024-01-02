@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { firebaseConfig } from '../utils/firebaseConfig';
-import { getFirestore, doc, getDoc, setDoc, collection } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, setDoc} from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import Router from 'next/router';
 import Head from "@/utils/head";
@@ -33,7 +33,7 @@ export default function ProduitAdd() {
     const storage = getStorage();
     const imageCounter = Date.now();
     const fileName = auth.currentUser.uid + `produit${imageCounter}`;
-    const storageRef = ref(storage, `profile_images_marchand/${fileName}`);
+    const storageRef = ref(storage, `profile_images_boutique/${fileName}`);
     const snapshot = await uploadBytes(storageRef, imageFile);
     const downloadURL = await getDownloadURL(snapshot.ref);
     return downloadURL;
@@ -45,7 +45,7 @@ export default function ProduitAdd() {
       if (user) {
         const userId = user.uid;
         try {
-          const docRef = doc(db, 'marchands', userId);
+          const docRef = doc(db, 'boutiques', userId);
           const docSnapshot = await getDoc(docRef);
 
           if (docSnapshot.exists()) {
@@ -165,7 +165,7 @@ export default function ProduitAdd() {
       const userId = auth.currentUser.uid;
   
       // Get the marchand document from the "marchands" collection
-      const marchandDocRef = doc(db, 'marchands', userId);
+      const marchandDocRef = doc(db, 'boutiques', userId);
       const marchandDocSnapshot = await getDoc(marchandDocRef);
   
       // Check if the marchand document exists
@@ -209,11 +209,11 @@ export default function ProduitAdd() {
               await setDoc(marchandDocRef, { produits }, { merge: true });
               toast.success('Votre produit a été ajouté avec succès à votre boutique');
               setTimeout(() => {
-                Router.push("/dashboardMarchand");
+                Router.push("/dashboardBoutique");
               }, 2000);
             } else {
               setTimeout(() => {
-                Router.push("/marchand");
+                Router.push("/boutiquier");
               }, 2000);
               toast.error("Vous n'avez pas de compte marchand pour créer un produit.");
             }
@@ -327,15 +327,13 @@ export default function ProduitAdd() {
               value={formData.categorie}
             >
               <option value="pas précis">Sélectionnez une option</option>
-              <option value="Fast Food">Fast Food</option>
-              <option value="Cuisine Africaine">Cuisine Africaine</option>
-              <option value="Cuisine Américaine">Cuisine Américaine</option>
-              <option value="Spécialité Européenne">Cuisine Européenne</option>
-              <option value="Spécialité Béninoise">Spécialité Béninoise</option>
-              <option value="Viandes-Poissons-etc">Viandes-Poissons-etc</option>
-              <option value="Dessert">Dessert</option>
-              <option value="Coktails">Coktails</option>
-              <option value="Amuse bouche">Amuse bouche</option>
+              <option value="Santé, beauté, cosmétiques bio">Santé, beauté, cosmétiques bio</option>
+              <option value="Articles pour animaux de compagnie">Articles pour animaux de compagnie</option>
+              <option value="Produits et accessoires pour le sport">Produits et accessoires pour le sport</option>
+              <option value="Produits pour bébés et enfants">Produits pour bébés et enfants</option>
+              <option value="Appareils électroniques et accessoires connectés">Appareils électroniques et accessoires connectés</option>
+              <option value="DIY et produits artisanaux, éco-responsables">DIY et produits artisanaux, éco-responsables</option>
+              <option value="Alimentation et produits locaux">Alimentation et produits locaux</option>
             </select>
           </div>
 

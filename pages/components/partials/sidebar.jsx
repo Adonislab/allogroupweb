@@ -11,6 +11,8 @@ const ROLES = {
   DECIDEUR: 'decideur',
   CHAMPION: 'champion',
   MARCHAND: 'marchand',
+  CHAUFFEUR: 'chauffeur',
+  BOUTIQUE: 'shopkeeper',
 };
 
 export default function Sidebar() {
@@ -266,7 +268,71 @@ export default function Sidebar() {
     //   url: '/paiementChampion',
     //   icon: 'question-diamond-fill',
     // },
-    ]
+    ],
+    [ROLES.CHAUFFEUR]: [
+      {
+        name: 'Chauffeur Board',
+        url: '/dashboardChauffeur',
+        icon: 'speedometer2',
+      },  
+      {
+        name: "Compte Chauffeur",
+        url: "/zem",
+        icon: "question-diamond-fill"
+     },
+     {
+      name: "Portefeuille",
+      url: "/wallet",
+      icon: "question-diamond-fill"
+    },
+    {
+      name: 'Politique',
+      url: '/politique',
+      icon: 'question-diamond-fill',
+    },
+    // {
+    //   name: 'Paiement',
+    //   url: '/paiementChampion',
+    //   icon: 'question-diamond-fill',
+    // },
+    ],
+    [ROLES.BOUTIQUE]: [
+      {
+        name: 'Mes ventes',
+        url: '/venteBoutique',
+        icon: 'speedometer2',
+      },  
+      {
+        name: 'Marchand Board',
+        url: '/dashboardBoutique',
+        icon: 'speedometer2',
+      }, 
+      {
+        name: "Compte Marchand",
+        url: "/boutiquier",
+        icon: "question-diamond-fill"
+     },
+      {
+        name: 'Création de produits',
+        url: '/chatboutique',
+        icon: 'question-diamond-fill',
+      },  
+      {
+        name: "Portefeuille",
+        url: "/wallet",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: 'Politique',
+        url: '/politique',
+        icon: 'question-diamond-fill',
+      },
+      // {
+      //   name: 'Paiement',
+      //   url: '/paiementMarchand',
+      //   icon: 'question-diamond-fill',
+      // },
+    ],
   };
 
   // Élément de menu générique pour l'utilisateur sans rôle
