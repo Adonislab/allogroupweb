@@ -187,13 +187,13 @@ export default function Setting() {
                     </div>
                     <div className='text-left'>
                         <label htmlFor="details" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">
-                            Détails sur votre activité
+                            Détails sur votre activité 
                         </label>
                         <Textarea
                             onChange={(e) => setFormData({ ...formData, details: e.target.value })}
                             name="details"
                             id="details"
-                            placeholder="Spécialisé dans les fast food/cuisine locale/..."
+                            placeholder="Vos intentions"
                             value={formData.details}
                             className="bg-indigo-50 border border-indigo-300 text-indigo-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             required=""
