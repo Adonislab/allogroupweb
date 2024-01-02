@@ -216,7 +216,7 @@ export default function Setting() {
                         >
                             <option value="pas précis">Sélectionnez une option</option>
                             <option value="Marchand">Marchand</option>
-                            <option value="Champion">Champion</option>
+                            <option value="Livreur">Livreur</option>
                             <option value="Chauffeur">Chauffeur</option>
                             <option value="Shopkeeper">Shopkeeper</option>
 
