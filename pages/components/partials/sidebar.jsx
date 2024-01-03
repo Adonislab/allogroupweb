@@ -157,6 +157,11 @@ export default function Sidebar() {
         url: "/users",
         icon: "question-diamond-fill"
       },
+      {
+        name: "Examen des demandes",
+        url: "/demandesApprobations",
+        icon: "question-diamond-fill"
+      },
     ],
     [ROLES.DECIDEUR]: [
       {
