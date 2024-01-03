@@ -197,6 +197,7 @@ export default function Setting() {
                             value={formData.details}
                             className="bg-indigo-50 border border-indigo-300 text-indigo-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             required=""
+                            rows={8}
                         />
                     </div>
 
@@ -219,6 +220,7 @@ export default function Setting() {
                             <option value="Livreur">Livreur</option>
                             <option value="Chauffeur">Chauffeur</option>
                             <option value="Shopkeeper">Shopkeeper</option>
+                            <option value="Event">Gestionnaire d'évenement</option>
 
                         </select>
                     </div>
