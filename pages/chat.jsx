@@ -326,7 +326,7 @@ export default function ProduitAdd() {
               required=""
               value={formData.categorie}
             >
-              <option value="pas précis">Sélectionnez une option</option>
+              <option value="">Sélectionnez une option</option>
               <option value="Fast Food">Fast Food</option>
               <option value="Cuisine Africaine">Cuisine Africaine</option>
               <option value="Cuisine Américaine">Cuisine Américaine</option>
