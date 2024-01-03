@@ -51,13 +51,13 @@ function DashboardEvent() {
       console.log(updatedProduct.id);
       try {
         // Accédez au document du marchand
-        const merchantDocRef = doc(db, "administrateur", "admin");
+        const merchantDocRef = doc(db, "events", userId);
         const merchantDocSnapshot = await getDoc(merchantDocRef);
         const merchantData = merchantDocSnapshot.data();
 
         if (merchantData) {
           // Accédez à la sous-collection de produits
-          const products = merchantData.event || [];
+          const products = merchantData.produits || [];
 
           // Recherchez le produit à mettre à jour par son ID
           const productIndex = products.findIndex(product => product.id === updatedProduct.id);
@@ -125,7 +125,7 @@ function DashboardEvent() {
         const userId = auth.currentUser.uid;
         try {
           // Accédez au document du marchand
-          const merchantDocRef = doc(db, "marchands", userId);
+          const merchantDocRef = doc(db, "events", userId);
           const merchantDocSnapshot = await getDoc(merchantDocRef);
           const merchantData = merchantDocSnapshot.data();
   
@@ -204,7 +204,7 @@ function DashboardEvent() {
         const userId = authUser.uid;
        
         // Utilisez l'ID de l'utilisateur pour chercher son document marchand
-        const userDocRef = doc(db, "marchands", userId);
+        const userDocRef = doc(db, "events", userId);
         
         try {
           const userDocSnapshot = await getDoc(userDocRef);
@@ -257,7 +257,7 @@ function DashboardEvent() {
         />
       )}
       <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
-        <p className="text-2xl text-blue-500">Tickets disponible : {products.length}</p>
+        <p className="text-2xl text-blue-500">Nombre d'articles en vente : {products.length}</p>
         <table className="w-full table-fixed">
           <thead>
             <tr>

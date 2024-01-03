@@ -13,6 +13,7 @@ const ROLES = {
   MARCHAND: 'marchand',
   CHAUFFEUR: 'chauffeur',
   BOUTIQUE: 'shopkeeper',
+  EVENT:'event',
 };
 
 export default function Sidebar() {
@@ -340,6 +341,43 @@ export default function Sidebar() {
       {
         name: 'Création de produits',
         url: '/chatboutique',
+        icon: 'question-diamond-fill',
+      },  
+      {
+        name: "Portefeuille",
+        url: "/wallet",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: 'Politique',
+        url: '/politique',
+        icon: 'question-diamond-fill',
+      },
+      // {
+      //   name: 'Paiement',
+      //   url: '/paiementMarchand',
+      //   icon: 'question-diamond-fill',
+      // },
+    ],
+    [ROLES.EVENT]: [
+      {
+        name: 'Mes ventes',
+        url: '/venteEvent',
+        icon: 'speedometer2',
+      },  
+      {
+        name: 'Event Board',
+        url: '/dasbordEvent',
+        icon: 'speedometer2',
+      }, 
+      {
+        name: "Compte Event",
+        url: "/gestionnairevent",
+        icon: "question-diamond-fill"
+     },
+      {
+        name: 'Création de produits',
+        url: '/chatEvent',
         icon: 'question-diamond-fill',
       },  
       {

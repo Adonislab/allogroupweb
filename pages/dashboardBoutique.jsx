@@ -204,7 +204,7 @@ function DashboardBoutique() {
         const userId = authUser.uid;
        
         // Utilisez l'ID de l'utilisateur pour chercher son document marchand
-        const userDocRef = doc(db, "marchands", userId);
+        const userDocRef = doc(db, "boutiques", userId);
         
         try {
           const userDocSnapshot = await getDoc(userDocRef);

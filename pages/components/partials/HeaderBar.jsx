@@ -15,6 +15,7 @@ const ROLES = {
   MARCHAND: 'marchand',
   CHAUFFEUR: 'chauffeur',
   BOUTIQUE: 'shopkeeper',
+  EVENT:'event',
 };
 
 
