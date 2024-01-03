@@ -51,7 +51,7 @@ function DashboardBoutique() {
       console.log(updatedProduct.id);
       try {
         // Accédez au document du marchand
-        const merchantDocRef = doc(db, "marchands", userId);
+        const merchantDocRef = doc(db, "boutiques", userId);
         const merchantDocSnapshot = await getDoc(merchantDocRef);
         const merchantData = merchantDocSnapshot.data();
 
@@ -125,7 +125,7 @@ function DashboardBoutique() {
         const userId = auth.currentUser.uid;
         try {
           // Accédez au document du marchand
-          const merchantDocRef = doc(db, "marchands", userId);
+          const merchantDocRef = doc(db, "boutiques", userId);
           const merchantDocSnapshot = await getDoc(merchantDocRef);
           const merchantData = merchantDocSnapshot.data();
   
