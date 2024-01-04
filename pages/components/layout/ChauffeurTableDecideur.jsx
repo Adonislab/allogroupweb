@@ -59,7 +59,7 @@ export default function MarchandTable() {
       if (authUser) {
         setUser(authUser);
 
-        const marchandsRef = collection(db, "champions");
+        const marchandsRef = collection(db, "zems");
         const querySnapshot = await getDocs(marchandsRef);
 
         const userDataArray = [];
@@ -90,7 +90,7 @@ export default function MarchandTable() {
 
   return (
     <>
-        <p className="text-2xl text-blue-500">Nombre de Champion Allô Livreur: {userData.length} </p>
+        <p className="text-2xl text-blue-500">Nombre de Chauffeur Allô Zem : {userData.length} </p>
         <table className="w-full table-fixed">
         <thead>
             <tr>
