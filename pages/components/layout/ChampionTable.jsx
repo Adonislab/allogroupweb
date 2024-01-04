@@ -90,7 +90,7 @@ export default function MarchandTable() {
 
   return (
     <>
-        <p className="text-2xl text-blue-500">Nombre de Champion : {userData.length} </p>
+        <p className="text-2xl text-blue-500">Nombre de Champion Allô Livreur: {userData.length} </p>
         <table className="w-full table-fixed">
         <thead>
             <tr>

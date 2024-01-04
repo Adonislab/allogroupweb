@@ -40,7 +40,7 @@ export default function BoutiqueTable() {
       if (authUser) {
         setUser(authUser);
 
-        const marchandsRef = collection(db, "boutiques");
+        const marchandsRef = collection(db, "events");
         const querySnapshot = await getDocs(marchandsRef);
             
         const userDataArray = [];
@@ -82,7 +82,7 @@ export default function BoutiqueTable() {
   
   return (
     <>
-        <p className="text-2xl text-blue-500">Nombre de boutiques Allô Market : {userData.length} </p>
+        <p className="text-2xl text-blue-500">Nombre de gestionnaires Allô Event : {userData.length} </p>
         <table className="w-full table-fixed">
         <thead>
             <tr>

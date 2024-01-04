@@ -4,11 +4,13 @@ import React, { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import MarchandsChart from "./components/layout/MarchandsChart";
 import BoutiquesChart from "./components/layout/BoutiquesChart";
+import EventChart from "./components/layout/EventChart";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { firebaseConfig } from '../utils/firebaseConfig';
 import MarchandTable from "./components/layout/MarchandTable";
 import ChampionTable from "./components/layout/ChampionTable";
 import BoutiqueTable from "./components/layout/BoutiqueTable";
+import EventTable from "./components/layout/EventTable";
 import ChauffeurTable from "./components/layout/ChauffeurTable";
 import Image from "next/image";
 
@@ -154,7 +156,7 @@ function Dashboard() {
       </div>
       <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
         <div>
-          <p className="text-2xl text-orange-500">Les spécialités de cuisine au sein des restaurants</p>
+          <p className="text-2xl text-orange-500">Les spécialités de cuisine au sein des restaurants Allô Food</p>
           <MarchandsChart />
         </div>
       </div>
@@ -164,8 +166,18 @@ function Dashboard() {
       </div>
       <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
         <div>
-          <p className="text-2xl text-orange-500">Les spécialités au sein des boutiques</p>
+          <p className="text-2xl text-orange-500">Les spécialités au sein des boutiques Allô Market</p>
           <BoutiquesChart />
+        </div>
+      </div>
+      <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
+        {/* <p className="mt-4 text-2xl text-orange-500"> Quelles sont les grandes tendances marchandes de Allô Group ?</p> */}
+        <EventTable/>
+      </div>
+      <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">
+        <div>
+          <p className="text-2xl text-orange-500">Les spécialités des gestionnaires Allô Event</p>
+          <EventChart />
         </div>
       </div>
       <div className="p-4 border border-gray-20 border-dashe rounded-lg dark:border-orange-500 mt-14">

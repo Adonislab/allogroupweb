@@ -49,7 +49,7 @@ export default function MarchandTable() {
         });
 
         setUserData(userDataArray);
-        console.log('les données user',userDataArray[2].produits)
+        //console.log('les données user',userDataArray[2].produits)
         setLoading(false);
       } else {
         setUser(null);
@@ -82,7 +82,7 @@ export default function MarchandTable() {
   
   return (
     <>
-        <p className="text-2xl text-blue-500">Nombre de boutiques : {userData.length} </p>
+        <p className="text-2xl text-blue-500">Nombre de boutiques Allô Food: {userData.length} </p>
         <table className="w-full table-fixed">
         <thead>
             <tr>

@@ -35,7 +35,7 @@ export default function MarchandsChart() {
       if (authUser) {
         setUser(authUser);
 
-        const marchandsRef = collection(db, "boutiques");
+        const marchandsRef = collection(db, "events");
         const querySnapshot = await getDocs(marchandsRef);
 
         const cuisineCount = {};
