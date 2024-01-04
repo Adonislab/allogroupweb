@@ -95,7 +95,17 @@ function HeaderBar() {
       },
       {
         name: "Commande de produit en instance",
-        url: "/boutiqueProduits",
+        url: "/boutiqueProduitsAlloMarket",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Liste des gestionnaires",
+        url: "/listeGestionnaire",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Commande évenement en instance",
+        url: "/boutiqueProduitsEvent",
         icon: "question-diamond-fill"
       },
       {
@@ -120,7 +130,7 @@ function HeaderBar() {
       },
       {
         name: "Chauffeur Actif",
-        url: "/ChampionActivite",
+        url: "/ChauffeurActivite",
         icon: "question-diamond-fill"
       },
      {

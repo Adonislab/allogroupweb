@@ -83,7 +83,17 @@ export default function Sidebar() {
       },
       {
         name: "Commande de produit en instance",
-        url: "/boutiqueProduits",
+        url: "/boutiqueProduitsAlloMarket",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Liste des gestionnaires",
+        url: "/listeGestionnaire",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Commande évenement en instance",
+        url: "/boutiqueProduitsEvent",
         icon: "question-diamond-fill"
       },
       {
@@ -108,7 +118,7 @@ export default function Sidebar() {
       },
       {
         name: "Chauffeur Actif",
-        url: "/ChampionActivite",
+        url: "/ChauffeurActivite",
         icon: "question-diamond-fill"
       },
      {
