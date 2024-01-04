@@ -206,25 +206,10 @@ function HeaderBar() {
         icon: 'clipboard2-data',
       },
       {
-        name: "Création d'évènement",
-        url: "/creationEvent",
-        icon: "question-diamond-fill"
-      },
-      {
-        name: "Gestion d'évènement",
-        url: "/gestionEvent",
-        icon: "question-diamond-fill"
-      }, 
-      {
         name: 'Tableau de décison',
         url: "/listeDecideur",
         icon: 'speedometer2',
       },  
-      {
-        name: "Champion Actif",
-        url: "/ChampionActivite",
-        icon: "question-diamond-fill"
-      },
       {
         name: "Compte utilisateur",
         url: "/users",
@@ -236,8 +221,13 @@ function HeaderBar() {
       icon: "question-diamond-fill"
       },
       {
-        name: 'Gestion portefeuille champion',
+        name: 'Gestion portefeuille Champion',
         url: '/gestionPaiementChampion',
+        icon: 'speedometer2',
+      },
+      {
+        name: 'Gestion portefeuille Chauffeur',
+        url: '/gestionPaiementChauffeur',
         icon: 'speedometer2',
       },
       {
@@ -246,18 +236,40 @@ function HeaderBar() {
         icon: "question-diamond-fill"
       },
       {
-         name: "Livraison disponible",
-         url: "/demandeLivraison",
-         icon: "question-diamond-fill"
-       },
+        name: "Champion Actif",
+        url: "/ChampionActivite",
+        icon: "question-diamond-fill"
+      },
       {
-        name: "Gestion Paiement Marchands",
+        name: "Livraison disponible",
+        url: "/demandeLivraison",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Demande de zem",
+        url: "/demandeLivraison",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Chauffeur Actif",
+        url: "/ChauffeurActivite",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Gestion Paiement Allô Food",
         url: "/paiementMarchandsAllogroup",
         icon: "question-diamond-fill"
       },
-
-
-
+      {
+        name: "Gestion Paiement Allô Market",
+        url: "/paiementBoutiqueAllogroup",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Gestion Paiement Allô Event",
+        url: "/paiementEventAllogroup",
+        icon: "question-diamond-fill"
+      },
     ],
     [ROLES.COMPTABLE]: [
       {
