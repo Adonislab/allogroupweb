@@ -328,6 +328,7 @@ export default function ProduitAdd() {
             >
               <option value="pas précis">Sélectionnez une option</option>
               <option value="Vêtements, Tissus, Produits vestimantaire">Vêtements, Tissus, Produits vestimantaire</option>
+              <option value="Fournitures, Bureautique, Livres, Manuels">Fournitures, Bureautique, Livres, Manuels</option>
               <option value="Santé, beauté, cosmétiques bio">Santé, beauté, cosmétiques bio</option>
               <option value="Articles pour animaux de compagnie">Articles pour animaux de compagnie</option>
               <option value="Produits et accessoires pour le sport">Produits et accessoires pour le sport</option>

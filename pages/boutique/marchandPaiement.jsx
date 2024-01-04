@@ -31,7 +31,7 @@ export default function Produits() {
   useEffect(() => {
     if (product !== null) {
       setLoading(false); // Marquer le chargement comme terminé une fois les données disponibles
-      console.log(product[1].prix)
+      //console.log(product[1].prix)
     }
   }, [product]);
 

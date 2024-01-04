@@ -19,7 +19,7 @@ export default function MarchandTable() {
     <Image src={item.profileImageUrl} width={100} height={100} alt={item.adresse} />  },
     { label: <span className="text-blue-500">Boutique</span>, renderCell: (item) => item.fullName },
     {
-      label: <span className="text-blue-500">Type de cuisine</span>,
+      label: <span className="text-blue-500">Type de produit</span>,
       renderCell: (item) => item.cuisine,
     },
     { label: <span className="text-blue-500">Téléphone</span>, renderCell: (item) => item.phoneNumber },
@@ -54,7 +54,7 @@ export default function MarchandTable() {
       if (authUser) {
         setUser(authUser);
 
-        const marchandsRef = collection(db, "marchands");
+        const marchandsRef = collection(db, "boutiques");
         const querySnapshot = await getDocs(marchandsRef);
             
         const userDataArray = [];
@@ -86,7 +86,7 @@ export default function MarchandTable() {
   
   return (
     <>
-        <p className="text-2xl text-blue-500">Nombre de boutiques Allô Food : {userData.length} </p>
+        <p className="text-2xl text-blue-500">Nombre de boutiques Allô Market: {userData.length} </p>
         <table className="w-full table-fixed">
         <thead>
             <tr>

@@ -144,8 +144,18 @@ function HeaderBar() {
          icon: "question-diamond-fill"
        },
        {
-        name: "Gestion Paiement Marchands",
+        name: "Gestion Paiement Allô Food",
         url: "/paiementMarchandsAllogroup",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Gestion Paiement Allô Market",
+        url: "/paiementBoutiqueAllogroup",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Gestion Paiement Allô Event",
+        url: "/paiementEventAllogroup",
         icon: "question-diamond-fill"
       },
       {
