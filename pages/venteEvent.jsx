@@ -6,7 +6,7 @@ import { getFirestore, doc, getDoc, deleteDoc, updateDoc } from 'firebase/firest
 import { firebaseConfig } from '../utils/firebaseConfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import GraphiqueVente from './components/layout/GraphiqueVente';
+import GraphiqueVente from './components/layout/GraphiqueVenteEvent';
 
 function VenteEvent() {
   const [user, setUser] = useState(null);

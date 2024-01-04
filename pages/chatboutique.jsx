@@ -265,7 +265,7 @@ export default function ProduitAdd() {
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               type="text" name="title" id="title"
               className="bg-indigo-50 border border-indigo-300 text-indigo-700 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-white-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-white-500"
-              placeholder="Les Armandes aux olives" required=""
+              placeholder="Couche de bébé" required=""
               value={formData.title} />
           </div>
 
@@ -294,12 +294,12 @@ export default function ProduitAdd() {
           </div>
 
           <div className='text-left'>
-            <label htmlFor="during" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">Combien de temps faut-il avant la consommation finale du produit ?</label>
+            <label htmlFor="during" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">Combien de temps faut-il avant l'amotissement du produit ?</label>
             <input
               onChange={(e) => setFormData({ ...formData, during: e.target.value })}
               type="number" name="during" id="during"
               className="bg-indigo-50 border border-indigo-300 text-indigo-700 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-white-600 block w-full p-2.5 dark:bg-indigo-700 dark:border-indigo-600 dark:placeholder-indigo-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-white-500"
-              placeholder="5min" required=""
+              placeholder="5ans" 
               value={formData.during} />
           </div>
 
@@ -327,6 +327,7 @@ export default function ProduitAdd() {
               value={formData.categorie}
             >
               <option value="pas précis">Sélectionnez une option</option>
+              <option value="Vêtements, Tissus, Produits vestimantaire">Vêtements, Tissus, Produits vestimantaire</option>
               <option value="Santé, beauté, cosmétiques bio">Santé, beauté, cosmétiques bio</option>
               <option value="Articles pour animaux de compagnie">Articles pour animaux de compagnie</option>
               <option value="Produits et accessoires pour le sport">Produits et accessoires pour le sport</option>

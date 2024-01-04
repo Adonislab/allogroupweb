@@ -294,7 +294,7 @@ export default function ProduitAddEvent() {
           </div>
 
           <div className='text-left'>
-            <label htmlFor="during" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">Combien de temps faut-il avant la consommation finale du produit ?</label>
+            <label htmlFor="during" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">Combien de temps faut-il avant l'amotissement du produit ?</label>
             <input
               onChange={(e) => setFormData({ ...formData, during: e.target.value })}
               type="number" name="during" id="during"

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { firebaseConfig } from '../utils/firebaseConfig';
-import MarchandsChartMarchands from "./components/layout/MarchandsChartMarchands";
+import MarchandsChartMarchands from "./components/layout/MarchandsChartMarchandsEvent";
 import ModalMarchand from "./components/layout/ModalMarchand"; 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

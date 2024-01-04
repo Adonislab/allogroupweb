@@ -6,7 +6,7 @@ import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { firebaseConfig } from '../utils/firebaseConfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import GraphiqueVente from './components/layout/GraphiqueVente';
+import GraphiqueVente from './components/layout/GraphiqueVenteBoutique';
 
 function VenteBoutique() {
   const [user, setUser] = useState(null);
