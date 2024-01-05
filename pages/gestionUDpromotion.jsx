@@ -117,7 +117,7 @@ function DashboardMarchand() {
 
   
   const handleDelete = async (item) => {
-    if (window.confirm("Voulez-vous vraiment supprimer ce promotion ?")) {
+    if (window.confirm("Voulez-vous vraiment supprimer cette promotion ?")) {
       const auth = getAuth();
       const db = getFirestore(firebaseConfig);
       if (auth.currentUser) {
