@@ -210,16 +210,16 @@ function HeaderBar() {
         url: "/listeDecideur",
         icon: 'speedometer2',
       },  
-      {
-        name: "Compte utilisateur",
-        url: "/users",
-        icon: "question-diamond-fill"
-     },
      {
-      name: "Systeme de notification",
+      name: "Edition de pub",
       url: "/notification",
       icon: "question-diamond-fill"
-      },
+    },
+    {
+      name: "Gestion des promtions",
+      url: "/gestionUDpromotion",
+      icon: "question-diamond-fill"
+    },
       {
         name: 'Gestion portefeuille Champion',
         url: '/gestionPaiementChampion',
@@ -277,11 +277,6 @@ function HeaderBar() {
         url: '/listeComptable',
         icon: 'speedometer2',
       }, 
-      {
-        name: "Compte utilisateur",
-        url: "/users",
-        icon: "question-diamond-fill"
-     }, 
     ],
     [ROLES.MARCHAND]: [
       {

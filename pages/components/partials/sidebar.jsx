@@ -199,14 +199,14 @@ export default function Sidebar() {
         icon: 'speedometer2',
       },  
       {
-        name: "Compte utilisateur",
-        url: "/users",
+        name: "Edition de pub",
+        url: "/notification",
         icon: "question-diamond-fill"
-     },
-     {
-      name: "Systeme de notification",
-      url: "/notification",
-      icon: "question-diamond-fill"
+      },
+      {
+        name: "Gestion des promtions",
+        url: "/gestionUDpromotion",
+        icon: "question-diamond-fill"
       },
       {
         name: 'Gestion portefeuille Champion',
@@ -265,11 +265,6 @@ export default function Sidebar() {
         url: '/listeComptable',
         icon: 'speedometer2',
       }, 
-      {
-        name: "Compte utilisateur",
-        url: "/users",
-        icon: "question-diamond-fill"
-     }, 
     ],
     [ROLES.MARCHAND]: [
       {
