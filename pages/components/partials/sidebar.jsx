@@ -167,19 +167,18 @@ export default function Sidebar() {
         icon: 'clipboard2-data',
       },
       {
-        name: "Gestion des notifications",
-        url: "/notification",
-        icon: "question-diamond-fill"
-      },
-      
-      {
         name: "Gestion de l'Application",
         url: "/gestion_appli",
         icon: "question-diamond-fill"
       },
       {
-        name: "Compte utilisateur",
-        url: "/users",
+        name: "Edition de pub",
+        url: "/notification",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: "Gestion des promtions",
+        url: "/gestionUDpromotion",
         icon: "question-diamond-fill"
       },
       {
