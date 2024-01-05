@@ -66,7 +66,7 @@ function DashboardMarchand() {
             products[productIndex] = updatedProduct;
 
             // Mettez à jour la sous-collection de produits dans le document du marchand
-            await updateDoc(merchantDocRef, { produits: products });
+            await updateDoc(merchantDocRef, { promotion: products });
 
             console.log("Le produit a été mis à jour avec succès.");
             // Réactualisez les données après la modification.
@@ -127,6 +127,7 @@ function DashboardMarchand() {
           const merchantDocRef = doc(db, "administrateur", "admin");
           const merchantDocSnapshot = await getDoc(merchantDocRef);
           const merchantData = merchantDocSnapshot.data();
+          console.log("Les données " + merchantData);
   
           if (merchantData) {
             // Accédez à la sous-collection de produits
@@ -140,7 +141,7 @@ function DashboardMarchand() {
               products.splice(productIndex, 1);
   
               // Mettez à jour la sous-collection de produits dans le document du marchand
-              await updateDoc(merchantDocRef, { produits: products });
+              await updateDoc(merchantDocRef, { promotion: products });
   
               console.log("Le produit a été supprimé avec succès.");
               // Réactualisez les données après la suppression.
