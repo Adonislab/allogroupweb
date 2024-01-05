@@ -177,7 +177,7 @@ export default function Sidebar() {
         icon: "question-diamond-fill"
       },
       {
-        name: "Gestion des promtions",
+        name: "Gestion des pub",
         url: "/gestionUDpromotion",
         icon: "question-diamond-fill"
       },
@@ -204,7 +204,7 @@ export default function Sidebar() {
         icon: "question-diamond-fill"
       },
       {
-        name: "Gestion des promtions",
+        name: "Gestion des pub",
         url: "/gestionUDpromotion",
         icon: "question-diamond-fill"
       },
