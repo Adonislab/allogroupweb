@@ -116,7 +116,7 @@ export default function GestionnaireEvent() {
           marchand: marchand,
           commandes:[],
           descriptionboutique:descriptionboutique,
-          produits:[],
+          produits: userData.produits || [],
           fcmToken:fcmToken,
           password:password,
           wallet: userData["wallet"],

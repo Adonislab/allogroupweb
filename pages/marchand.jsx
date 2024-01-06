@@ -116,7 +116,7 @@ export default function Marchand() {
           marchand: marchand,
           commandes:[],
           descriptionboutique:descriptionboutique,
-          produits:[],
+          produits: userData.produits || [],
           fcmToken:fcmToken,
           password:password,
           wallet: userData["wallet"],
