@@ -93,8 +93,10 @@ export default function Marchand() {
       const docRef = doc(db, 'boutiques', userId);
       const docRefusers = doc(db, 'users', userId);
       const docSnapshotUsers = await getDoc(docRefusers);
+      const userDataProduits = await getDoc(docRef);
       const userData = docSnapshotUsers.data();
-      console.log(userData);
+      const userData_marchand = userDataProduits.data();
+    
       
       if (formData.selectedFile && userData.approuve===true) {
         const newImageURL = await uploadImageToFirebase(formData.selectedFile);
@@ -116,7 +118,7 @@ export default function Marchand() {
           marchand: marchand,
           commandes:[],
           descriptionboutique:descriptionboutique,
-          produits: userData.produits || [],
+          produits:userData_marchand.produits || [],
           fcmToken:fcmToken,
           password:password,
           wallet: userData["wallet"],
