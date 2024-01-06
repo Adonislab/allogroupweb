@@ -97,7 +97,7 @@ export default function GestionnaireEvent() {
       const userData = docSnapshotUsers.data();
       const userData_marchand = userDataProduits.data();
       
-      console.log(userData);
+      
       
       if (formData.selectedFile && userData.approuve===true) {
         const newImageURL = await uploadImageToFirebase(formData.selectedFile);
