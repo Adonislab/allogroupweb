@@ -93,8 +93,9 @@ export default function GestionnaireEvent() {
       const docRef = doc(db, 'events', userId);
       const docRefusers = doc(db, 'users', userId);
       const docSnapshotUsers = await getDoc(docRefusers);
+      const userDataProduits = await getDoc(docRef);
       const userData = docSnapshotUsers.data();
-    
+      const userData_marchand = userDataProduits.data();
       
       
       
@@ -119,7 +120,7 @@ export default function GestionnaireEvent() {
           marchand: marchand,
           commandes:[],
           descriptionboutique:descriptionboutique,
-          produits: [],
+          produits: userData_marchand.produits || [],
           fcmToken:fcmToken,
           password:password,
           wallet: userData["wallet"],

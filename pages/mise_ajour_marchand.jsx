@@ -17,7 +17,7 @@ import Head from "@/utils/head";
 const db = getFirestore(firebaseConfig);
 const auth = getAuth();
 
-export default function GestionnaireEvent() {
+export default function Marchand() {
   const [formData, setFormData] = useState({
     phoneNumber: "",
     fullName: "",
@@ -34,7 +34,7 @@ export default function GestionnaireEvent() {
   const uploadImageToFirebase = async (imageFile) => {
     const storage = getStorage();
     const fileName = auth.currentUser.uid;
-    const storageRef = ref(storage, `events/${fileName}`);
+    const storageRef = ref(storage, `profile_images_marchand/${fileName}`);
     const snapshot = await uploadBytes(storageRef, imageFile);
     const downloadURL = await getDownloadURL(snapshot.ref);
     return downloadURL;
@@ -46,7 +46,7 @@ export default function GestionnaireEvent() {
       if (user) {
         const userId = user.uid;
         try {
-          const docRef = doc(db, 'events', userId);
+          const docRef = doc(db, 'marchands', userId);
           const docSnapshot = await getDoc(docRef);
     
           if (docSnapshot.exists()) {
@@ -90,13 +90,13 @@ export default function GestionnaireEvent() {
   
     try {
       const userId = auth.currentUser.uid;
-      const docRef = doc(db, 'events', userId);
+      const docRef = doc(db, 'marchands', userId);
       const docRefusers = doc(db, 'users', userId);
       const docSnapshotUsers = await getDoc(docRefusers);
+      const userDataProduits = await getDoc(docRef);
       const userData = docSnapshotUsers.data();
-    
-      
-      
+      const userData_marchand = userDataProduits.data();
+   
       
       if (formData.selectedFile && userData.approuve===true) {
         const newImageURL = await uploadImageToFirebase(formData.selectedFile);
@@ -108,7 +108,6 @@ export default function GestionnaireEvent() {
         const fcmToken = userData.fcmToken || "";
         
         // Utilisez l'URL de téléchargement dans le champ avatar
-        console.log(userData.produits);
         await setDoc(docRef, {
           id:userId,
           fullName: fullName,
@@ -119,7 +118,7 @@ export default function GestionnaireEvent() {
           marchand: marchand,
           commandes:[],
           descriptionboutique:descriptionboutique,
-          produits: [],
+          produits: userData_marchand.produits || [],
           fcmToken:fcmToken,
           password:password,
           wallet: userData["wallet"],
@@ -127,12 +126,12 @@ export default function GestionnaireEvent() {
 
         }, { merge: true });
         await setDoc(docRefusers, {
-          event:true,
-          role:"Event",
+          marchand:true,
+          role:"Marchand",
         }, { merge: true });
-        toast.success('Vous êtes désormais un gestionnaire évenementiel chez Allo Group');
+        toast.success('Vous êtes désormais un marchand chez Allo Group');
         setTimeout(() => {
-          Router.push("/chatEvent");
+          Router.push("/chat");
         }, 2000);
         
       }
@@ -169,7 +168,7 @@ export default function GestionnaireEvent() {
         <form onSubmit={handleSubmit} className="bg-blue-500 space-y-4 md:space-y-6" action="#">
           <div className='text-left'>
             <label htmlFor="name" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">
-              Nom de la boutique evennementiel
+              Nom de la boutique
             </label>
             <input
               onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
@@ -240,7 +239,7 @@ export default function GestionnaireEvent() {
 
           <div className='text-left'>
             <label htmlFor="cuisine" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">
-                Votre type de service
+                Votre type de service alimentaire
             </label>
 
             <select
@@ -252,16 +251,16 @@ export default function GestionnaireEvent() {
               value={formData.cuisine}
             >
               <option value="pas précis">Sélectionnez une option</option>
-              <option value="Animation">Animation</option>
-              <option value="Scolaire">Scolaire</option>
-              <option value="Sociaux">Sociaux</option>
+              <option value="Cuisine Express">Express</option>
+              <option value="Cuisson rapide">Cuisson rapide</option>
+              <option value="Cuisine">Cuisine</option>
             </select>
           </div>
 
 
           <div className='text-left'>
             <label htmlFor="champion" className="block mb-2 text-xl font-medium text-indigo-700 dark:text-white">
-              J'aimerais être un gestionnaire d'évènement
+              J'aimerais être un marchand
             </label>
 
             <select
@@ -273,8 +272,8 @@ export default function GestionnaireEvent() {
               value={formData.marchand}
             >
               <option value="pas de précision">Sélectionnez une option</option>
-              <option value="oui">Oui, je veux être un gestionnaire</option>
-              <option value="non">Non, je ne veux pas être un gestionaire</option>
+              <option value="oui">Oui, je veux être un marchand</option>
+              <option value="non">Non, je ne veux pas être un marchand</option>
             </select>
           </div>
 
@@ -298,7 +297,7 @@ export default function GestionnaireEvent() {
           <button type="submit" className="w-full text-white bg-indigo-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-2xl px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Je veux être un marchand</button>
 
           <p className="text-xl font-light text-white dark:text-indigo-400">
-            Je suis un gestionnaire <Link href="/dasbordEvent" className="font-medium text-white hover:underline dark:text-primary-500">Connexion</Link>
+            Je suis un marchand <Link href="/dashboardMarchand" className="font-medium text-white hover:underline dark:text-primary-500">Connexion</Link>
           </p>
         </form>
       </div>

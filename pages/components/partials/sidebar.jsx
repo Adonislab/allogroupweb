@@ -282,6 +282,11 @@ export default function Sidebar() {
         url: "/marchand",
         icon: "question-diamond-fill"
      },
+     {
+      name: "Mise à jour Compte Marchand",
+      url: "/mise_ajour_marchand",
+      icon: "question-diamond-fill"
+   },
       {
         name: 'Création de produits',
         url: '/chat',
@@ -373,6 +378,11 @@ export default function Sidebar() {
         url: "/boutiquier",
         icon: "question-diamond-fill"
      },
+     {
+      name: "Mise à jour compte Marchand",
+      url: "/mise_jour_boutiquirer",
+      icon: "question-diamond-fill"
+   },
       {
         name: 'Création de produits',
         url: '/chatboutique',
@@ -410,6 +420,11 @@ export default function Sidebar() {
         url: "/gestionnairevent",
         icon: "question-diamond-fill"
      },
+     {
+      name: "Mise à jour compte Event",
+      url: "/mise_a_jourevent",
+      icon: "question-diamond-fill"
+   },
       {
         name: 'Création de produits',
         url: '/chatEvent',

@@ -285,6 +285,11 @@ function HeaderBar() {
         icon: "question-diamond-fill"
      },
      {
+      name: "Mise à jour Compte Marchand",
+      url: "/mise_ajour_marchand",
+      icon: "question-diamond-fill"
+   },
+     {
       name: 'Marchand Board',
       url: '/dashboardMarchand',
       icon: 'speedometer2',
@@ -386,6 +391,11 @@ function HeaderBar() {
         url: "/boutiquier",
         icon: "question-diamond-fill"
      },
+     {
+      name: "Mise à jour compte Marchand",
+      url: "/mise_jour_boutiquirer",
+      icon: "question-diamond-fill"
+   },
       {
         name: 'Création de produits',
         url: '/chatboutique',
@@ -406,6 +416,44 @@ function HeaderBar() {
       //   url: '/paiementMarchand',
       //   icon: 'question-diamond-fill',
       // },
+    ],
+    [ROLES.EVENT]: [
+      {
+        name: 'Mes ventes',
+        url: '/venteEvent',
+        icon: 'speedometer2',
+      },  
+      {
+        name: 'Event Board',
+        url: '/dasbordEvent',
+        icon: 'speedometer2',
+      }, 
+      {
+        name: "Compte Event",
+        url: "/gestionnairevent",
+        icon: "question-diamond-fill"
+     },
+     {
+      name: "Mise à jour compte Event",
+      url: "/mise_a_jourevent",
+      icon: "question-diamond-fill"
+   },
+      {
+        name: 'Création de produits',
+        url: '/chatEvent',
+        icon: 'question-diamond-fill',
+      },  
+      {
+        name: "Portefeuille",
+        url: "/wallet",
+        icon: "question-diamond-fill"
+      },
+      {
+        name: 'Politique',
+        url: '/politique',
+        icon: 'question-diamond-fill',
+      },
+      
     ],
   };
 

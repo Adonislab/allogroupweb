@@ -93,9 +93,8 @@ export default function Marchand() {
       const docRef = doc(db, 'marchands', userId);
       const docRefusers = doc(db, 'users', userId);
       const docSnapshotUsers = await getDoc(docRefusers);
-      const userDataProduits = await getDoc(docRef);
       const userData = docSnapshotUsers.data();
-      const userData_marchand = userDataProduits.data();
+      
    
       
       if (formData.selectedFile && userData.approuve===true) {
@@ -118,7 +117,7 @@ export default function Marchand() {
           marchand: marchand,
           commandes:[],
           descriptionboutique:descriptionboutique,
-          produits: userData_marchand.produits || [],
+          produits: [],
           fcmToken:fcmToken,
           password:password,
           wallet: userData["wallet"],
